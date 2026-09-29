@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 """
-Genera las 6 páginas del sitio de VantTS (v2 — diseño profesional/minimalista)
-a partir de una plantilla común: topbar + menú lateral desplegable + encabezado
-de página + franja verde inferior.
+Genera el sitio de VantTS como una sola página (index.html): Inicio, Solución,
+Precios, Casos, Nosotros y Contacto van una tras otra al hacer scroll, y la
+franja verde queda hasta abajo. El menú lateral lleva directo a cada sección.
+Las direcciones anteriores (solucion.html, precios.html, ...) redirigen a su sección.
 """
 import os
 
 OUT_DIR = os.environ.get("VANTTS_SITE_OUT", os.path.dirname(os.path.abspath(__file__)))
 
+# Sitio de una sola página: cada entrada es una sección (id) dentro de index.html
 NAV = [
-    ("index.html", "Inicio"),
-    ("solucion.html", "Solución"),
-    ("precios.html", "Precios"),
-    ("casos.html", "Casos"),
-    ("nosotros.html", "Nosotros"),
-    ("contacto.html", "Contacto"),
+    ("inicio", "Inicio"),
+    ("solucion", "Solución"),
+    ("precios", "Precios"),
+    ("casos", "Casos"),
+    ("nosotros", "Nosotros"),
+    ("contacto", "Contacto"),
 ]
+# Páginas anteriores: se conservan como redirección a su sección
+PAGINAS_ANTERIORES = ["solucion", "precios", "casos", "nosotros", "contacto"]
 
 WHATSAPP = "https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s"
 
@@ -47,15 +51,15 @@ FOOTER = f"""<footer class="pie">
     <div>
       <h4>Producto</h4>
       <ul>
-        <li><a href="solucion.html">Qué resolvemos</a></li>
-        <li><a href="precios.html">Planes y precios</a></li>
-        <li><a href="casos.html">Casos</a></li>
+        <li><a href="#solucion">Qué resolvemos</a></li>
+        <li><a href="#precios">Planes y precios</a></li>
+        <li><a href="#casos">Casos</a></li>
       </ul>
     </div>
     <div>
       <h4>Giros</h4>
       <ul>
-        <li><a href="solucion.html">Barberías y salones</a><span class="pie-tag on">Hoy</span></li>
+        <li><a href="#solucion">Barberías y salones</a><span class="pie-tag on">Hoy</span></li>
         <li>Masajes y bienestar<span class="pie-tag">En desarrollo</span></li>
         <li>Veterinarias<span class="pie-tag">En planeación</span></li>
         <li>Abarrotes<span class="pie-tag">En análisis</span></li>
@@ -64,9 +68,9 @@ FOOTER = f"""<footer class="pie">
     <div>
       <h4>Empresa</h4>
       <ul>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="nosotros.html">Nuestra misión</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#mision">Nuestra misión</a></li>
+        <li><a href="#contacto">Contacto</a></li>
       </ul>
     </div>
     <div>
@@ -91,23 +95,41 @@ FOOTER = f"""<footer class="pie">
 <a class="subir" id="subir" href="#" aria-label="Subir al inicio de la página">Subir ↑</a>"""
 
 
-def sidebar_nav_html(current_file):
+def sidebar_nav_html():
     links = []
-    for fname, label in NAV:
-        cls = ' class="activa"' if fname == current_file else ""
-        links.append(f'      <a href="{fname}"{cls}>{label}</a>')
+    for i, (sid, label) in enumerate(NAV):
+        cls = ' class="activa"' if i == 0 else ""
+        links.append(f'      <a href="#{sid}" data-seccion="{sid}"{cls}>{label}</a>')
     return "\n".join(links)
 
 
-def page(current_file, title, description, pagehead_html, body_html, lg_head=False):
-    head_class = "pagehead pagehead-lg" if lg_head else "pagehead"
+def bloque(sid, head_html, body_html, primero=False):
+    """Una sección de la página única: encabezado con motivo V + contenido."""
+    head_class = "pagehead pagehead-lg" if primero else "pagehead"
+    if not primero:
+        # Un solo <h1> por página: los títulos de las demás secciones son <h2 class="titulo">
+        head_html = head_html.replace("<h1>", '<h2 class="titulo">').replace("</h1>", "</h2>")
+    return f"""
+  <section class="bloque" id="{sid}" aria-label="{dict(NAV)[sid]}">
+    <div class="{head_class}">
+      <div class="motivo-v" aria-hidden="true">{MOTIVO_V}</div>
+      <div class="wrap">
+{head_html}
+      </div>
+    </div>
+{body_html}
+  </section>
+"""
+
+
+def pagina_unica(bloques_html):
     return f"""<!doctype html>
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title} · VantTS</title>
-<meta name="description" content="{description}">
+<title>VantTS · Software de gestión + IA para negocios</title>
+<meta name="description" content="Software de gestión + IA para negocios. Clientes, ventas y ganancia real en un solo lugar. Planes Gratis, Básico $249 y Pro $599 al mes, IVA incluido.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -123,7 +145,7 @@ def page(current_file, title, description, pagehead_html, body_html, lg_head=Fal
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo"><img src="assets/logo_wordmark_fondo_oscuro.svg" alt="VantTS"></div>
   <nav>
-{sidebar_nav_html(current_file)}
+{sidebar_nav_html()}
   </nav>
   <div class="sidebar-cta">
     <a href="{WHATSAPP}" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
@@ -131,23 +153,34 @@ def page(current_file, title, description, pagehead_html, body_html, lg_head=Fal
 </aside>
 
 <header class="topbar">
-  <a href="index.html"><img class="wordmark" src="assets/logo_wordmark.svg" alt="VantTS"></a>
+  <a href="#inicio"><img class="wordmark" src="assets/logo_wordmark.svg" alt="VantTS"></a>
 </header>
 
 <main>
-  <section class="{head_class}">
-    <div class="motivo-v" aria-hidden="true">{MOTIVO_V}</div>
-    <div class="wrap">
-{pagehead_html}
-    </div>
-  </section>
-{body_html}
+{bloques_html}
 </main>
 
 {FOOTER}
 
 <script src="assets/script.js"></script>
 </body>
+</html>
+"""
+
+
+def redireccion(sid):
+    """Las direcciones anteriores (p. ej. /precios.html) llevan a su sección."""
+    return f"""<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>VantTS</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://vantts.com.mx/#{sid}">
+<meta http-equiv="refresh" content="0; url=/#{sid}">
+<script>location.replace("/#{sid}");</script>
+</head>
+<body><a href="/#{sid}">Continuar a VantTS</a></body>
 </html>
 """
 
@@ -161,7 +194,7 @@ inicio_head = f"""
       <p class="lead">VantTS te ayuda a llevar el registro de tus clientes, tus ventas y tu ganancia real — empezando con salones y barberías en Guadalajara.</p>
       <div class="cta-row">
         <a class="btn" href="{WHATSAPP}" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-        <a class="btn-outline" href="solucion.html">Ver qué resolvemos</a>
+        <a class="btn-outline" href="#solucion">Ver qué resolvemos</a>
       </div>
 """
 
@@ -192,7 +225,7 @@ inicio_body = f"""
     <div class="wrap">
       <h2>Estamos empezando por el sector belleza en Guadalajara</h2>
       <p>VantTS está construyéndose junto con nuestros primeros negocios piloto — hoy, una barbería con más de dos años operando. Preferimos validar bien con los primeros negocios antes de crecer.</p>
-      <a class="btn-outline" href="solucion.html">Ver qué resolvemos</a>
+      <a class="btn-outline" href="#solucion">Ver qué resolvemos</a>
     </div>
   </section>
 """
@@ -342,7 +375,7 @@ nosotros_body = """
   <section class="seccion">
     <div class="wrap">
       <p>Detrás de VantTS está Luis P. Reyes, construyendo la empresa desde cero y aprendiendo en el camino, con apoyo de inteligencia artificial para desarrollar el producto.</p>
-      <p>Nuestra misión es ayudar a los pequeños negocios de México a digitalizar su operación y entender su rentabilidad real — empezando por barberías y estéticas en Guadalajara, y creciendo giro por giro.</p>
+      <p id="mision">Nuestra misión es ayudar a los pequeños negocios de México a digitalizar su operación y entender su rentabilidad real — empezando por barberías y estéticas en Guadalajara, y creciendo giro por giro.</p>
       <p>Todavía estamos en una etapa temprana: validando con nuestros primeros negocios piloto antes de crecer. Preferimos construir bien antes que construir rápido.</p>
     </div>
   </section>
@@ -370,17 +403,20 @@ contacto_body = f"""
   </section>
 """
 
-pages = [
-    ("index.html", "Inicio", "Software de gestión + IA para negocios. Empezando por barberías y estéticas en Guadalajara.", inicio_head, inicio_body, True),
-    ("solucion.html", "Solución", "Lo que VantTS resuelve para negocios de belleza y cuidado personal.", solucion_head, solucion_body, False),
-    ("precios.html", "Precios", "Planes de VantTS: Gratis, Básico $249 y Pro $599 al mes, con IVA incluido.", precios_head, precios_body, False),
-    ("casos.html", "Casos", "El primer caso piloto de VantTS: una barbería en Guadalajara.", casos_head, casos_body, False),
-    ("nosotros.html", "Nosotros", "Por qué existe VantTS y quién está detrás.", nosotros_head, nosotros_body, False),
-    ("contacto.html", "Contacto", "Escríbenos por WhatsApp o correo.", contacto_head, contacto_body, False),
+orden = [
+    ("inicio", inicio_head, inicio_body),
+    ("solucion", solucion_head, solucion_body),
+    ("precios", precios_head, precios_body),
+    ("casos", casos_head, casos_body),
+    ("nosotros", nosotros_head, nosotros_body),
+    ("contacto", contacto_head, contacto_body),
 ]
+html = pagina_unica("".join(bloque(sid, h, b, primero=(i == 0)) for i, (sid, h, b) in enumerate(orden)))
+with open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8") as f:
+    f.write(html)
+print("Generado: index.html (página única)")
 
-for fname, title, desc, head, body, lg in pages:
-    html = page(fname, title, desc, head, body, lg_head=lg)
-    with open(os.path.join(OUT_DIR, fname), "w", encoding="utf-8") as f:
-        f.write(html)
-    print("Generado:", fname)
+for sid in PAGINAS_ANTERIORES:
+    with open(os.path.join(OUT_DIR, f"{sid}.html"), "w", encoding="utf-8") as f:
+        f.write(redireccion(sid))
+    print(f"Generado: {sid}.html -> /#{sid}")

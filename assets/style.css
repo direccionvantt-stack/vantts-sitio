@@ -474,3 +474,12 @@ main { flex: 1; width: 100%; }
   .ps-item { grid-template-columns: 1fr; gap: 8px; }
   .pagehead .motivo-v { display: none; }
 }
+
+
+/* ---------- Página única: desplazamiento por secciones ---------- */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.bloque, #mision { scroll-margin-top: 68px; }
+.pagehead h2.titulo { font-size: 2.6rem; line-height: 1.12; font-weight: bold; }
+.bloque + .bloque .pagehead { border-top: 1px solid var(--borde); }
+@media (max-width: 560px) { .pagehead h2.titulo { font-size: 2rem; } }
