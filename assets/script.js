@@ -52,3 +52,18 @@
     }
   });
 })();
+
+// Botón "Subir ↑": aparece al bajar en la página y regresa suavemente al inicio.
+(function () {
+  const subir = document.getElementById("subir");
+  if (!subir) return;
+  function revisar() {
+    subir.classList.toggle("visible", window.scrollY > 400);
+  }
+  window.addEventListener("scroll", revisar, { passive: true });
+  revisar();
+  subir.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();

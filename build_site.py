@@ -30,6 +30,67 @@ ICON_CHART = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
 ICON_COIN = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 9.6c0-1.1 1.1-2 2.7-2s2.7.7 2.7 1.8c0 2.4-5.4 1.1-5.4 3.4 0 1.1 1.2 1.8 2.7 1.8s2.7-.9 2.7-2"/></svg>"""
 
 
+# ---------------------------------------------------------------------------
+# PIE DE PÁGINA (franja verde) — propuesta A, inspirada en el pie de microsoft.com
+# ---------------------------------------------------------------------------
+import datetime
+ANIO = datetime.date.today().year
+
+ICO_TEL = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'
+ICO_MAIL = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
+ICO_PIN = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>'
+ICO_GLOBO = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>'
+ICO_ESCUDO = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>'
+
+FOOTER = f"""<footer class="pie">
+  <div class="pie-columnas">
+    <div>
+      <h4>Producto</h4>
+      <ul>
+        <li><a href="solucion.html">Qué resolvemos</a></li>
+        <li><a href="precios.html">Planes y precios</a></li>
+        <li><a href="casos.html">Casos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Giros</h4>
+      <ul>
+        <li><a href="solucion.html">Barberías y salones</a><span class="pie-tag on">Hoy</span></li>
+        <li>Masajes y bienestar<span class="pie-tag">En desarrollo</span></li>
+        <li>Veterinarias<span class="pie-tag">En planeación</span></li>
+        <li>Abarrotes<span class="pie-tag">En análisis</span></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="nosotros.html">Nuestra misión</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Hablemos</h4>
+      <ul>
+        <li><a href="{WHATSAPP}" target="_blank" rel="noopener">{ICO_TEL}33 1250 6541</a></li>
+        <li><a href="mailto:direccion@vantts.com.mx">{ICO_MAIL}direccion@vantts.com.mx</a></li>
+        <li>{ICO_PIN}Guadalajara, Jalisco</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pie-base">
+    <div class="pie-base-in">
+      <span>{ICO_GLOBO}Español (México)</span>
+      <span>{ICO_ESCUDO}Sin cookies de rastreo</span>
+      <span class="pie-espacio"></span>
+      <span>Software de gestión + IA para negocios</span>
+      <span>© {ANIO} VantTS</span>
+    </div>
+  </div>
+</footer>
+<a class="subir" id="subir" href="#" aria-label="Subir al inicio de la página">Subir ↑</a>"""
+
+
 def sidebar_nav_html(current_file):
     links = []
     for fname, label in NAV:
@@ -83,7 +144,7 @@ def page(current_file, title, description, pagehead_html, body_html, lg_head=Fal
 {body_html}
 </main>
 
-<footer class="franja-verde" aria-hidden="true"></footer>
+{FOOTER}
 
 <script src="assets/script.js"></script>
 </body>
