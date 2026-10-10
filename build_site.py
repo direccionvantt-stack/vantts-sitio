@@ -46,6 +46,13 @@ ICO_PIN = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="
 ICO_GLOBO = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>'
 ICO_ESCUDO = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>'
 
+ICO_IG = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6"/></svg>'
+ICO_FB = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5L17 11h-3V9a.5.5 0 0 1 .5-.5z"/></svg>'
+ICO_YT = '<svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z"/></svg>'
+INSTAGRAM = "https://www.instagram.com/vantts.mx/"
+FACEBOOK = "https://www.facebook.com/profile.php?id=61595384815178"
+YOUTUBE = "https://www.youtube.com/@vantts_mx"
+
 FOOTER = f"""<footer class="pie">
   <div class="pie-columnas">
     <div>
@@ -79,6 +86,12 @@ FOOTER = f"""<footer class="pie">
         <li><a href="{WHATSAPP}" target="_blank" rel="noopener">{ICO_TEL}33 1250 6541</a></li>
         <li><a href="mailto:direccion@vantts.com.mx">{ICO_MAIL}direccion@vantts.com.mx</a></li>
         <li>{ICO_PIN}Guadalajara, Jalisco</li>
+      </ul>
+      <h4 class="pie-sub">Síguenos</h4>
+      <ul>
+        <li><a href="{INSTAGRAM}" target="_blank" rel="noopener">{ICO_IG}Instagram</a></li>
+        <li><a href="{FACEBOOK}" target="_blank" rel="noopener">{ICO_FB}Facebook</a></li>
+        <li><a href="{YOUTUBE}" target="_blank" rel="noopener">{ICO_YT}YouTube</a></li>
       </ul>
     </div>
   </div>
@@ -397,6 +410,7 @@ contacto_body = f"""
         <li><span class="etiqueta">WhatsApp</span><a href="{WHATSAPP}" target="_blank" rel="noopener">33 1250 6541</a></li>
         <li><span class="etiqueta">Correo</span><a href="mailto:direccion@vantts.com.mx">direccion@vantts.com.mx</a></li>
         <li><span class="etiqueta">Ubicación</span>Guadalajara, México</li>
+        <li><span class="etiqueta">Redes</span><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a> · <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YOUTUBE}" target="_blank" rel="noopener">YouTube</a></li>
       </ul>
       <a class="btn" href="{WHATSAPP}" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
     </div>

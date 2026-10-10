@@ -483,3 +483,5 @@ html { scroll-behavior: smooth; }
 .pagehead h2.titulo { font-size: 2.6rem; line-height: 1.12; font-weight: bold; }
 .bloque + .bloque .pagehead { border-top: 1px solid var(--borde); }
 @media (max-width: 560px) { .pagehead h2.titulo { font-size: 2rem; } }
+
+.pie h4.pie-sub { margin-top: 22px; }
