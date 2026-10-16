@@ -311,7 +311,7 @@ precios_body = f"""
       <div class="planes">
 {plan_card("Gratis", "$0", "Para empezar a ordenar tu negocio sin riesgo.", [
     "Agenda: tú capturas tus citas",
-    "Reserva en línea que reconoce a tu cliente",
+    "Reserva en línea con tu link",
     "Clientes con historial, aunque solo te den su apodo",
     "Catálogo de servicios y precios",
     "Una cuenta de administrador",
