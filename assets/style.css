@@ -329,7 +329,7 @@ main { flex: 1; width: 100%; }
 /* ---------- Planes y precios ---------- */
 .planes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 22px;
   align-items: stretch;
 }
@@ -354,6 +354,10 @@ main { flex: 1; width: 100%; }
   padding: 5px 12px; border-radius: 14px;
 }
 .plan h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.plan.proximo { background: transparent; border-style: dashed; }
+.plan.proximo:hover { box-shadow: none; transform: none; }
+.plan.proximo .plan-etiqueta { background: #B5763A; color: #FFFFFF; }
+.plan-precio.pronto { font-size: 1.25rem; color: var(--gris); padding: 8px 0 6px 0; }
 .plan-precio { font-family: var(--font-head); font-weight: bold; font-size: 2.4rem; line-height: 1; color: var(--texto); }
 .plan.destacado .plan-precio { color: #FFFFFF; }
 .plan-precio span { font-size: 0.9rem; font-weight: normal; color: var(--gris); margin-left: 4px; }

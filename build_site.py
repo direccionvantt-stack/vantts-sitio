@@ -142,7 +142,7 @@ def pagina_unica(bloques_html):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VantTS · Software de gestión + IA para negocios</title>
-<meta name="description" content="Software de gestión + IA para negocios. Clientes, ventas y ganancia real en un solo lugar. Planes Gratis, Básico $249 y Pro $599 al mes, IVA incluido.">
+<meta name="description" content="Software de gestión + IA para negocios. Clientes, ventas y ganancia real en un solo lugar. Planes Básico gratis, Pro $249 y Max $599 al mes, IVA incluido; Ultra, próximamente.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -284,21 +284,22 @@ solucion_body = """
 precios_head = f"""
       <div class="eyebrow">Precios</div>
       <h1>Empieza gratis.<br>Paga cuando veas el valor.</h1>
-      <p class="lead">Tres planes claros, con IVA incluido y sin letras chiquitas. Hoy están pensados para barberías y salones; si tu negocio es de otro giro, te cotizamos según lo que de verdad necesites.</p>
+      <p class="lead">Cuatro planes claros, con IVA incluido y sin letras chiquitas. Hoy están pensados para barberías y salones; si tu negocio es de otro giro, te cotizamos según lo que de verdad necesites.</p>
       <div class="cta-row">
         <a class="btn" href="{WHATSAPP}" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
       </div>
 """
 
-def plan_card(nombre, precio, subtitulo, items, destacado=False):
-    cls = "plan destacado" if destacado else "plan"
-    etiqueta = '<div class="plan-etiqueta">Recomendado</div>' if destacado else ""
+def plan_card(nombre, precio, subtitulo, items, destacado=False, proximo=False):
+    cls = "plan destacado" if destacado else ("plan proximo" if proximo else "plan")
+    etiqueta = '<div class="plan-etiqueta">Recomendado</div>' if destacado else ('<div class="plan-etiqueta">Próximamente</div>' if proximo else "")
+    precio_html = '<div class="plan-precio pronto">Precio por anunciar</div>' if proximo else f'<div class="plan-precio">{precio}<span>/mes</span></div>'
     lis = "\n".join(f"            <li>{i}</li>" for i in items)
     return f"""
         <div class="{cls}">
           {etiqueta}
           <h3>{nombre}</h3>
-          <div class="plan-precio">{precio}<span>/mes</span></div>
+          {precio_html}
           <p class="plan-sub">{subtitulo}</p>
           <ul>
 {lis}
@@ -309,15 +310,15 @@ precios_body = f"""
   <section class="seccion">
     <div class="wrap-wide">
       <div class="planes">
-{plan_card("Gratis", "$0", "Para empezar a ordenar tu negocio sin riesgo.", [
+{plan_card("Básico", "$0", "Para empezar a ordenar tu negocio sin riesgo.", [
     "Agenda: tú capturas tus citas",
     "Reserva en línea con tu link",
     "Clientes con historial, aunque solo te den su apodo",
     "Catálogo de servicios y precios",
     "Una cuenta de administrador",
 ])}
-{plan_card("Básico", "$249", "Para saber cuánto ganas de verdad.", [
-    "Todo lo de Gratis",
+{plan_card("Pro", "$249", "Para saber cuánto ganas de verdad.", [
+    "Todo lo de Básico",
     "Las reservas en línea se acomodan solas en tu agenda",
     "Garantía opcional para asegurar cada reserva",
     "Registro de ventas y gastos",
@@ -325,15 +326,20 @@ precios_body = f"""
     "Metas y estrategia de marketing",
     "Cuentas para tus colaboradores: +$100/mes c/u",
 ], destacado=True)}
-{plan_card("Pro", "$599", "Para hacer crecer tu negocio y a tus clientes fieles.", [
-    "Todo lo de Básico",
+{plan_card("Max", "$599", "Para hacer crecer tu negocio y a tus clientes fieles.", [
+    "Todo lo de Pro",
     "Fidelidad: puntos y niveles por visitas",
     "Membresías VIP de paga para tus clientes",
     "Calendario de contenido para redes",
     "Panel de IA con 500 créditos al mes",
-    "Solicitudes de factura electrónica (timbrado próximamente)",
+    "Solicitudes de factura electrónica",
     "Cuentas para tus colaboradores: +$100/mes c/u",
 ])}
+{plan_card("Ultra", "", "Para facturar sin salir de VantTS Barber.", [
+    "Todo lo de Max",
+    "Facturas electrónicas timbradas desde VantTS Barber",
+    "Panel de IA con 1,000 créditos al mes",
+], proximo=True)}
       </div>
       <p class="nota">Precios en pesos mexicanos, con IVA incluido. Vigentes para barberías y salones.</p>
     </div>
@@ -345,8 +351,8 @@ precios_body = f"""
       <div class="faq">
         <h3>¿Los precios incluyen IVA?</h3>
         <p>Sí. El precio que ves es el que pagas.</p>
-        <h3>¿Y si con el plan Gratis me basta?</h3>
-        <p>Te quedas en Gratis, sin presión. Preferimos que pagues cuando de verdad veas el valor.</p>
+        <h3>¿Y si con el plan Básico me basta?</h3>
+        <p>Te quedas en Básico, que es gratis, sin presión. Preferimos que pagues cuando de verdad veas el valor.</p>
         <h3>Mi negocio no es barbería ni salón, ¿me sirve?</h3>
         <p>Vamos giro por giro y solo ofrecemos lo que ya probamos. Escríbenos y te decimos con honestidad si hoy VantTS le sirve a tu negocio.</p>
       </div>
