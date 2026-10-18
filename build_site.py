@@ -70,8 +70,9 @@ def btn_wa(texto="Escríbeme por WhatsApp", cls="btn"):
     return f'<a class="{cls}" href="{WHATSAPP}" target="_blank" rel="noopener">{I_WA}<span>{texto}</span></a>'
 
 
-def telefono(src, alt, cls="telefono"):
-    return f'<figure class="{cls}"><img src="assets/img/{src}" alt="{alt}" loading="lazy" width="600" height="1153"></figure>'
+def telefono(src, alt, cls="telefono", carga="lazy"):
+    extra = ' fetchpriority="high"' if carga == "eager" else ""
+    return f'<figure class="{cls}"><img src="assets/img/{src}" alt="{alt}" loading="{carga}"{extra} decoding="async" width="600" height="1153"></figure>'
 
 
 # ---------------------------------------------------------------------------
@@ -92,8 +93,8 @@ inicio = f"""
         <p class="micro">{I_CHECK}Plan Básico gratis <span class="punto">·</span> IVA incluido <span class="punto">·</span> Mes a mes</p>
       </div>
       <div class="hero-visual" aria-label="Capturas de VantTS Barber">
-        {telefono("agenda.jpg", "Agenda de la semana en VantTS Barber, con citas de varios barberos", "telefono telefono-atras")}
-        {telefono("metricas.jpg", "Métricas del mes: punto de equilibrio y ventas", "telefono telefono-frente")}
+        {telefono("agenda.jpg", "Agenda de la semana en VantTS Barber, con citas de varios barberos", "telefono telefono-atras", "eager")}
+        {telefono("metricas.jpg", "Métricas del mes: punto de equilibrio y ventas", "telefono telefono-frente", "eager")}
         <div class="chip chip-1">{I_CALENDARIO}<span>Tus clientes reservan solos con tu link</span></div>
         <div class="chip chip-2">{I_DINERO}<span>Ves cuánto te falta para cubrir tus gastos</span></div>
         <p class="demo-nota">Cuenta de demostración · datos inventados</p>

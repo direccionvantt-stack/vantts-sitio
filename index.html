@@ -57,8 +57,8 @@
         <p class="micro"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Plan Básico gratis <span class="punto">·</span> IVA incluido <span class="punto">·</span> Mes a mes</p>
       </div>
       <div class="hero-visual" aria-label="Capturas de VantTS Barber">
-        <figure class="telefono telefono-atras"><img src="assets/img/agenda.jpg" alt="Agenda de la semana en VantTS Barber, con citas de varios barberos" loading="lazy" width="600" height="1153"></figure>
-        <figure class="telefono telefono-frente"><img src="assets/img/metricas.jpg" alt="Métricas del mes: punto de equilibrio y ventas" loading="lazy" width="600" height="1153"></figure>
+        <figure class="telefono telefono-atras"><img src="assets/img/agenda.jpg" alt="Agenda de la semana en VantTS Barber, con citas de varios barberos" loading="eager" fetchpriority="high" decoding="async" width="600" height="1153"></figure>
+        <figure class="telefono telefono-frente"><img src="assets/img/metricas.jpg" alt="Métricas del mes: punto de equilibrio y ventas" loading="eager" fetchpriority="high" decoding="async" width="600" height="1153"></figure>
         <div class="chip chip-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Tus clientes reservan solos con tu link</span></div>
         <div class="chip chip-2"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 9.6c0-1.1 1.1-2 2.7-2s2.7.7 2.7 1.8c0 2.4-5.4 1.1-5.4 3.4 0 1.1 1.2 1.8 2.7 1.8s2.7-.9 2.7-2"/></svg><span>Ves cuánto te falta para cubrir tus gastos</span></div>
         <p class="demo-nota">Cuenta de demostración · datos inventados</p>
@@ -136,7 +136,7 @@
               <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>No tiene que descargar ninguna app.</span></li>
             </ul>
           </div>
-          <div class="panel-visual"><figure class="telefono"><img src="assets/img/reserva.jpg" alt="Página de reservas: el cliente elige día y hora" loading="lazy" width="600" height="1153"></figure></div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/reserva.jpg" alt="Página de reservas: el cliente elige día y hora" loading="lazy" decoding="async" width="600" height="1153"></figure></div>
         </div>
         <div class="panel" role="tabpanel" id="panel-agenda" aria-labelledby="tab-agenda" hidden>
           <div class="panel-texto">
@@ -148,7 +148,7 @@
               <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Desde el plan Pro, las reservas en línea entran solas.</span></li>
             </ul>
           </div>
-          <div class="panel-visual"><figure class="telefono"><img src="assets/img/agenda.jpg" alt="Agenda semanal con citas de varios barberos" loading="lazy" width="600" height="1153"></figure></div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/agenda.jpg" alt="Agenda semanal con citas de varios barberos" loading="lazy" decoding="async" width="600" height="1153"></figure></div>
         </div>
         <div class="panel" role="tabpanel" id="panel-clientes" aria-labelledby="tab-clientes" hidden>
           <div class="panel-texto">
@@ -160,7 +160,7 @@
               <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Le llamas o le escribes por WhatsApp con un toque.</span></li>
             </ul>
           </div>
-          <div class="panel-visual"><figure class="telefono"><img src="assets/img/clientes.jpg" alt="Clientes con tarjetas de para llamar, en riesgo y nuevos sin regresar" loading="lazy" width="600" height="1153"></figure></div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/clientes.jpg" alt="Clientes con tarjetas de para llamar, en riesgo y nuevos sin regresar" loading="lazy" decoding="async" width="600" height="1153"></figure></div>
         </div>
         <div class="panel" role="tabpanel" id="panel-ventas" aria-labelledby="tab-ventas" hidden>
           <div class="panel-texto">
@@ -172,7 +172,7 @@
               <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Con el cierre del día ves al momento si sobra o falta efectivo.</span></li>
             </ul>
           </div>
-          <div class="panel-visual"><figure class="telefono"><img src="assets/img/ventas.jpg" alt="Formulario para registrar una venta" loading="lazy" width="600" height="1153"></figure></div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/ventas.jpg" alt="Formulario para registrar una venta" loading="lazy" decoding="async" width="600" height="1153"></figure></div>
         </div>
         <div class="panel" role="tabpanel" id="panel-numeros" aria-labelledby="tab-numeros" hidden>
           <div class="panel-texto">
@@ -184,7 +184,7 @@
               <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Sin cuaderno ni calculadora.</span></li>
             </ul>
           </div>
-          <div class="panel-visual"><figure class="telefono"><img src="assets/img/metricas.jpg" alt="Métricas del mes con el punto de equilibrio" loading="lazy" width="600" height="1153"></figure></div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/metricas.jpg" alt="Métricas del mes con el punto de equilibrio" loading="lazy" decoding="async" width="600" height="1153"></figure></div>
         </div>
       </div>
     </div>
