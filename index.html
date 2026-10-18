@@ -4,155 +4,239 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VantTS · Software de gestión + IA para negocios</title>
-<meta name="description" content="Software de gestión + IA para negocios. Clientes, ventas y ganancia real en un solo lugar. Planes Básico gratis, Pro $249 y Max $599 al mes, IVA incluido; Ultra, próximamente.">
+<meta name="description" content="VantTS Barber: tu agenda, tus clientes y tus ventas en un solo lugar, para que sepas cuánto ganas de verdad. Planes Básico gratis, Pro $249 y Max $599 al mes, IVA incluido; Ultra, próximamente.">
+<meta name="theme-color" content="#1F4E3D">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:url" content="https://vantts.com.mx/">
+<meta property="og:title" content="VantTS · Cuánto gana tu barbería, sin adivinar">
+<meta property="og:description" content="Tu agenda, tus clientes y tus ventas en un solo lugar. Plan Básico gratis, IVA incluido, mes a mes.">
+<meta property="og:image" content="https://vantts.com.mx/assets/icono-512.png">
+<link rel="canonical" href="https://vantts.com.mx/">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
-<div class="hover-zone" aria-hidden="true"></div>
-<div class="sidebar-handle" id="sidebarHandle" aria-label="Abrir menú" role="button" tabindex="0">
-  <span></span><span></span><span></span>
+<a class="saltar" href="#solucion">Saltar al contenido</a>
+<div class="anuncio">
+  <a href="#precios"><span class="anuncio-tag">Nuevo</span>VantTS Barber ya tiene 4 planes, desde $0. Ultra llega pronto con facturación.<span class="anuncio-flecha"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
 </div>
-
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo"><img src="assets/logo_wordmark_fondo_oscuro.svg" alt="VantTS"></div>
-  <nav>
-      <a href="#inicio" data-seccion="inicio" class="activa">Inicio</a>
-      <a href="#solucion" data-seccion="solucion">Solución</a>
-      <a href="#precios" data-seccion="precios">Precios</a>
-      <a href="#casos" data-seccion="casos">Casos</a>
-      <a href="#nosotros" data-seccion="nosotros">Nosotros</a>
-      <a href="#contacto" data-seccion="contacto">Contacto</a>
-  </nav>
-  <div class="sidebar-cta">
-    <a href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+<header class="nav" id="nav">
+  <div class="contenedor nav-in">
+    <a class="nav-logo" href="#inicio" aria-label="VantTS, ir al inicio"><img class="logo-ico" src="assets/img/icono.png" alt="" width="36" height="36"><img class="logo-texto" src="assets/img/wordmark.png" alt="VantTS" width="147" height="28"></a>
+    <nav class="nav-links" id="navLinks" aria-label="Secciones">
+        <a href="#solucion" data-seccion="solucion">Qué resuelve</a>
+        <a href="#funciones" data-seccion="funciones">Cómo funciona</a>
+        <a href="#ia" data-seccion="ia">IA</a>
+        <a href="#precios" data-seccion="precios">Precios</a>
+        <a href="#preguntas" data-seccion="preguntas">Preguntas</a>
+        <a href="#nosotros" data-seccion="nosotros">Nosotros</a>
+        <a class="nav-wa" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.2.3.4 0 .9-.6 1.6-1.6 1.7-1 .1-2.6-.3-4.3-1.9S9 11.1 9 10.1c0-.6.1-1.1.2-1.5z"/></svg><span>Escríbeme por WhatsApp</span></a>
+    </nav>
+    <a class="btn btn-chico nav-cta" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.2.3.4 0 .9-.6 1.6-1.6 1.7-1 .1-2.6-.3-4.3-1.9S9 11.1 9 10.1c0-.6.1-1.1.2-1.5z"/></svg><span>WhatsApp</span></a>
+    <button class="nav-boton" id="navBoton" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
-</aside>
-
-<header class="topbar">
-  <a href="#inicio"><img class="wordmark" src="assets/logo_wordmark.svg" alt="VantTS"></a>
 </header>
 
 <main>
 
-  <section class="bloque" id="inicio" aria-label="Inicio">
-    <div class="pagehead pagehead-lg">
-      <div class="motivo-v" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#1F4E3D" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 55 L100 150 L158 55"/>
-  </g>
-</svg></div>
-      <div class="wrap">
-
-      <div class="eyebrow">Software de gestión + IA para negocios</div>
-      <h1>Cuánto gana tu negocio,<br>sin adivinar.</h1>
-      <p class="lead">VantTS te ayuda a llevar el registro de tus clientes, tus ventas y tu ganancia real — empezando con salones y barberías en Guadalajara.</p>
-      <div class="cta-row">
-        <a class="btn" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-        <a class="btn-outline" href="#solucion">Ver qué resolvemos</a>
+  <section class="hero" id="inicio" aria-label="Inicio">
+    <div class="hero-fondo" aria-hidden="true"></div>
+    <div class="contenedor hero-grid">
+      <div class="hero-texto">
+        <a class="pildora" href="#funciones"><img src="assets/img/vantts-barber-icono.png" alt="" width="22" height="22"><span>VantTS Barber · nuestro primer producto</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <h1>Cuánto gana tu barbería, <span class="acento">sin adivinar.</span></h1>
+        <p class="lead">Tu agenda, tus clientes y tus ventas en un solo lugar, para que sepas cuánto ganas de verdad. Tus clientes siguen siendo tuyos.</p>
+        <div class="cta-fila">
+          <a class="btn" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.2.3.4 0 .9-.6 1.6-1.6 1.7-1 .1-2.6-.3-4.3-1.9S9 11.1 9 10.1c0-.6.1-1.1.2-1.5z"/></svg><span>Escríbeme por WhatsApp</span></a>
+          <a class="btn btn-sec" href="#funciones"><span>Ver cómo funciona</span></a>
+        </div>
+        <p class="micro"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Plan Básico gratis <span class="punto">·</span> IVA incluido <span class="punto">·</span> Mes a mes</p>
       </div>
-
+      <div class="hero-visual" aria-label="Capturas de VantTS Barber">
+        <figure class="telefono telefono-atras"><img src="assets/img/agenda.jpg" alt="Agenda de la semana en VantTS Barber, con citas de varios barberos" loading="lazy" width="600" height="1153"></figure>
+        <figure class="telefono telefono-frente"><img src="assets/img/metricas.jpg" alt="Métricas del mes: punto de equilibrio y ventas" loading="lazy" width="600" height="1153"></figure>
+        <div class="chip chip-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Tus clientes reservan solos con tu link</span></div>
+        <div class="chip chip-2"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 9.6c0-1.1 1.1-2 2.7-2s2.7.7 2.7 1.8c0 2.4-5.4 1.1-5.4 3.4 0 1.1 1.2 1.8 2.7 1.8s2.7-.9 2.7-2"/></svg><span>Ves cuánto te falta para cubrir tus gastos</span></div>
+        <p class="demo-nota">Cuenta de demostración · datos inventados</p>
       </div>
     </div>
+  </section>
 
-  <section class="seccion">
-    <div class="wrap-wide">
-      <div class="tarjetas">
-        <div class="tarjeta">
-          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></div>
-          <h3>Registro de clientes</h3>
-          <p>Quién te visita y qué te compra, sin plantillas complicadas.</p>
+  <section class="confianza" aria-label="Por qué confiar">
+    <div class="contenedor confianza-grid">
+      <div class="conf"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg><p><strong>Sin comisión</strong><span>ni por cita ni por cliente</span></p></div>
+      <div class="conf"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><p><strong>Mes a mes</strong><span>cancelas cuando quieras</span></p></div>
+      <div class="conf"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><p><strong>Tus datos son tuyos</strong><span>30 días para bajarlos si te vas</span></p></div>
+      <div class="conf"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0"/><path d="M5.5 11.5V20h13v-8.5"/><path d="M10 20v-5h4v5"/></svg><p><strong>Ya funciona</strong><span>en Rocker Barber, Guadalajara</span></p></div>
+    </div>
+  </section>
+
+  <section class="seccion" id="solucion" aria-label="Qué resuelve">
+    <div class="contenedor">
+      <div class="encabezado">
+        <p class="eyebrow">Qué resuelve</p>
+        <h2>¿Te suena alguna?</h2>
+        <p class="lead">Lo que nos contaron los barberos que entrevistamos, y lo que VantTS Barber hace con eso.</p>
+      </div>
+      <div class="dolores">
+
+        <article class="dolor revelar">
+          <div class="dolor-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 9.6c0-1.1 1.1-2 2.7-2s2.7.7 2.7 1.8c0 2.4-5.4 1.1-5.4 3.4 0 1.1 1.2 1.8 2.7 1.8s2.7-.9 2.7-2"/></svg></div>
+          <p class="dolor-frase">“No sé cuánto gano ni cuántos clientes atiendo.”</p>
+          <p class="dolor-resp">Cada venta queda ligada al cliente y al servicio, y ves cuánto llevas vendido en el mes y cuánto te falta para cubrir tus gastos.</p>
+        </article>
+
+        <article class="dolor revelar">
+          <div class="dolor-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="7" r="2.5"/><circle cx="6.5" cy="17" r="2.5"/><path d="M8.6 8.4L20 16M8.6 15.6L20 8"/></svg></div>
+          <p class="dolor-frase">“Le cobro menos a mi cliente de siempre para no perderlo.”</p>
+          <p class="dolor-resp">Ves el historial de visitas de cada cliente: el dato para poner tu precio con números, no con miedo. En Max, puntos y niveles para premiarlo sin bajar el precio.</p>
+        </article>
+
+        <article class="dolor revelar">
+          <div class="dolor-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18.5V6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v7a2.5 2.5 0 0 1-2.5 2.5H9z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg></div>
+          <p class="dolor-frase">“Mis citas y mis clientes están en WhatsApp.”</p>
+          <p class="dolor-resp">Mandas tu link y tu cliente elige servicio, día y hora. Desde el plan Pro, la cita entra sola a tu agenda.</p>
+        </article>
+
+        <article class="dolor revelar">
+          <div class="dolor-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <p class="dolor-frase">“No confío en sistemas de otros.”</p>
+          <p class="dolor-resp">No hay directorio que te ponga junto a otras barberías ni comisión por cita. Es mes a mes y, si un día te vas, tienes 30 días para bajar tus datos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-alt" id="funciones" aria-label="Cómo funciona">
+    <div class="contenedor">
+      <div class="encabezado">
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>De la reserva a tus números, en un solo lugar</h2>
+        <p class="lead">Así se ve VantTS Barber en el celular. Capturas de la cuenta de demostración, con datos inventados.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Partes de VantTS Barber">
+          <button class="tab" role="tab" id="tab-reservas" aria-controls="panel-reservas" aria-selected="true" tabindex="0"><span class="tab-num">01</span>Reservas</button>
+          <button class="tab" role="tab" id="tab-agenda" aria-controls="panel-agenda" aria-selected="false" tabindex="-1"><span class="tab-num">02</span>Agenda</button>
+          <button class="tab" role="tab" id="tab-clientes" aria-controls="panel-clientes" aria-selected="false" tabindex="-1"><span class="tab-num">03</span>Clientes</button>
+          <button class="tab" role="tab" id="tab-ventas" aria-controls="panel-ventas" aria-selected="false" tabindex="-1"><span class="tab-num">04</span>Ventas y caja</button>
+          <button class="tab" role="tab" id="tab-numeros" aria-controls="panel-numeros" aria-selected="false" tabindex="-1"><span class="tab-num">05</span>Números</button>
+      </div>
+      <div class="paneles">
+        <div class="panel" role="tabpanel" id="panel-reservas" aria-labelledby="tab-reservas">
+          <div class="panel-texto">
+            <span class="plan-chip">Desde Básico</span>
+            <h3>Tu cliente reserva solo, con tu link</h3>
+            <ul class="lista-check">
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Elige barbero, servicio, día y hora desde tu link o tu código QR.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Solo ve los días que atiendes: tus descansos no salen.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>No tiene que descargar ninguna app.</span></li>
+            </ul>
+          </div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/reserva.jpg" alt="Página de reservas: el cliente elige día y hora" loading="lazy" width="600" height="1153"></figure></div>
         </div>
-        <div class="tarjeta">
-          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg></div>
-          <h3>Historial de ventas</h3>
-          <p>Tu información ordenada, sin buscar en cuadernos o WhatsApp.</p>
+        <div class="panel" role="tabpanel" id="panel-agenda" aria-labelledby="tab-agenda" hidden>
+          <div class="panel-texto">
+            <span class="plan-chip">Desde Básico</span>
+            <h3>Toda tu agenda, de un vistazo</h3>
+            <ul class="lista-check">
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Por día, semana o mes; de un barbero o de todos combinados.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Completas, mueves o cancelas cada cita con un toque.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Desde el plan Pro, las reservas en línea entran solas.</span></li>
+            </ul>
+          </div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/agenda.jpg" alt="Agenda semanal con citas de varios barberos" loading="lazy" width="600" height="1153"></figure></div>
         </div>
-        <div class="tarjeta">
-          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.3 9.6c0-1.1 1.1-2 2.7-2s2.7.7 2.7 1.8c0 2.4-5.4 1.1-5.4 3.4 0 1.1 1.2 1.8 2.7 1.8s2.7-.9 2.7-2"/></svg></div>
-          <h3>Ganancia real</h3>
-          <p>No solo cuánto entra — cuánto te queda de verdad cada mes.</p>
+        <div class="panel" role="tabpanel" id="panel-clientes" aria-labelledby="tab-clientes" hidden>
+          <div class="panel-texto">
+            <span class="plan-chip">Desde Básico</span>
+            <h3>Cada cliente, con su historial</h3>
+            <ul class="lista-check">
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Su historial de visitas, aunque solo te dé su apodo.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Te marca a quién toca llamarle (25 días sin venir), quién está en riesgo (45) y a quién ya perdiste (90).</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Le llamas o le escribes por WhatsApp con un toque.</span></li>
+            </ul>
+          </div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/clientes.jpg" alt="Clientes con tarjetas de para llamar, en riesgo y nuevos sin regresar" loading="lazy" width="600" height="1153"></figure></div>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-ventas" aria-labelledby="tab-ventas" hidden>
+          <div class="panel-texto">
+            <span class="plan-chip">Desde Pro</span>
+            <h3>Cada venta, ligada al cliente y al servicio</h3>
+            <ul class="lista-check">
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Registras la venta en segundos: servicio, cliente y forma de pago.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Apuntas tus gastos del día.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Con el cierre del día ves al momento si sobra o falta efectivo.</span></li>
+            </ul>
+          </div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/ventas.jpg" alt="Formulario para registrar una venta" loading="lazy" width="600" height="1153"></figure></div>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-numeros" aria-labelledby="tab-numeros" hidden>
+          <div class="panel-texto">
+            <span class="plan-chip">Desde Pro</span>
+            <h3>Cuánto ganas de verdad</h3>
+            <ul class="lista-check">
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Cuánto llevas vendido este mes y cuánto te falta para cubrir tus gastos.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Tu ticket promedio, tus gastos fijos y variables y tu margen.</span></li>
+              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Sin cuaderno ni calculadora.</span></li>
+            </ul>
+          </div>
+          <div class="panel-visual"><figure class="telefono"><img src="assets/img/metricas.jpg" alt="Métricas del mes con el punto de equilibrio" loading="lazy" width="600" height="1153"></figure></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="seccion alt">
-    <div class="wrap">
-      <h2>Estamos empezando por el sector belleza en Guadalajara</h2>
-      <p>VantTS está construyéndose junto con nuestros primeros negocios piloto — hoy, una barbería con más de dos años operando. Preferimos validar bien con los primeros negocios antes de crecer.</p>
-      <a class="btn-outline" href="#solucion">Ver qué resolvemos</a>
+  <section class="seccion seccion-oscura" id="ia" aria-label="Inteligencia artificial">
+    <div class="contenedor ia-grid">
+      <div class="ia-texto">
+        <p class="eyebrow eyebrow-claro"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>IA para tu barbería</p>
+        <h2>Una IA que solo habla de tu negocio</h2>
+        <p class="lead">El panel de IA lee tus ventas, tu agenda, tus clientes y tus metas, y te responde con tus propios números. No es un chat para cualquier cosa: está hecho para que decidas mejor en tu barbería.</p>
+        <ul class="lista-check lista-clara">
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Te sugiere qué hacer y te dice dónde verlo dentro de la app, como a qué cliente conviene llamarle.</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Pasa tus clientes, servicios o productos desde un archivo de otro sistema: la IA los acomoda y tú revisas antes de guardar.</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Desde el plan Max, con 500 créditos al mes; en Ultra, 1,000.</span></li>
+        </ul>
+      </div>
+      <div class="ia-ejemplos" aria-label="Ejemplos de preguntas">
+        <p class="ia-etiqueta">Ejemplos de preguntas</p>
+        <div class="burbuja">¿Cómo voy este mes contra mis gastos?</div>
+        <div class="burbuja">¿A qué clientes me conviene llamar esta semana?</div>
+        <div class="burbuja">¿Qué meta de ventas me pongo para diciembre?</div>
+        <div class="ia-campo"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span>Pregúntale a tu negocio…</span></div>
+      </div>
     </div>
   </section>
 
-  </section>
-
-  <section class="bloque" id="solucion" aria-label="Solución">
-    <div class="pagehead">
-      <div class="motivo-v" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#1F4E3D" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 55 L100 150 L158 55"/>
-  </g>
-</svg></div>
-      <div class="wrap">
-
-      <div class="eyebrow">Solución</div>
-      <h2 class="titulo">Lo que resolvemos</h2>
-      <p class="lead">Los negocios de belleza y cuidado personal suelen operar sin un registro claro de clientes, ventas o gastos — no por descuido, sino porque nunca tuvieron una herramienta pensada para ellos.</p>
-
-      </div>
-    </div>
-
-  <section class="seccion">
-    <div class="wrap">
-      <div class="ps-lista">
-        <div class="ps-item">
-          <div class="problema">No tienes un registro de tus clientes</div>
-          <p class="solucion">VantTS te ayuda a llevar el registro de <strong>quién te visita y qué te compra</strong>, sin plantillas ni configuraciones complicadas.</p>
+  <section class="seccion" id="casos" aria-label="Casos">
+    <div class="contenedor">
+      <div class="caso revelar">
+        <div class="caso-texto">
+          <p class="eyebrow">Caso real</p>
+          <h2>Rocker Barber ya trabaja así</h2>
+          <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber. Lo construimos con barberos, para barberos.</p>
+          <p class="caso-nota">Estamos midiendo resultados con ellos. En cuanto tengamos números, los vas a ver aquí: preferimos enseñar resultados reales, no promesas.</p>
         </div>
-        <div class="ps-item">
-          <div class="problema">No sabes cuánto vendiste el mes pasado</div>
-          <p class="solucion">Ves tu <strong>historial de ventas ordenado</strong>, en un solo lugar, sin buscar en cuadernos o conversaciones de WhatsApp.</p>
-        </div>
-        <div class="ps-item">
-          <div class="problema">No sabes si de verdad estás ganando</div>
-          <p class="solucion">VantTS te muestra tu <strong>ganancia real</strong>, no solo cuánto entra, para decidir con información y no con la sensación del día.</p>
-        </div>
-        <div class="ps-item">
-          <div class="problema">Se te acaba el inventario sin avisar</div>
-          <p class="solucion"><strong>Próximamente:</strong> alertas para que sepas cuándo se te está agotando algo, antes de que sea un problema.</p>
+        <div class="caso-datos">
+          <div class="dato"><strong>+2 años</strong><span>operando en Guadalajara</span></div>
+          <div class="dato"><strong>1 sistema</strong><span>agenda, clientes y ventas juntos</span></div>
+          <div class="dato"><strong>$0</strong><span>de comisión por cita</span></div>
         </div>
       </div>
-      <p class="nota">Estamos construyendo esto por etapas — hoy el enfoque es que entiendas tu negocio con claridad; las alertas y automatizaciones llegan después.</p>
     </div>
   </section>
 
-  </section>
-
-  <section class="bloque" id="precios" aria-label="Precios">
-    <div class="pagehead">
-      <div class="motivo-v" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#1F4E3D" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 55 L100 150 L158 55"/>
-  </g>
-</svg></div>
-      <div class="wrap">
-
-      <div class="eyebrow">Precios</div>
-      <h2 class="titulo">Empieza gratis.<br>Paga cuando veas el valor.</h2>
-      <p class="lead">Cuatro planes claros, con IVA incluido y sin letras chiquitas. Hoy están pensados para barberías y salones; si tu negocio es de otro giro, te cotizamos según lo que de verdad necesites.</p>
-      <div class="cta-row">
-        <a class="btn" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+  <section class="seccion seccion-alt" id="precios" aria-label="Precios">
+    <div class="contenedor">
+      <div class="encabezado">
+        <p class="eyebrow">Precios</p>
+        <h2>Empieza gratis. Paga cuando veas el valor.</h2>
+        <p class="lead">Cuatro planes claros, con IVA incluido y sin letras chiquitas. Hoy están pensados para barberías y salones; si tu negocio es de otro giro, te cotizamos según lo que de verdad necesites.</p>
       </div>
-
-      </div>
-    </div>
-
-  <section class="seccion">
-    <div class="wrap-wide">
       <div class="planes">
 
         <div class="plan">
@@ -161,11 +245,11 @@
           <div class="plan-precio">$0<span>/mes</span></div>
           <p class="plan-sub">Para empezar a ordenar tu negocio sin riesgo.</p>
           <ul>
-            <li>Agenda: tú capturas tus citas</li>
-            <li>Reserva en línea con tu link</li>
-            <li>Clientes con historial, aunque solo te den su apodo</li>
-            <li>Catálogo de servicios y precios</li>
-            <li>Una cuenta de administrador</li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Agenda: tú capturas tus citas</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Reserva en línea con tu link</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Clientes con historial, aunque solo te den su apodo</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Catálogo de servicios y precios</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Una cuenta de administrador</span></li>
           </ul>
         </div>
 
@@ -175,13 +259,13 @@
           <div class="plan-precio">$249<span>/mes</span></div>
           <p class="plan-sub">Para saber cuánto ganas de verdad.</p>
           <ul>
-            <li>Todo lo de Básico</li>
-            <li>Las reservas en línea se acomodan solas en tu agenda</li>
-            <li>Garantía opcional para asegurar cada reserva</li>
-            <li>Registro de ventas y gastos</li>
-            <li>Métricas y punto de equilibrio</li>
-            <li>Metas y estrategia de marketing</li>
-            <li>Cuentas para tus colaboradores: +$100/mes c/u</li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Todo lo de Básico</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Las reservas en línea se acomodan solas en tu agenda</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Garantía opcional para asegurar cada reserva</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Registro de ventas y gastos</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Métricas y punto de equilibrio</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Metas y estrategia de marketing</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Cuentas para tus colaboradores: +$100/mes c/u</span></li>
           </ul>
         </div>
 
@@ -191,13 +275,13 @@
           <div class="plan-precio">$599<span>/mes</span></div>
           <p class="plan-sub">Para hacer crecer tu negocio y a tus clientes fieles.</p>
           <ul>
-            <li>Todo lo de Pro</li>
-            <li>Fidelidad: puntos y niveles por visitas</li>
-            <li>Membresías VIP de paga para tus clientes</li>
-            <li>Calendario de contenido para redes</li>
-            <li>Panel de IA con 500 créditos al mes</li>
-            <li>Solicitudes de factura electrónica</li>
-            <li>Cuentas para tus colaboradores: +$100/mes c/u</li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Todo lo de Pro</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Fidelidad: puntos y niveles por visitas</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Membresías VIP de paga para tus clientes</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Calendario de contenido para redes</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Panel de IA con 500 créditos al mes</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Solicitudes de factura electrónica</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Cuentas para tus colaboradores: +$100/mes c/u</span></li>
           </ul>
         </div>
 
@@ -207,9 +291,9 @@
           <div class="plan-precio pronto">Precio por anunciar</div>
           <p class="plan-sub">Para facturar sin salir de VantTS Barber.</p>
           <ul>
-            <li>Todo lo de Max</li>
-            <li>Facturas electrónicas timbradas desde VantTS Barber</li>
-            <li>Panel de IA con 1,000 créditos al mes</li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Todo lo de Max</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Facturas electrónicas timbradas desde VantTS Barber</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Panel de IA con 1,000 créditos al mes</span></li>
           </ul>
         </div>
       </div>
@@ -217,114 +301,101 @@
     </div>
   </section>
 
-  <section class="seccion alt">
-    <div class="wrap">
-      <h2>Preguntas rápidas</h2>
+  <section class="seccion" id="preguntas" aria-label="Preguntas frecuentes">
+    <div class="contenedor faq-grid">
+      <div class="encabezado encabezado-izq">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>Lo que más nos preguntan</h2>
+        <p class="lead">¿Tienes otra duda? Escríbenos y te contestamos nosotros, no un robot.</p>
+        <a class="btn btn-sec" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.2.3.4 0 .9-.6 1.6-1.6 1.7-1 .1-2.6-.3-4.3-1.9S9 11.1 9 10.1c0-.6.1-1.1.2-1.5z"/></svg><span>Pregúntanos por WhatsApp</span></a>
+      </div>
       <div class="faq">
-        <h3>¿Los precios incluyen IVA?</h3>
-        <p>Sí. El precio que ves es el que pagas.</p>
-        <h3>¿Y si con el plan Básico me basta?</h3>
-        <p>Te quedas en Básico, que es gratis, sin presión. Preferimos que pagues cuando de verdad veas el valor.</p>
-        <h3>Mi negocio no es barbería ni salón, ¿me sirve?</h3>
-        <p>Vamos giro por giro y solo ofrecemos lo que ya probamos. Escríbenos y te decimos con honestidad si hoy VantTS le sirve a tu negocio.</p>
-      </div>
-      <a class="btn" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-    </div>
-  </section>
-
-  </section>
-
-  <section class="bloque" id="casos" aria-label="Casos">
-    <div class="pagehead">
-      <div class="motivo-v" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#1F4E3D" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 55 L100 150 L158 55"/>
-  </g>
-</svg></div>
-      <div class="wrap">
-
-      <div class="eyebrow">Casos</div>
-      <h2 class="titulo">Estamos construyendo nuestro primer caso</h2>
-      <p class="lead">Hoy trabajamos con nuestro primer negocio piloto: una barbería en Guadalajara con más de dos años operando. Estamos validando resultados reales junto con ellos.</p>
-      <div class="cta-row">
-        <a class="btn-outline" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">¿Quieres ser de los primeros en probarlo?</a>
-      </div>
-
-      </div>
-    </div>
-
-  <section class="seccion">
-    <div class="wrap">
-      <p>En cuanto tengamos números concretos que mostrar, los vas a encontrar aquí — preferimos enseñar resultados reales, no promesas.</p>
-    </div>
-  </section>
-
-  </section>
-
-  <section class="bloque" id="nosotros" aria-label="Nosotros">
-    <div class="pagehead">
-      <div class="motivo-v" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#1F4E3D" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 55 L100 150 L158 55"/>
-  </g>
-</svg></div>
-      <div class="wrap">
-
-      <div class="eyebrow">Nosotros</div>
-      <h2 class="titulo">Por qué existe VantTS</h2>
-      <p class="lead">VantTS nace en Guadalajara con una idea simple: los pequeños negocios de servicios merecen herramientas de gestión pensadas para ellos, no versiones reducidas de software para empresas grandes.</p>
-
+        <details class="faq-item">
+          <summary><span>¿Los precios incluyen IVA?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Sí. El precio que ves es el que pagas.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>¿Y si con el plan Básico me basta?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Te quedas en Básico, que es gratis, sin presión. Preferimos que pagues cuando de verdad veas el valor.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>¿Mis clientes siguen siendo míos?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Sí. No hay directorio que te ponga junto a otras barberías y no cobramos comisión por cita ni por cliente. Si un día te vas, tienes 30 días para bajar tus datos.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>¿Necesito saber de computación?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Si usas WhatsApp, puedes usarlo. Se abre desde tu celular, sin instalar nada; configuramos tu barbería y tus servicios contigo, y si algo no te sale nos escribes por WhatsApp.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>¿Mi cliente tiene que descargar una app?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>No. Reserva desde tu link o tu código QR, en el navegador de su celular.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>¿Sirve si tengo varios barberos?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Sí. Cada barbero tiene su agenda y tu cliente elige con quién reservar; tú decides qué ve cada quien y ves cuánto vendió cada uno. Las cuentas para tu equipo van desde el plan Pro, con +$100 al mes por colaborador.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>¿Puedo cancelar cuando quiera?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Sí. Es mes a mes, sin plazo forzoso.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Mi negocio no es barbería ni salón, ¿me sirve?</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>Vamos giro por giro y solo ofrecemos lo que ya probamos. Escríbenos y te decimos con honestidad si hoy VantTS le sirve a tu negocio.</p>
+        </details>
       </div>
     </div>
-
-  <section class="seccion">
-    <div class="wrap">
-      <p>Detrás de VantTS está Luis P. Reyes, construyendo la empresa desde cero y aprendiendo en el camino, con apoyo de inteligencia artificial para desarrollar el producto.</p>
-      <p id="mision">Nuestra misión es ayudar a los pequeños negocios de México a digitalizar su operación y entender su rentabilidad real — empezando por barberías y estéticas en Guadalajara, y creciendo giro por giro.</p>
-      <p>Todavía estamos en una etapa temprana: validando con nuestros primeros negocios piloto antes de crecer. Preferimos construir bien antes que construir rápido.</p>
-    </div>
   </section>
 
-  </section>
-
-  <section class="bloque" id="contacto" aria-label="Contacto">
-    <div class="pagehead">
-      <div class="motivo-v" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#1F4E3D" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M42 55 L100 150 L158 55"/>
-  </g>
-</svg></div>
-      <div class="wrap">
-
-      <div class="eyebrow">Contacto</div>
-      <h2 class="titulo">Hablemos</h2>
-      <p class="lead">La forma más rápida de contactarnos es por WhatsApp.</p>
-
+  <section class="seccion seccion-alt" id="nosotros" aria-label="Nosotros">
+    <div class="contenedor nosotros-grid">
+      <div>
+        <p class="eyebrow">Nosotros</p>
+        <h2>Por qué existe VantTS</h2>
+        <p class="lead">VantTS nace en Guadalajara con una idea simple: los pequeños negocios de servicios merecen herramientas de gestión pensadas para ellos, no versiones reducidas de software para empresas grandes.</p>
+        <p>Detrás de VantTS está Luis P. Reyes, construyendo la empresa desde cero y aprendiendo en el camino, con apoyo de inteligencia artificial para desarrollar el producto. Todavía estamos en una etapa temprana: preferimos construir bien antes que construir rápido.</p>
+      </div>
+      <div class="mision revelar" id="mision">
+        <p class="eyebrow">Nuestra misión</p>
+        <p class="mision-texto">Ayudar a los pequeños negocios de México a digitalizar su operación y entender su rentabilidad real, empezando por barberías y estéticas en Guadalajara y creciendo giro por giro.</p>
+        <ul class="giros">
+          <li><span class="giro-tag on">Hoy</span>Barberías y salones</li>
+          <li><span class="giro-tag">En desarrollo</span>Masajes y bienestar</li>
+          <li><span class="giro-tag">En planeación</span>Veterinarias</li>
+          <li><span class="giro-tag">En análisis</span>Abarrotes</li>
+        </ul>
       </div>
     </div>
+  </section>
 
-  <section class="seccion">
-    <div class="wrap">
+  <section class="cierre" id="contacto" aria-label="Contacto">
+    <div class="contenedor cierre-grid">
+      <div>
+        <h2>¿Lo vemos juntos?</h2>
+        <p class="lead">Escríbeme por WhatsApp y te enseño VantTS Barber con la cuenta de demostración. Es la forma más rápida de contactarnos.</p>
+        <div class="cta-fila"><a class="btn btn-claro" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.2.3.4 0 .9-.6 1.6-1.6 1.7-1 .1-2.6-.3-4.3-1.9S9 11.1 9 10.1c0-.6.1-1.1.2-1.5z"/></svg><span>Escríbeme por WhatsApp</span></a></div>
+      </div>
       <ul class="contacto-lista">
         <li><span class="etiqueta">WhatsApp</span><a href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">33 1250 6541</a></li>
         <li><span class="etiqueta">Correo</span><a href="mailto:direccion@vantts.com.mx">direccion@vantts.com.mx</a></li>
-        <li><span class="etiqueta">Ubicación</span>Guadalajara, México</li>
-        <li><span class="etiqueta">Redes</span><a href="https://www.instagram.com/vantts.mx/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=61595384815178" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.youtube.com/@vantts_mx" target="_blank" rel="noopener">YouTube</a></li>
+        <li><span class="etiqueta">Ubicación</span>Guadalajara, Jalisco</li>
+        <li><span class="etiqueta">Redes</span><span><a href="https://www.instagram.com/vantts.mx/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=61595384815178" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.youtube.com/@vantts_mx" target="_blank" rel="noopener">YouTube</a></span></li>
       </ul>
-      <a class="btn" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
     </div>
-  </section>
-
   </section>
 
 </main>
 
 <footer class="pie">
   <div class="pie-columnas">
+    <div class="pie-marca">
+      <span class="pie-logo"><img class="logo-ico" src="assets/img/icono.png" alt="" width="36" height="36"><img src="assets/img/wordmark-claro.png" alt="VantTS" width="150" height="28"></span>
+      <p>Software de gestión + IA para negocios.</p>
+    </div>
     <div>
       <h4>Producto</h4>
       <ul>
-        <li><a href="#solucion">Qué resolvemos</a></li>
+        <li><a href="#solucion">Qué resuelve</a></li>
+        <li><a href="#funciones">Cómo funciona</a></li>
         <li><a href="#precios">Planes y precios</a></li>
         <li><a href="#casos">Casos</a></li>
       </ul>
@@ -332,7 +403,7 @@
     <div>
       <h4>Giros</h4>
       <ul>
-        <li><a href="#solucion">Barberías y salones</a><span class="pie-tag on">Hoy</span></li>
+        <li><a href="#funciones">Barberías y salones</a><span class="pie-tag on">Hoy</span></li>
         <li>Masajes y bienestar<span class="pie-tag">En desarrollo</span></li>
         <li>Veterinarias<span class="pie-tag">En planeación</span></li>
         <li>Abarrotes<span class="pie-tag">En análisis</span></li>
@@ -343,6 +414,7 @@
       <ul>
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#mision">Nuestra misión</a></li>
+        <li><a href="#preguntas">Preguntas frecuentes</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </div>
@@ -354,10 +426,10 @@
         <li><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Guadalajara, Jalisco</li>
       </ul>
       <h4 class="pie-sub">Síguenos</h4>
-      <ul>
-        <li><a href="https://www.instagram.com/vantts.mx/" target="_blank" rel="noopener"><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6"/></svg>Instagram</a></li>
-        <li><a href="https://www.facebook.com/profile.php?id=61595384815178" target="_blank" rel="noopener"><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5L17 11h-3V9a.5.5 0 0 1 .5-.5z"/></svg>Facebook</a></li>
-        <li><a href="https://www.youtube.com/@vantts_mx" target="_blank" rel="noopener"><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z"/></svg>YouTube</a></li>
+      <ul class="pie-redes">
+        <li><a href="https://www.instagram.com/vantts.mx/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6"/></svg></a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61595384815178" target="_blank" rel="noopener" aria-label="Facebook"><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5L17 11h-3V9a.5.5 0 0 1 .5-.5z"/></svg></a></li>
+        <li><a href="https://www.youtube.com/@vantts_mx" target="_blank" rel="noopener" aria-label="YouTube"><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z"/></svg></a></li>
       </ul>
     </div>
   </div>
@@ -366,12 +438,14 @@
       <span><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>Español (México)</span>
       <span><svg class="pie-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Sin cookies de rastreo</span>
       <span class="pie-espacio"></span>
-      <span>Software de gestión + IA para negocios</span>
       <span>© 2026 VantTS</span>
     </div>
   </div>
 </footer>
-<a class="subir" id="subir" href="#" aria-label="Subir al inicio de la página">Subir ↑</a>
+<div class="flotantes">
+  <a class="subir" id="subir" href="#inicio" aria-label="Subir al inicio de la página">↑</a>
+  <a class="wa-flotante" href="https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.2.3.4 0 .9-.6 1.6-1.6 1.7-1 .1-2.6-.3-4.3-1.9S9 11.1 9 10.1c0-.6.1-1.1.2-1.5z"/></svg></a>
+</div>
 
 <script src="assets/script.js"></script>
 </body>
