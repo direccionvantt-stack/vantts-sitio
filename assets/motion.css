@@ -1,0 +1,152 @@
+/* VantTS — movimiento del sitio (propuesta del 22 oct 2026, aprobada y publicada ese día).
+   Cada idea se activa con una clase en <html> (m-progreso, m-hero, ...), para poder
+   probarlas por separado en la demo. Todo lo decorativo vive dentro de
+   prefers-reduced-motion: no-preference, así que quien pide "reducir movimiento" no lo ve. */
+
+/* M1 · Sistema de movimiento: duraciones y curvas (Material 3 / Carbon / NN/g). */
+:root {
+  --m-rapido: 120ms;     /* botones, hover, presionar */
+  --m-medio: 220ms;      /* pestañas, chips, abrir/cerrar */
+  --m-lento: 360ms;      /* tarjetas que aparecen, ventanas */
+  --m-escalon: 60ms;     /* separación entre tarjetas en cascada */
+  --m-salida: cubic-bezier(0.2, 0, 0, 1);       /* estándar: casi todo */
+  --m-entrada: cubic-bezier(0.05, 0.7, 0.1, 1); /* énfasis: lo que entra a pantalla */
+  --m-sale: cubic-bezier(0.3, 0, 0.8, 0.15);    /* lo que se va */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* M2 · Barra de avance de lectura bajo el menú (CSS puro, sin JS). */
+  html.m-progreso .nav::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+    background: linear-gradient(90deg, var(--cobre), #D9A066);
+    transform-origin: 0 50%; transform: scaleX(0);
+  }
+  @supports (animation-timeline: scroll()) {
+    html.m-progreso .nav::after { animation: m-avance linear both; animation-timeline: scroll(root block); }
+  }
+  @keyframes m-avance { to { transform: scaleX(1); } }
+
+  /* M3 · Inicio con vida, sin esconder el titular ni las capturas (cuidan el LCP). */
+  html.m-hero .hero-texto > .pildora,
+  html.m-hero .hero-texto > .lead,
+  html.m-hero .hero-texto > .cta-fila,
+  html.m-hero .hero-texto > .micro { animation: m-sube var(--m-lento) var(--m-entrada) both; }
+  html.m-hero .hero-texto > .lead { animation-delay: 80ms; }
+  html.m-hero .hero-texto > .cta-fila { animation-delay: 160ms; }
+  html.m-hero .hero-texto > .micro { animation-delay: 240ms; }
+  html.m-hero .telefono-atras { animation: m-tel-atras 700ms var(--m-entrada) both; }
+  html.m-hero .telefono-frente { animation: m-tel-frente 700ms var(--m-entrada) 90ms both; }
+  html.m-hero .chip-1 { animation: m-chip 420ms var(--m-entrada) 650ms both; }
+  html.m-hero .chip-2 { animation: m-chip 420ms var(--m-entrada) 900ms both; }
+  @keyframes m-sube { from { opacity: 0; transform: translateY(14px); } }
+  /* Los celulares solo se desplazan: nunca empiezan invisibles. */
+  @keyframes m-tel-atras { from { transform: translateY(36px) rotate(7deg); } to { transform: rotate(4deg); } }
+  @keyframes m-tel-frente { from { transform: translateY(48px) rotate(-6deg); } to { transform: rotate(-3deg); } }
+  @keyframes m-chip { from { opacity: 0; transform: translateY(10px) scale(0.92); } }
+
+  /* M4 · Celulares que acompañan el scroll (parallax ligero, solo escritorio). */
+  @supports (animation-timeline: scroll()) {
+    @media (min-width: 981px) {
+      html.m-parallax .hero-visual .telefono-atras { animation: m-px-atras linear both; animation-timeline: scroll(root block); animation-range: 0 700px; }
+      html.m-parallax .hero-visual .telefono-frente { animation: m-px-frente linear both; animation-timeline: scroll(root block); animation-range: 0 700px; }
+      html.m-parallax .hero-visual .chip { animation: m-px-chip linear both; animation-timeline: scroll(root block); animation-range: 0 700px; }
+    }
+  }
+  @keyframes m-px-atras { from { transform: rotate(4deg); } to { transform: translateY(-40px) rotate(6deg); } }
+  @keyframes m-px-frente { from { transform: rotate(-3deg); } to { transform: translateY(-90px) rotate(-1deg); } }
+  @keyframes m-px-chip { to { transform: translateY(-130px); } }
+
+  /* M5 · Tarjetas que aparecen en cascada al bajar. Con CSS donde se puede; si no, con el JS actual. */
+  html.m-cascada.js .revelar { transition-duration: var(--m-lento); transition-timing-function: var(--m-entrada); transition-delay: calc(var(--i, 0) * var(--m-escalon)); }
+  @supports (animation-timeline: view()) {
+    html.m-cascada.js .revelar,
+    html.m-cascada.js .revelar.visto {
+      opacity: 1; transform: none; transition: none;
+      animation: m-sube linear both; animation-timeline: view(); animation-range: entry calc(4% + var(--i, 0) * 4%) entry calc(60% + var(--i, 0) * 4%);
+    }
+  }
+
+  /* M6 · Títulos de sección: una línea cobre que se dibuja al llegar. */
+  html.m-titulos .encabezado .eyebrow,
+  html.m-titulos .encabezado-izq .eyebrow { position: relative; padding-bottom: 10px; }
+  html.m-titulos .encabezado .eyebrow::after,
+  html.m-titulos .encabezado-izq .eyebrow::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; margin: auto; width: 36px; height: 2px; border-radius: 2px;
+    background: var(--cobre); transform: scaleX(0); transition: transform 600ms var(--m-entrada) 150ms;
+  }
+  html.m-titulos .encabezado-izq .eyebrow::after { right: auto; }
+  html.m-titulos .titulo-visto .eyebrow::after { transform: scaleX(1); }
+  html.m-titulos .encabezado.titulo-destello h2 { animation: m-destello 900ms var(--m-salida); }
+  @keyframes m-destello { 30% { color: var(--cobre-texto); } }
+
+  /* M7 · Pestañas de "Cómo funciona": fondo que se desliza y cambio de captura con transición. */
+  html.m-pestanas .tabs { position: relative; }
+  html.m-pestanas .tabs.con-indicador .tab[aria-selected="true"] { background: transparent; border-color: transparent; }
+  html.m-pestanas .tabs.con-indicador .tab { position: relative; z-index: 1; transition: color var(--m-medio) var(--m-salida), border-color var(--m-medio); }
+  html.m-pestanas .tabs-indicador {
+    position: absolute; left: 0; top: 0; height: 0; width: 0; border-radius: 999px; background: var(--verde); z-index: 0;
+    transition: transform 320ms var(--m-salida), width 320ms var(--m-salida), height 320ms var(--m-salida);
+  }
+  html.m-pestanas .panel-visual .telefono { view-transition-name: m-tel; }
+  html.m-pestanas .panel-texto h3 { view-transition-name: m-titulo; }
+  ::view-transition-old(m-tel) { animation: 200ms var(--m-sale) both m-tel-sale; }
+  ::view-transition-new(m-tel) { animation: 320ms var(--m-entrada) both m-tel-entra; }
+  ::view-transition-group(m-titulo) { animation-duration: 260ms; }
+  @keyframes m-tel-sale { to { opacity: 0; transform: translateX(-24px); } }
+  @keyframes m-tel-entra { from { opacity: 0; transform: translateX(24px); } }
+
+  /* M8 · Tarjetas que responden al cursor (solo con mouse). */
+  @media (hover: hover) and (pointer: fine) {
+    html.m-tarjetas .dolor, html.m-tarjetas .plan {
+      transition: transform var(--m-medio) var(--m-salida), box-shadow var(--m-medio) var(--m-salida);
+      background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgba(181, 118, 58, 0.09), transparent 60%);
+    }
+    html.m-tarjetas .plan.destacado { background-image: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgba(159, 227, 190, 0.12), transparent 60%); }
+    html.m-tarjetas .dolor:hover, html.m-tarjetas .plan:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+  }
+
+  /* M9 · Preguntas frecuentes que se abren suave (Chrome/Android; en Safari se abren al instante). */
+  html.m-faq { interpolate-size: allow-keywords; }
+  html.m-faq .faq-item::details-content {
+    block-size: 0; overflow: clip;
+    transition: block-size 260ms var(--m-salida), content-visibility 260ms allow-discrete;
+  }
+  html.m-faq .faq-item[open]::details-content { block-size: auto; }
+  html.m-faq .faq-item summary { transition: color var(--m-rapido); }
+  html.m-faq .faq-item summary:hover { color: var(--verde); }
+  html.m-faq .faq-mas { transition: background-color var(--m-medio), transform 260ms var(--m-salida); }
+  html.m-faq .faq-item[open] .faq-mas { background: var(--cobre-suave); transform: rotate(180deg); }
+
+  /* M10 · Botones que se sienten: la flecha avanza y el botón se hunde al presionar. */
+  html.m-botones .btn, html.m-botones .pildora, html.m-botones .plan-ver { transition: transform var(--m-rapido) var(--m-salida), background-color var(--m-medio), box-shadow var(--m-medio), text-decoration-color var(--m-rapido); }
+  html.m-botones .btn:active, html.m-botones .pildora:active { transform: scale(0.97); transition-duration: 60ms; }
+  html.m-botones .pildora .ico, html.m-botones .anuncio-flecha, html.m-botones .btn .ico { transition: transform var(--m-medio) var(--m-salida); }
+  html.m-botones .pildora:hover .ico, html.m-botones .anuncio a:hover .anuncio-flecha { transform: translateX(4px); }
+  html.m-botones .btn:hover .ico { transform: scale(1.12) rotate(-6deg); }
+
+  /* M11 · WhatsApp flotante: entra cuando ya pasaste el inicio y saluda una sola vez. */
+  html.m-whatsapp .wa-flotante { transition: transform 420ms var(--m-entrada), opacity var(--m-medio); }
+  html.m-whatsapp .wa-flotante.wa-oculto { transform: scale(0.4) translateY(30px); opacity: 0; pointer-events: none; }
+  html.m-whatsapp .wa-flotante.wa-saluda { animation: m-pulso 1.1s var(--m-salida) 2; }
+  @keyframes m-pulso { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); } 100% { box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); } }
+  html.m-whatsapp .wa-globo {
+    position: absolute; right: 70px; bottom: 10px; white-space: nowrap; background: #fff; color: var(--verde-profundo);
+    font-weight: 600; font-size: 0.9rem; padding: 9px 14px; border-radius: 14px; box-shadow: var(--sombra-alta);
+    animation: m-globo 4.2s var(--m-salida) both; pointer-events: none;
+  }
+  @keyframes m-globo { 0% { opacity: 0; transform: translateX(8px); } 8%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(8px); } }
+
+  /* M12 · Menú del celular: baja suave y los enlaces entran en cascada. */
+  @media (max-width: 980px) {
+    html.m-menu .nav-links.abierto { transition: opacity var(--m-medio) var(--m-salida), transform var(--m-medio) var(--m-salida), display var(--m-medio) allow-discrete; }
+    @starting-style { html.m-menu .nav-links.abierto { opacity: 0; transform: translateY(-10px); } }
+    html.m-menu .nav-links.abierto a { animation: m-sube 300ms var(--m-entrada) both; }
+    html.m-menu .nav-links.abierto a:nth-child(2) { animation-delay: 30ms; }
+    html.m-menu .nav-links.abierto a:nth-child(3) { animation-delay: 60ms; }
+    html.m-menu .nav-links.abierto a:nth-child(4) { animation-delay: 90ms; }
+    html.m-menu .nav-links.abierto a:nth-child(5) { animation-delay: 120ms; }
+    html.m-menu .nav-links.abierto a:nth-child(6) { animation-delay: 150ms; }
+    html.m-menu .nav-links.abierto a:nth-child(7) { animation-delay: 180ms; }
+  }
+}

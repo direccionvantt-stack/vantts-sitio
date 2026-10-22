@@ -644,9 +644,14 @@ def nav_html():
 </header>"""
 
 
+# Movimiento del sitio (aprobado por Luis el 22 oct 2026): cada idea M2-M12 es una clase en <html>.
+# Para apagar una, quítala de esta lista. Detalle en Investigación/VantTS_Investigacion_Movimiento_del_sitio.docx.
+MOVIMIENTO = "m-progreso m-hero m-parallax m-cascada m-titulos m-pestanas m-tarjetas m-faq m-botones m-whatsapp m-menu"
+
+
 def pagina_unica(cuerpo):
     return f"""<!doctype html>
-<html lang="es-MX">
+<html lang="es-MX" class="{MOVIMIENTO}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -665,6 +670,7 @@ def pagina_unica(cuerpo):
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/motion.css">
 </head>
 <body>
 <a class="saltar" href="#solucion">Saltar al contenido</a>
@@ -677,6 +683,7 @@ def pagina_unica(cuerpo):
 {FOOTER}
 
 <script src="assets/script.js"></script>
+<script src="assets/motion.js"></script>
 </body>
 </html>
 """
