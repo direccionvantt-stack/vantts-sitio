@@ -296,9 +296,11 @@ PLANES_DETALLE = [
     ("basico", "Básico", "$0", "Para empezar a ordenar tu negocio sin riesgo.", "Una cuenta de administrador.", [
         ("Agenda y caja", [
             ("Agenda de citas", "Tú capturas cada cita.", False),
-            ("Reserva en línea con tu link", "Tu cliente elige servicio, día y hora desde tu link.", False),
+            ("Reserva en línea con tu link", "Tu cliente elige servicio, día y hora desde tu link y tú confirmas la cita con un toque.", False),
+            ("Agenda para cada barbero", "Tus barberos aparecen en la agenda y el cliente elige con quién; tú la manejas desde tu cuenta.", False),
             ("Días de trabajo", "Eliges qué días atiendes.", False),
             ("Registro de ventas a mano", "Anotas cada venta y su propina en la app.", False),
+            ("Registro de gastos", "Lo que pagas, incluido lo que sale de la caja.", False),
             ("Cierre del día y corte de caja", "El corte cuadra con tus ventas del día, dejas fondo de caja y te queda el PDF.", False),
         ]),
         ("Clientes", [
@@ -317,7 +319,7 @@ PLANES_DETALLE = [
     ]),
     ("pro", "Pro", "$249", "Para saber cuánto ganas de verdad.", "", [
         ("Agenda y equipo", [
-            ("Las reservas de tu link entran solas a tu agenda", "", False),
+            ("Las reservas de tu link entran solas a tu agenda", "Sin que tengas que confirmarlas.", False),
             ("Garantía para asegurar cada reserva", "Un depósito con tarjeta al reservar, que se regresa completo si el cliente cancela con 1 hora o más.", True),
             ("Recordatorios por WhatsApp", "A tu cliente, 1 día antes y 1 hora antes de su cita.", True),
             ("Cuentas para tu equipo", "Cada barbero con su cuenta: +$100 al mes por cada uno después del primero.", False),
@@ -327,7 +329,6 @@ PLANES_DETALLE = [
         ]),
         ("Dinero", [
             ("Ventas ligadas a cada cliente y servicio", "Sabes quién te compró qué, y alimentan tus métricas.", False),
-            ("Registro de gastos", "", False),
             ("Inventario", "Productos, existencias, aviso de poco stock y qué toca comprar.", False),
             ("Métricas y punto de equilibrio", "", False),
             ("Contabilidad", "Balance y estado de resultados.", False),
@@ -448,14 +449,14 @@ precios = f"""
     "Reserva en línea con tu link",
     "Clientes con historial, aunque solo te den su apodo",
     "Catálogo de servicios y precios",
-    "Ventas a mano y corte de caja del día",
+    "Ventas y gastos a mano, y corte de caja del día",
     "Una cuenta de administrador",
 ])}
 {plan_card("Pro", "$249", "Para saber cuánto ganas de verdad.", [
     "Todo lo de Básico",
     "Las reservas en línea se acomodan solas en tu agenda",
     "Garantía opcional para asegurar cada reserva (próximamente)",
-    "Ventas ligadas a cliente y servicio, y gastos",
+    "Ventas ligadas a cada cliente y servicio",
     "Métricas y punto de equilibrio",
     "Metas y estrategia de marketing",
     "Cuentas para tus colaboradores: +$100/mes c/u",
