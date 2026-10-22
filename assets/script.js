@@ -82,3 +82,49 @@ document.documentElement.classList.add("js");
   revisar();
   subir.addEventListener("click", (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); });
 })();
+
+// Detalle completo de cada plan: ventana con pestañas (Básico, Pro, Max, Ultra).
+(function () {
+  const dlg = document.getElementById("planDialogo");
+  if (!dlg || typeof dlg.showModal !== "function") return;
+  const tabs = Array.from(dlg.querySelectorAll('[role="tab"]'));
+  const cuerpo = dlg.querySelector(".pd-cuerpo");
+  let origen = null;
+
+  function mostrar(pid, foco) {
+    tabs.forEach((t) => {
+      const sel = t.dataset.plan === pid;
+      t.setAttribute("aria-selected", String(sel));
+      t.tabIndex = sel ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute("aria-controls"));
+      if (!panel) return;
+      panel.hidden = !sel;
+      if (sel) { panel.classList.remove("entra"); void panel.offsetWidth; panel.classList.add("entra"); }
+      if (sel && foco) t.focus();
+    });
+    if (cuerpo) cuerpo.scrollTop = 0;
+  }
+  function abrir(pid, boton) {
+    origen = boton;
+    mostrar(pid, false);
+    dlg.showModal();
+    document.body.classList.add("con-dialogo");
+    const sel = tabs.find((t) => t.dataset.plan === pid);
+    if (sel) sel.focus();
+  }
+  document.querySelectorAll(".plan-ver").forEach((b) => b.addEventListener("click", () => abrir(b.dataset.plan, b)));
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => mostrar(t.dataset.plan, false));
+    t.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); mostrar(tabs[(i + 1) % tabs.length].dataset.plan, true); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); mostrar(tabs[(i - 1 + tabs.length) % tabs.length].dataset.plan, true); }
+    });
+  });
+  dlg.querySelectorAll("[data-cerrar]").forEach((b) => b.addEventListener("click", () => dlg.close()));
+  // Cerrar al tocar fuera de la caja.
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", () => {
+    document.body.classList.remove("con-dialogo");
+    if (origen) origen.focus();
+  });
+})();

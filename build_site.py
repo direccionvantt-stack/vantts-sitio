@@ -270,6 +270,7 @@ def plan_card(nombre, precio, subtitulo, items, destacado=False, proximo=False):
     etiqueta = '<div class="plan-etiqueta">Recomendado</div>' if destacado else ('<div class="plan-etiqueta">Próximamente</div>' if proximo else "")
     precio_html = '<div class="plan-precio pronto">Precio por anunciar</div>' if proximo else f'<div class="plan-precio">{precio}<span>/mes</span></div>'
     lis = "\n".join(f"            <li>{I_CHECK}<span>{i}</span></li>" for i in items)
+    pid = slug(nombre)
     return f"""
         <div class="{cls}">
           {etiqueta}
@@ -279,7 +280,156 @@ def plan_card(nombre, precio, subtitulo, items, destacado=False, proximo=False):
           <ul>
 {lis}
           </ul>
+          <button type="button" class="plan-ver" data-plan="{pid}" aria-haspopup="dialog">Ver todo lo que incluye{I_FLECHA}</button>
         </div>"""
+
+
+def slug(t):
+    return t.lower().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(" ", "-")
+
+
+# Lista completa de funciones por plan (fuente: docs del proyecto, revisados el 22 oct 2026;
+# planes de las funciones sin plan decididos por Luis el 22 oct 2026).
+# Cada plan lista solo lo que AGREGA; la ventana muestra también lo heredado.
+# ("texto", "detalle", proximamente)
+PLANES_DETALLE = [
+    ("basico", "Básico", "$0", "Para empezar a ordenar tu negocio sin riesgo.", "Una cuenta de administrador.", [
+        ("Agenda y caja", [
+            ("Agenda de citas", "Tú capturas cada cita.", False),
+            ("Reserva en línea con tu link", "Tu cliente elige servicio, día y hora desde tu link.", False),
+            ("Días de trabajo", "Eliges qué días atiendes.", False),
+            ("Cierre del día y corte de caja", "Cierras el día con fondo de caja y te queda el corte en PDF.", False),
+        ]),
+        ("Clientes", [
+            ("Clientes con historial", "Aunque solo te den su apodo; de paso o frecuentes.", False),
+            ("Listas de a quién llamar", "Quién lleva días sin venir, quién está en riesgo y quién no ha regresado, con botón de WhatsApp y mensaje listo.", False),
+            ("Registro del cliente frecuente", "Le mandas un link y él llena sus datos.", False),
+            ("Aviso de privacidad de tu barbería", "Listo para compartir con tus clientes.", False),
+            ("Expediente del cliente en PDF", "", False),
+            ("Botón “No llegó”", "Lleva la cuenta de las faltas de cada cliente.", False),
+        ]),
+        ("Tu negocio", [
+            ("Catálogo de servicios y precios", "Con la duración de cada servicio.", False),
+            ("Bandeja de avisos", "Avisos al celular y un resumen diario a las 8 a.m.: cumpleaños, VIP por vencer, qué toca comprar.", False),
+            ("Pídenos mejoras", "Tú o tu equipo nos piden cambios para su sistema.", False),
+        ]),
+    ]),
+    ("pro", "Pro", "$249", "Para saber cuánto ganas de verdad.", "", [
+        ("Agenda y equipo", [
+            ("Las reservas de tu link entran solas a tu agenda", "", False),
+            ("Garantía para asegurar cada reserva", "Un depósito con tarjeta al reservar, que se regresa completo si el cliente cancela con 1 hora o más.", True),
+            ("Recordatorios por WhatsApp", "A tu cliente, 1 día antes y 1 hora antes de su cita.", True),
+            ("Cuentas para tu equipo", "Cada barbero con su cuenta: +$100 al mes por cada uno después del primero.", False),
+            ("Roles y permisos", "Administrador, encargado, barbero o recepción: tú decides qué ve cada quien.", False),
+            ("Cambio de días con tu aprobación", "Tus barberos piden cambiar sus días y tú apruebas.", False),
+            ("Peticiones de tus clientes", "Cambios o reagendas de citas que apruebas o rechazas.", False),
+        ]),
+        ("Dinero", [
+            ("Registro de ventas y gastos", "Ligados a cada cliente y servicio.", False),
+            ("Inventario", "Productos, existencias, aviso de poco stock y qué toca comprar.", False),
+            ("Métricas y punto de equilibrio", "", False),
+            ("Contabilidad", "Balance y estado de resultados.", False),
+            ("Reportes y resumen ejecutivo", "", False),
+        ]),
+        ("Marketing", [
+            ("Promociones y descuentos", "", False),
+            ("Metas y estrategia de marketing", "Con ideas listas y guía por tema.", False),
+            ("Avance de tus metas", "Línea de tiempo y gráfica de avance.", False),
+        ]),
+    ]),
+    ("max", "Max", "$599", "Para hacer crecer tu negocio y a tus clientes fieles.", "", [
+        ("Clientes fieles", [
+            ("Puntos y niveles por visitas", "Premias a tu cliente de siempre sin bajarle el precio.", False),
+            ("Membresía VIP de paga", "Cobras una membresía a tus clientes.", False),
+            ("Fiado y por cobrar", "Ventas a crédito, abonos y recordatorio por WhatsApp.", False),
+        ]),
+        ("Equipo y operación", [
+            ("Nómina y comisiones", "Comisión, sueldo más comisión o renta de silla; propinas, adelantos y bonos, con recibo en PDF.", False),
+            ("Compras y proveedores", "Te sugiere qué pedir, mandas la orden por WhatsApp o PDF y llevas lo que debes.", False),
+            ("Sucursales", "Varias barberías con clientes y catálogo compartidos, traspasos de inventario y totales del grupo.", False),
+            ("Bitácora de cambios", "Quién cambió qué y cuándo, guardado 2 años.", False),
+        ]),
+        ("Redes sociales", [
+            ("Calendario de publicaciones", "Te avisa a la hora y comparte con un botón.", False),
+            ("Publicación automática en Instagram y Facebook", "", True),
+        ]),
+        ("Inteligencia artificial", [
+            ("Panel de IA con 500 créditos al mes", "Le preguntas por tu negocio y te propone qué hacer.", False),
+            ("Importar desde Excel con IA", "Clientes, inventario, servicios y proveedores desde tu archivo (usa créditos).", False),
+        ]),
+        ("Más", [
+            ("Solicitudes de factura electrónica", "Guardas tus datos fiscales y lo que te piden tus clientes.", False),
+            ("Tutoriales en video", "Técnicas y cortes paso a paso.", False),
+        ]),
+    ]),
+    ("ultra", "Ultra", "", "Para facturar sin salir de VantTS Barber.", "", [
+        ("Lo que agrega Ultra", [
+            ("Facturas electrónicas timbradas", "Emites tus facturas desde VantTS Barber.", False),
+            ("Panel de IA con 1,000 créditos al mes", "El doble que en Max.", False),
+        ]),
+    ]),
+]
+
+TODOS_LOS_PLANES = [
+    "Sin comisión por cita",
+    "Mes a mes, sin plazo forzoso",
+    "IVA incluido en el precio",
+    "Respaldo automático diario de tu información",
+    "Descargas en PDF o Excel",
+    "30 días para bajar tus datos si te vas",
+    "Subes de plan cuando quieras; si bajas, aplica al terminar tu mes",
+]
+
+
+def _lista_funciones(grupos):
+    out = []
+    for titulo, items in grupos:
+        lis = []
+        for texto, detalle, pronto in items:
+            tag = '<span class="pd-pronto">Próximamente</span>' if pronto else ""
+            det = f'<span class="pd-det">{detalle}</span>' if detalle else ""
+            lis.append(f'<li>{I_CHECK}<span><strong>{texto}</strong>{tag}{det}</span></li>')
+        out.append(f'<div class="pd-grupo"><h4>{titulo}</h4><ul>{"".join(lis)}</ul></div>')
+    return "".join(out)
+
+
+def plan_dialogo():
+    tabs, paneles = [], []
+    for i, (pid, nombre, precio, sub, nota, grupos) in enumerate(PLANES_DETALLE):
+        tabs.append(f'<button type="button" role="tab" id="pdt-{pid}" aria-controls="pdp-{pid}" aria-selected="false" tabindex="-1" data-plan="{pid}">{nombre}</button>')
+        precio_html = '<span class="pd-precio pronto">Próximamente · precio por anunciar</span>' if not precio else f'<span class="pd-precio">{precio}<small>/mes, IVA incluido</small></span>'
+        heredado = ""
+        if i > 0:
+            previos = []
+            for pid2, nombre2, _, _, _, grupos2 in PLANES_DETALLE[:i][::-1]:
+                n = sum(len(it) for _, it in grupos2)
+                previos.append(f'<details class="pd-hereda"><summary>Y todo lo de {nombre2} <span>({n})</span></summary>{_lista_funciones(grupos2)}</details>')
+            heredado = "".join(previos)
+        titulo_lista = "Incluye" if i == 0 else f"Lo que agrega {nombre}"
+        nota_html = f'<p class="pd-nota">{nota}</p>' if nota else ""
+        paneles.append(f"""<section class="pd-panel" role="tabpanel" id="pdp-{pid}" aria-labelledby="pdt-{pid}" hidden>
+        <header class="pd-cab"><h3>{nombre}</h3>{precio_html}<p>{sub}</p>{nota_html}</header>
+        <p class="pd-titulo">{titulo_lista}</p>
+        {_lista_funciones(grupos)}
+        {heredado}
+      </section>""")
+    todos = "".join(f"<li>{I_CHECK}<span>{t}</span></li>" for t in TODOS_LOS_PLANES)
+    return f"""
+  <dialog class="plan-dialogo" id="planDialogo" aria-labelledby="planDialogoTitulo">
+    <div class="pd-caja">
+      <div class="pd-barra">
+        <h2 id="planDialogoTitulo" class="pd-h2">Todo lo que incluye cada plan</h2>
+        <button type="button" class="pd-cerrar" data-cerrar aria-label="Cerrar">×</button>
+      </div>
+      <div class="pd-tabs" role="tablist" aria-label="Planes">{"".join(tabs)}</div>
+      <div class="pd-cuerpo">
+      {"".join(paneles)}
+        <div class="pd-todos"><h4>En todos los planes</h4><ul>{todos}</ul></div>
+        <p class="pd-leyenda"><span class="pd-pronto">Próximamente</span> Ya está en camino; te avisamos cuando esté lista para tu negocio.</p>
+      </div>
+      <div class="pd-pie"><a class="btn" href="{WHATSAPP}" target="_blank" rel="noopener">{I_WA}<span>Pregúntanos por WhatsApp</span></a></div>
+    </div>
+  </dialog>"""
 
 
 precios = f"""
@@ -301,7 +451,7 @@ precios = f"""
 {plan_card("Pro", "$249", "Para saber cuánto ganas de verdad.", [
     "Todo lo de Básico",
     "Las reservas en línea se acomodan solas en tu agenda",
-    "Garantía opcional para asegurar cada reserva",
+    "Garantía opcional para asegurar cada reserva (próximamente)",
     "Registro de ventas y gastos",
     "Métricas y punto de equilibrio",
     "Metas y estrategia de marketing",
@@ -324,6 +474,7 @@ precios = f"""
       </div>
       <p class="nota">Precios en pesos mexicanos, con IVA incluido. Vigentes para barberías y salones.</p>
     </div>
+{plan_dialogo()}
   </section>
 """
 
