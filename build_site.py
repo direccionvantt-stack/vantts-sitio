@@ -298,7 +298,8 @@ PLANES_DETALLE = [
             ("Agenda de citas", "Tú capturas cada cita.", False),
             ("Reserva en línea con tu link", "Tu cliente elige servicio, día y hora desde tu link.", False),
             ("Días de trabajo", "Eliges qué días atiendes.", False),
-            ("Cierre del día y corte de caja", "Cierras el día con fondo de caja y te queda el corte en PDF.", False),
+            ("Registro de ventas a mano", "Anotas cada venta y su propina en la app.", False),
+            ("Cierre del día y corte de caja", "El corte cuadra con tus ventas del día, dejas fondo de caja y te queda el PDF.", False),
         ]),
         ("Clientes", [
             ("Clientes con historial", "Aunque solo te den su apodo; de paso o frecuentes.", False),
@@ -325,7 +326,8 @@ PLANES_DETALLE = [
             ("Peticiones de tus clientes", "Cambios o reagendas de citas que apruebas o rechazas.", False),
         ]),
         ("Dinero", [
-            ("Registro de ventas y gastos", "Ligados a cada cliente y servicio.", False),
+            ("Ventas ligadas a cada cliente y servicio", "Sabes quién te compró qué, y alimentan tus métricas.", False),
+            ("Registro de gastos", "", False),
             ("Inventario", "Productos, existencias, aviso de poco stock y qué toca comprar.", False),
             ("Métricas y punto de equilibrio", "", False),
             ("Contabilidad", "Balance y estado de resultados.", False),
@@ -446,13 +448,14 @@ precios = f"""
     "Reserva en línea con tu link",
     "Clientes con historial, aunque solo te den su apodo",
     "Catálogo de servicios y precios",
+    "Ventas a mano y corte de caja del día",
     "Una cuenta de administrador",
 ])}
 {plan_card("Pro", "$249", "Para saber cuánto ganas de verdad.", [
     "Todo lo de Básico",
     "Las reservas en línea se acomodan solas en tu agenda",
     "Garantía opcional para asegurar cada reserva (próximamente)",
-    "Registro de ventas y gastos",
+    "Ventas ligadas a cliente y servicio, y gastos",
     "Métricas y punto de equilibrio",
     "Metas y estrategia de marketing",
     "Cuentas para tus colaboradores: +$100/mes c/u",
