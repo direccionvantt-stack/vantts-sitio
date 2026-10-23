@@ -305,6 +305,7 @@ PLANES_DETALLE = [
         ]),
         ("Clientes", [
             ("Clientes con historial", "Aunque solo te den su apodo; de paso o frecuentes.", False),
+            ("Niveles por visitas", "Tus clientes suben de nivel según cuántas veces vienen.", False),
             ("Listas de a quién llamar", "Quién lleva días sin venir, quién está en riesgo y quién no ha regresado, con botón de WhatsApp y mensaje listo.", False),
             ("Registro del cliente frecuente", "Le mandas un link y él llena sus datos.", False),
             ("Aviso de privacidad de tu barbería", "Listo para compartir con tus clientes.", False),
@@ -330,19 +331,19 @@ PLANES_DETALLE = [
         ("Dinero", [
             ("Ventas ligadas a cada cliente y servicio", "Sabes quién te compró qué, y alimentan tus métricas.", False),
             ("Inventario", "Productos, existencias, aviso de poco stock y qué toca comprar.", False),
-            ("Métricas y punto de equilibrio", "", False),
+            ("Métricas y punto de equilibrio", "Cómo va tu negocio en gráficas y cuánto necesitas vender para no perder.", False),
             ("Contabilidad", "Balance y estado de resultados.", False),
-            ("Reportes y resumen ejecutivo", "", False),
+            ("Reportes y resumen ejecutivo", "Movimientos, clientes, ventas por forma de pago, por barbero y por origen, y tus números clave en una pantalla.", False),
         ]),
         ("Marketing", [
-            ("Promociones y descuentos", "", False),
+            ("Promociones y descuentos", "Promociones con vigencia y descuentos de un solo uso.", False),
             ("Metas y estrategia de marketing", "Con ideas listas y guía por tema.", False),
             ("Avance de tus metas", "Línea de tiempo y gráfica de avance.", False),
         ]),
     ]),
     ("max", "Max", "$599", "Para hacer crecer tu negocio y a tus clientes fieles.", "", [
         ("Clientes fieles", [
-            ("Puntos y niveles por visitas", "Premias a tu cliente de siempre sin bajarle el precio.", False),
+            ("Puntos por visitas", "Premias a tu cliente de siempre sin bajarle el precio.", False),
             ("Membresía VIP de paga", "Cobras una membresía a tus clientes.", False),
             ("Fiado y por cobrar", "Ventas a crédito, abonos y recordatorio por WhatsApp.", False),
         ]),
