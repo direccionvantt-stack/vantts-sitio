@@ -160,8 +160,8 @@ PESTANAS = [
       "Te marca a quién toca llamarle (25 días sin venir), quién está en riesgo (45) y a quién ya perdiste (90).",
       "Le llamas o le escribes por WhatsApp con un toque."],
      "clientes.jpg", "Clientes con tarjetas de para llamar, en riesgo y nuevos sin regresar"),
-    ("ventas", "Ventas y caja", "Desde Pro", "Cada venta, ligada al cliente y al servicio",
-     ["Registras la venta en segundos: servicio, cliente y forma de pago.",
+    ("ventas", "Ventas y caja", "Desde Básico", "Tus ventas y tu caja, al día",
+     ["Anotas cada venta y su propina en segundos; desde el plan Pro, ligada al cliente y al servicio.",
       "Apuntas tus gastos del día.",
       "Con el cierre del día ves al momento si sobra o falta efectivo."],
      "ventas.jpg", "Formulario para registrar una venta"),
@@ -459,7 +459,7 @@ precios = f"""
     "Ventas ligadas a cada cliente y servicio",
     "Métricas y punto de equilibrio",
     "Metas y estrategia de marketing",
-    "Cuentas para tus colaboradores: +$100/mes c/u",
+    "Cuentas para tu equipo: +$100/mes por barbero después del primero",
 ], destacado=True)}
 {plan_card("Max", "$599", "Para hacer crecer tu negocio y a tus clientes fieles.", [
     "Todo lo de Pro",
@@ -468,7 +468,7 @@ precios = f"""
     "Calendario de contenido para redes",
     "Panel de IA con 500 créditos al mes",
     "Solicitudes de factura electrónica",
-    "Cuentas para tus colaboradores: +$100/mes c/u",
+    "Cuentas para tu equipo: +$100/mes por barbero después del primero",
 ])}
 {plan_card("Ultra", "", "Para facturar sin salir de VantTS Barber.", [
     "Todo lo de Max",
