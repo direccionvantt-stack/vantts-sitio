@@ -595,3 +595,137 @@ body.con-dialogo { overflow: hidden; }
   .plan-dialogo { transform: translateY(40px); }
   @starting-style { .plan-dialogo[open] { transform: translateY(40px); } }
 }
+
+/* ============================================================
+   v4 (1 nov 2026): inicio de VantTS como empresa + página de VantTS Barber
+   ============================================================ */
+.nav-links .nav-volver { border: 1px solid var(--borde); margin-left: 6px; }
+
+/* Hero: ventana de sistema (ilustración) + celular con VantTS Barber */
+.ventana {
+  position: absolute; right: 0; top: 24px; width: 82%; z-index: 1;
+  background: #fff; border: 1px solid var(--borde); border-radius: 18px; overflow: hidden;
+  box-shadow: var(--sombra-alta);
+}
+.ventana-barra { display: flex; align-items: center; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--borde); background: #F6F8F6; }
+.ventana-barra i { width: 10px; height: 10px; border-radius: 50%; background: #D9E0DC; }
+.ventana-barra span { flex: 1; height: 12px; margin-left: 14px; max-width: 220px; border-radius: 99px; background: #E7ECE9; }
+.ventana-cuerpo { display: grid; grid-template-columns: 110px 1fr; min-height: 360px; }
+.ventana-menu { background: var(--verde-profundo); padding: 18px 14px; display: grid; align-content: start; gap: 12px; }
+.ventana-menu b { width: 28px; height: 28px; border-radius: 8px; background: var(--menta); margin-bottom: 8px; }
+.ventana-menu span { height: 9px; border-radius: 99px; background: rgba(255, 255, 255, 0.18); }
+.ventana-menu span:nth-child(3) { background: rgba(159, 227, 190, 0.6); width: 80%; }
+.ventana-main { padding: 22px; display: grid; gap: 18px; align-content: start; }
+.ventana-titulo { width: 46%; height: 16px; border-radius: 99px; background: #DDE6E1; }
+.ventana-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ventana-kpis div { border: 1px solid var(--borde); border-radius: 12px; padding: 12px; display: grid; gap: 8px; }
+.ventana-kpis span { width: 60%; height: 7px; border-radius: 99px; background: #E4EAE6; }
+.ventana-kpis b { width: 80%; height: 14px; border-radius: 99px; background: var(--verde); opacity: 0.85; }
+.ventana-kpis div:nth-child(2) b { background: var(--cobre); }
+.ventana-grafica { height: 150px; display: flex; align-items: flex-end; gap: 10px; padding: 12px; border: 1px solid var(--borde); border-radius: 12px; }
+.ventana-grafica i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--menta-2), var(--menta)); }
+.ventana-grafica i:nth-child(6) { background: linear-gradient(180deg, var(--verde), var(--menta-2)); }
+.hero-visual-vantts .telefono-frente { width: 230px; left: 0; top: auto; bottom: 34px; }
+.hero-visual-vantts .chip-1 { left: auto; right: 4%; top: auto; bottom: 120px; }
+.hero-visual-vantts .chip-2 { right: auto; left: 34%; bottom: 20px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ventana { animation: m-sube 700ms var(--m-entrada, ease) both; }
+}
+
+/* Servicios (reusa las tarjetas .dolor) */
+.servicio h3 { font-size: 1.4rem; margin-bottom: 10px; }
+.servicio-ej { list-style: none; margin: 18px 0 0 0; padding: 16px 0 0 0; border-top: 1px solid var(--borde); display: grid; gap: 8px; }
+.servicio-ej li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; color: #3E4441; }
+.servicio-ej .ico { width: 18px; height: 18px; color: var(--verde); margin-top: 3px; }
+.otra-idea {
+  margin-top: 20px; display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center;
+  background: linear-gradient(135deg, var(--verde-suave) 0%, #fff 100%);
+  border: 1px dashed #BFD3C8; border-radius: var(--radio); padding: 26px 32px;
+}
+.otra-idea h3 { margin: 0 0 4px 0; }
+.otra-idea p { margin: 0; color: #4A504D; }
+.otra-idea-ico { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--verde); color: #fff; }
+.otra-idea-ico .ico { width: 26px; height: 26px; }
+
+/* Cómo trabajamos */
+.pasos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: paso; }
+.paso { position: relative; background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); padding: 28px 26px; box-shadow: var(--sombra); }
+.paso-num { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--verde); color: #fff; font-family: var(--font-head); font-weight: 600; margin-bottom: 18px; }
+.paso h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.paso p { margin: 0; color: #4A504D; font-size: 0.97rem; }
+.paso:not(:last-child)::after {
+  content: ""; position: absolute; top: 48px; right: -17px; width: 18px; height: 2px; background: #BFD3C8; z-index: 1;
+}
+
+/* Productos */
+.productos { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; align-items: stretch; }
+.producto { background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); box-shadow: var(--sombra); }
+.producto h3 { margin-bottom: 8px; }
+.producto-dest { display: grid; grid-template-columns: 1fr 180px; gap: 16px; padding: 36px 0 0 36px; overflow: hidden; border-radius: 28px; }
+.producto-dest-texto { padding-bottom: 36px; }
+.producto-dest-texto h3 { font-size: clamp(1.5rem, 2.4vw, 1.95rem); line-height: 1.12; margin: 18px 0 12px 0; }
+.producto-dest-texto > p { color: #4A504D; }
+.producto-dest-texto .lista-check { gap: 10px; margin-top: 18px; font-size: 0.97rem; }
+.producto-dest-texto .cta-fila { margin-bottom: 0; }
+.producto-marca { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 10px; font-family: var(--font-head); font-weight: 600; font-size: 1.15rem; color: var(--verde-profundo); }
+.producto-marca img { width: 40px; height: 40px; border-radius: 50%; }
+.producto-dest-visual { align-self: end; display: flex; justify-content: center; }
+.producto-dest-visual .telefono { width: 180px; border-radius: 38px 38px 0 0; padding-bottom: 0; margin: 0 0 -2px 0; }
+.producto-dest-visual .telefono img { border-radius: 30px 30px 0 0; height: 340px; object-fit: cover; object-position: top; }
+.productos-pronto { display: grid; gap: 16px; align-content: stretch; }
+.producto-pronto { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding: 22px 24px; background: #FAFBF9; border-style: dashed; box-shadow: none; }
+.producto-pronto h3 { font-size: 1.12rem; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0; }
+.producto-pronto p { margin: 0; color: #4A504D; font-size: 0.95rem; }
+.producto-pronto .producto-estado { margin-top: 8px; font-size: 0.82rem; font-weight: 600; color: var(--gris); }
+.producto-ico { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--verde-suave); color: var(--verde); }
+.producto-ico .ico { width: 24px; height: 24px; }
+
+/* Cómo cobramos (sección oscura) */
+.cobro-pasos { display: grid; gap: 14px; }
+.cobro-paso { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 22px; padding: 24px 26px; }
+.cobro-paso h3 { color: #fff; margin: 0 0 4px 0; }
+.cobro-paso p { margin: 0; color: #C6DACF; }
+.cobro-num { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--menta); color: var(--verde-profundo); font-family: var(--font-head); font-weight: 700; }
+.cobro-nota { font-size: 0.95rem; color: #A9C7B9; margin: 0; }
+.cobro-nota a, .seccion-oscura .lead a { color: var(--menta); }
+
+@media (max-width: 1080px) {
+  .pasos { grid-template-columns: repeat(2, 1fr); }
+  .paso:nth-child(2)::after { display: none; }
+  .productos { grid-template-columns: 1fr; }
+  .productos-pronto { grid-template-columns: repeat(3, 1fr); }
+  .producto-pronto { grid-template-columns: 1fr; }
+}
+@media (max-width: 920px) {
+  .nav-links .nav-volver { margin-left: 0; }
+  .ventana { width: 88%; }
+  .otra-idea { grid-template-columns: auto 1fr; }
+  .otra-idea .btn { grid-column: 1 / -1; justify-self: start; }
+}
+@media (max-width: 760px) {
+  .productos-pronto { grid-template-columns: 1fr; }
+  .producto-pronto { grid-template-columns: auto 1fr; }
+  .producto-dest { grid-template-columns: 1fr; padding: 28px 22px 0 22px; }
+  .producto-dest-texto { padding-bottom: 0; }
+}
+@media (max-width: 600px) {
+  .hero-visual-vantts { height: 450px; }
+  .confianza .contenedor { margin: 0 18px; }
+  .ventana { width: 100%; top: 0; }
+  .ventana-cuerpo { grid-template-columns: 64px 1fr; min-height: 280px; }
+  .ventana-menu { padding: 14px 10px; }
+  .ventana-main { padding: 14px; gap: 12px; }
+  .ventana-grafica { height: 110px; gap: 6px; }
+  .ventana-kpis { gap: 6px; }
+  .ventana-kpis div { padding: 8px; }
+  .hero-visual-vantts .telefono-frente { width: 150px; bottom: 44px; }
+  .hero-visual-vantts .chip-1 { right: 0; bottom: 170px; max-width: 190px; }
+  .hero-visual-vantts .chip-2 { left: auto; right: 0; bottom: 70px; max-width: 190px; }
+  .hero-visual-vantts .demo-nota { text-align: right; }
+  .pasos { grid-template-columns: 1fr; }
+  .paso::after { display: none; }
+  .otra-idea { grid-template-columns: 1fr; padding: 24px 22px; }
+  .otra-idea .btn { width: 100%; }
+  .producto-dest-visual .telefono img { height: 300px; }
+  .cobro-paso { padding: 20px; }
+}

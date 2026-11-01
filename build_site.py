@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """
-Genera el sitio de VantTS como una sola página (index.html), rediseño v3 (18 oct 2026).
+Genera el sitio de VantTS (v4, 1 nov 2026): dos páginas con el mismo diseño.
 
-Basado en la revisión de 69 páginas de inicio de empresas grandes de IA y software
-(Investigación/VantTS_Investigacion_Rediseno_del_sitio.docx): menú superior fijo,
-hero corto con el producto a la vista, franja de confianza, funciones contadas como
-resultados en pestañas, IA como función concreta, precios, preguntas frecuentes y
-cierre con WhatsApp. Todo en una sola página; las direcciones anteriores
-(solucion.html, precios.html, ...) redirigen a su sección.
+- index.html           Inicio de VantTS como empresa: software a la medida (sistemas,
+                       apps, automatización con IA y sitios web), cómo trabajamos, cómo
+                       cobramos (cotización + renta mensual), productos y contacto.
+- barber/index.html    Todo lo de VantTS Barber (antes era la página única v3): qué
+                       resuelve, cómo funciona, IA, caso Rocker Barber, precios y preguntas.
 
-Reglas: solo se dice lo que ya funciona en VantTS Barber (VTS-COM-06); las capturas
-son de la cuenta de demostración (datos inventados).
+Decisiones de Luis (1 nov 2026): inicio de empresa + página de Barber; anunciar
+sistemas, apps, IA y sitios web; precio de lo hecho a la medida por cotización + renta
+mensual; productos que vienen como "Próximamente".
+
+Reglas: solo se dice lo que ya funciona en VantTS Barber (VTS-COM-06); las capturas son
+de la cuenta de demostración (datos inventados). Las direcciones anteriores
+(solucion.html, precios.html, ...) y los enlaces viejos como /#precios llevan a su sección.
 """
 import os
 import datetime
@@ -18,22 +22,24 @@ import datetime
 OUT_DIR = os.environ.get("VANTTS_SITE_OUT", os.path.dirname(os.path.abspath(__file__)))
 ANIO = datetime.date.today().year
 
-# Menú superior: (id de la sección, texto)
-NAV = [
-    ("solucion", "Qué resuelve"),
-    ("funciones", "Cómo funciona"),
-    ("ia", "IA"),
-    ("precios", "Precios"),
-    ("preguntas", "Preguntas"),
-    ("nosotros", "Nosotros"),
-]
-# Páginas anteriores: se conservan como redirección a su sección
-PAGINAS_ANTERIORES = ["solucion", "precios", "casos", "nosotros", "contacto"]
-
 WHATSAPP = "https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20saber%20m%C3%A1s"
+WA_COTIZAR = "https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20y%20quiero%20cotizar%20un%20proyecto"
+WA_BARBER = "https://wa.me/523312506541?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20VantTS%20Barber%20y%20quiero%20saber%20m%C3%A1s"
 INSTAGRAM = "https://www.instagram.com/vantts.mx/"
 FACEBOOK = "https://www.facebook.com/profile.php?id=61595384815178"
 YOUTUBE = "https://www.youtube.com/@vantts_mx"
+
+# Secciones de VantTS Barber que antes vivían en el inicio: los enlaces viejos
+# (vantts.com.mx/#precios) se mandan a barber/#precios.
+SECCIONES_BARBER = ["solucion", "funciones", "ia", "precios"]
+# Páginas anteriores: se conservan como redirección a su sección
+PAGINAS_ANTERIORES = {
+    "solucion": "/barber/#solucion",
+    "precios": "/barber/#precios",
+    "casos": "/#casos",
+    "nosotros": "/#nosotros",
+    "contacto": "/#contacto",
+}
 
 
 def ico(path, cls="ico"):
@@ -54,8 +60,18 @@ I_TIJERA = ico('<circle cx="6.5" cy="7" r="2.5"/><circle cx="6.5" cy="17" r="2.5
 I_ESCUDO = ico('<path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/>')
 I_CHISPA = ico('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>')
 I_ARCHIVO = ico('<path d="M14 3.5H7.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8z"/><path d="M14 3.5V8h4.5M9 13h6M9 16.5h4"/>')
+# Íconos del inicio de VantTS (1 nov 2026)
+I_TABLERO = ico('<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9h17M9 9v10.5"/><path d="M12 13h5M12 16h3"/>')
+I_CELULAR = ico('<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/>')
+I_GLOBO = ico('<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17"/>')
+I_FOCO = ico('<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>')
+I_CODIGO = ico('<path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5M13.5 4.5l-3 15"/>')
+I_HERRAMIENTA = ico('<path d="M14.5 5.5a4 4 0 0 0-5.2 5.2L4 16v4h4l5.3-5.3a4 4 0 0 0 5.2-5.2l-2.6 2.6-2.6-.6-.6-2.6z"/>')
+I_HOJA = ico('<path d="M5 19c0-8 5-13.5 14.5-14.5C18.5 14 13 19 5 19z"/><path d="M5 19l7-7"/>')
+I_HUELLA = ico('<circle cx="7" cy="10" r="1.8"/><circle cx="11" cy="6.5" r="1.8"/><circle cx="15.5" cy="7.5" r="1.8"/><circle cx="18" cy="11.5" r="1.8"/><path d="M8.5 17.5c0-2.6 2-5 4.5-5s4 2 4 4c0 1.8-1.4 3-3.2 3-1 0-1.6-.4-2.3-.4s-1.3.4-2 .4c-.6 0-1-.6-1-2z"/>')
+I_TROFEO = ico('<path d="M8 4.5h8v5a4 4 0 0 1-8 0z"/><path d="M8 6.5H5a3 3 0 0 0 3 3.5M16 6.5h3a3 3 0 0 1-3 3.5M12 13.5v3.5M8.5 20h7M10 17h4v3h-4z"/>')
 
-# Pie de página: mismos íconos que la versión anterior
+# Pie de página
 ICO_TEL = ico('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>', "pie-ico")
 ICO_MAIL = ico('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>', "pie-ico")
 ICO_PIN = ico('<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>', "pie-ico")
@@ -66,35 +82,354 @@ ICO_FB = ico('<path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14
 ICO_YT = ico('<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z"/>', "pie-ico")
 
 
-def btn_wa(texto="Escríbeme por WhatsApp", cls="btn"):
-    return f'<a class="{cls}" href="{WHATSAPP}" target="_blank" rel="noopener">{I_WA}<span>{texto}</span></a>'
+def btn_wa(texto="Escríbeme por WhatsApp", cls="btn", url=WHATSAPP):
+    return f'<a class="{cls}" href="{url}" target="_blank" rel="noopener">{I_WA}<span>{texto}</span></a>'
 
 
-def telefono(src, alt, cls="telefono", carga="lazy"):
+def telefono(src, alt, cls="telefono", carga="lazy", a=""):
     extra = ' fetchpriority="high"' if carga == "eager" else ""
-    return f'<figure class="{cls}"><img src="assets/img/{src}" alt="{alt}" loading="{carga}"{extra} decoding="async" width="600" height="1153"></figure>'
+    return f'<figure class="{cls}"><img src="{a}assets/img/{src}" alt="{alt}" loading="{carga}"{extra} decoding="async" width="600" height="1153"></figure>'
 
 
-# ---------------------------------------------------------------------------
-# 1. INICIO (hero)
-# ---------------------------------------------------------------------------
-inicio = f"""
+def slug(t):
+    return t.lower().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(" ", "-")
+
+
+# ===========================================================================
+#  PÁGINA 1 · INICIO DE VANTTS (la empresa)
+# ===========================================================================
+
+NAV_VANTTS = [
+    ("servicios", "Servicios"),
+    ("proceso", "Cómo trabajamos"),
+    ("productos", "Productos"),
+    ("cobro", "Cómo cobramos"),
+    ("preguntas", "Preguntas"),
+    ("nosotros", "Nosotros"),
+]
+
+
+def v_inicio():
+    return f"""
   <section class="hero" id="inicio" aria-label="Inicio">
     <div class="hero-fondo" aria-hidden="true"></div>
     <div class="contenedor hero-grid">
       <div class="hero-texto">
-        <a class="pildora" href="#funciones"><img src="assets/img/vantts-barber-icono.png" alt="" width="22" height="22"><span>VantTS Barber · nuestro primer producto</span>{I_FLECHA}</a>
+        <a class="pildora" href="#productos"><img src="assets/img/icono.png" alt="" width="22" height="22"><span>Software a la medida + IA · Guadalajara</span>{I_FLECHA}</a>
+        <h1>La tecnología que tu negocio necesita, <span class="acento">hecha a tu medida.</span></h1>
+        <p class="lead">Sistemas, apps, sitios web y automatizaciones con inteligencia artificial. Nos cuentas cómo trabajas, lo construimos contigo y lo mantenemos funcionando con una renta mensual.</p>
+        <div class="cta-fila">
+          {btn_wa("Cuéntanos tu idea", url=WA_COTIZAR)}
+          <a class="btn btn-sec" href="#servicios"><span>Ver qué hacemos</span></a>
+        </div>
+        <p class="micro">{I_CHECK}Cotización sin costo <span class="punto">·</span> Trato directo <span class="punto">·</span> Hecho en Guadalajara</p>
+      </div>
+      <div class="hero-visual hero-visual-vantts" aria-label="Ejemplos de lo que construimos">
+        <div class="ventana" aria-hidden="true">
+          <div class="ventana-barra"><i></i><i></i><i></i><span></span></div>
+          <div class="ventana-cuerpo">
+            <div class="ventana-menu"><b></b><span></span><span></span><span></span><span></span></div>
+            <div class="ventana-main">
+              <div class="ventana-titulo"></div>
+              <div class="ventana-kpis"><div><span></span><b></b></div><div><span></span><b></b></div><div><span></span><b></b></div></div>
+              <div class="ventana-grafica"><i style="height:38%"></i><i style="height:56%"></i><i style="height:47%"></i><i style="height:72%"></i><i style="height:64%"></i><i style="height:88%"></i><i style="height:79%"></i></div>
+            </div>
+          </div>
+        </div>
+        {telefono("agenda.jpg", "Agenda de VantTS Barber, un sistema que construimos", "telefono telefono-frente", "eager")}
+        <div class="chip chip-1">{I_CODIGO}<span>Sistemas, apps y sitios hechos para tu negocio</span></div>
+        <div class="chip chip-2">{I_CHISPA}<span>IA que trabaja con los datos de tu negocio</span></div>
+        <p class="demo-nota">Celular: VantTS Barber, cuenta de demostración · datos inventados</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="confianza" aria-label="Por qué trabajar con nosotros">
+    <div class="contenedor confianza-grid">
+      <div class="conf">{I_HERRAMIENTA}<p><strong>A tu medida</strong><span>no una plantilla genérica</span></p></div>
+      <div class="conf">{I_DINERO}<p><strong>Cotización sin costo</strong><span>sabes cuánto antes de empezar</span></p></div>
+      <div class="conf">{I_CALENDARIO}<p><strong>Renta mensual</strong><span>con mantenimiento</span></p></div>
+      <div class="conf">{I_TIENDA}<p><strong>Ya funciona</strong><span>en Rocker Barber, Guadalajara</span></p></div>
+    </div>
+  </section>
+"""
+
+
+def servicio(icono, titulo, texto, ejemplos):
+    lis = "".join(f"<li>{I_CHECK}<span>{e}</span></li>" for e in ejemplos)
+    return f"""
+        <article class="dolor servicio revelar">
+          <div class="dolor-ico">{icono}</div>
+          <h3>{titulo}</h3>
+          <p class="dolor-resp">{texto}</p>
+          <ul class="servicio-ej">{lis}</ul>
+        </article>"""
+
+
+def v_servicios():
+    return f"""
+  <section class="seccion" id="servicios" aria-label="Servicios">
+    <div class="contenedor">
+      <div class="encabezado">
+        <p class="eyebrow">Qué hacemos</p>
+        <h2>Si tu negocio lo necesita, lo construimos</h2>
+        <p class="lead">No vendemos un solo programa: hacemos la herramienta que tu negocio necesita, con tus procesos y tu forma de trabajar.</p>
+      </div>
+      <div class="dolores servicios">
+{servicio(I_TABLERO, "Sistemas para tu negocio", "Software de gestión hecho con tus procesos, para que dejes el cuaderno y el Excel.", ["Citas, agenda y reservas", "Inventario, compras y proveedores", "Ventas, caja, clientes y reportes"])}
+{servicio(I_CELULAR, "Apps web y móviles", "Aplicaciones para tus clientes o para tu equipo, que se usan desde el celular o la computadora.", ["Reservas o pedidos de tus clientes", "Una app interna para tu equipo", "Un portal para tus clientes"])}
+{servicio(I_CHISPA, "Automatización con IA", "Lo que hoy se hace a mano, hecho solo; y una IA que responde con los datos de tu negocio.", ["Asistentes que conocen tu negocio", "Reportes y avisos automáticos", "Pasar tus datos de Excel a tu sistema"])}
+{servicio(I_GLOBO, "Sitios web", "La página de tu negocio, que se ve bien en el celular y que mantenemos al día.", ["Página de tu negocio o tu marca", "Catálogo, menú o lista de servicios", "Botón para que te escriban por WhatsApp"])}
+      </div>
+      <div class="otra-idea revelar">
+        <div class="otra-idea-ico">{I_FOCO}</div>
+        <div>
+          <h3>¿Tienes otra idea?</h3>
+          <p>Si es tecnología, cuéntanosla. Te decimos con honestidad si podemos hacerla y cómo la haríamos.</p>
+        </div>
+        {btn_wa("Cuéntanos tu idea", "btn btn-sec", WA_COTIZAR)}
+      </div>
+    </div>
+  </section>
+"""
+
+
+PASOS = [
+    ("Nos cuentas", "Por WhatsApp o en persona: qué haces, qué te quita tiempo y qué quieres lograr."),
+    ("Te cotizamos sin costo", "Te decimos qué construiríamos, en cuánto tiempo y cuánto cuesta, antes de empezar."),
+    ("Lo construimos contigo", "Te enseñamos avances y lo ajustamos con lo que nos dices, como hicimos con los barberos de VantTS Barber."),
+    ("Lo mantenemos cada mes", "Con la renta mensual lo mantenemos funcionando y te ayudamos cuando algo no te salga."),
+]
+
+
+def v_proceso():
+    pasos = "".join(f"""
+        <li class="paso revelar"><span class="paso-num">{i + 1:02d}</span><h3>{t}</h3><p>{d}</p></li>""" for i, (t, d) in enumerate(PASOS))
+    return f"""
+  <section class="seccion seccion-alt" id="proceso" aria-label="Cómo trabajamos">
+    <div class="contenedor">
+      <div class="encabezado">
+        <p class="eyebrow">Cómo trabajamos</p>
+        <h2>De tu idea a algo que ya funciona</h2>
+        <p class="lead">Cuatro pasos, sin tecnicismos. Hablas siempre con quien lo construye.</p>
+      </div>
+      <ol class="pasos">{pasos}
+      </ol>
+    </div>
+  </section>
+"""
+
+
+def producto_chico(icono, nombre, texto, estado):
+    return f"""
+          <article class="producto producto-pronto revelar">
+            <div class="producto-ico">{icono}</div>
+            <div>
+              <h3>{nombre} <span class="pd-pronto">Próximamente</span></h3>
+              <p>{texto}</p>
+              <p class="producto-estado">{estado}</p>
+            </div>
+          </article>"""
+
+
+def v_productos():
+    return f"""
+  <section class="seccion" id="productos" aria-label="Productos">
+    <div class="contenedor">
+      <div class="encabezado">
+        <p class="eyebrow">Productos</p>
+        <h2>Soluciones listas para tu giro</h2>
+        <p class="lead">Además de lo hecho a la medida, tenemos productos propios para giros específicos. Los construimos con negocios reales y solo ofrecemos lo que ya probamos.</p>
+      </div>
+      <div class="productos">
+        <article class="producto producto-dest revelar">
+          <div class="producto-dest-texto">
+            <span class="producto-marca"><img src="assets/img/vantts-barber-icono.png" alt="" width="40" height="40">VantTS Barber <span class="giro-tag on">Disponible</span></span>
+            <h3>Cuánto gana tu barbería, sin adivinar</h3>
+            <p>Tu agenda, tus clientes y tus ventas en un solo lugar, para barberías y salones. Tus clientes reservan solos con tu link y tú ves cuánto ganas de verdad.</p>
+            <ul class="lista-check">
+              <li>{I_CHECK}<span>Plan Básico gratis; Pro $249 y Max $599 al mes, IVA incluido</span></li>
+              <li>{I_CHECK}<span>Sin comisión por cita y mes a mes</span></li>
+              <li>{I_CHECK}<span>Ya funciona en Rocker Barber, Guadalajara</span></li>
+            </ul>
+            <div class="cta-fila">
+              <a class="btn" href="barber/"><span>Conoce VantTS Barber</span>{I_FLECHA}</a>
+              <a class="btn btn-sec" href="barber/#precios"><span>Ver precios</span></a>
+            </div>
+          </div>
+          <div class="producto-dest-visual">{telefono("clientes.jpg", "Clientes en VantTS Barber, con historial y a quién llamar")}</div>
+        </article>
+        <div class="productos-pronto">
+{producto_chico(I_HOJA, "VantTS Salud y Bienestar", "Para masajes y bienestar: citas, clientes y una ficha de bienestar con el consentimiento de tu cliente.", "En desarrollo")}
+{producto_chico(I_HUELLA, "VantTS Vet", "Para clínicas veterinarias: pacientes, hospitalización y reportes.", "En planeación")}
+{producto_chico(I_TROFEO, "VantTS Life", "Tu agenda personal convertida en juego: tus pendientes son misiones que te dan niveles y recompensas.", "Para personas, no solo negocios")}
+        </div>
+      </div>
+    </div>
+  </section>
+"""
+
+
+def v_cobro():
+    return f"""
+  <section class="seccion seccion-oscura" id="cobro" aria-label="Cómo cobramos">
+    <div class="contenedor ia-grid">
+      <div class="ia-texto">
+        <p class="eyebrow eyebrow-claro">{I_DINERO}Cómo cobramos</p>
+        <h2>Una cotización clara y una renta mensual</h2>
+        <p class="lead">Cada negocio necesita algo distinto, por eso lo hecho a la medida no tiene un precio fijo: primero entendemos lo que necesitas y después te decimos cuánto cuesta.</p>
+        <div class="cta-fila">{btn_wa("Pide tu cotización", "btn btn-claro", WA_COTIZAR)}</div>
+        <p class="cobro-nota">¿Tienes barbería o salón? <a href="barber/#precios">VantTS Barber</a> ya tiene precio fijo y un plan gratis.</p>
+      </div>
+      <div class="cobro-pasos">
+        <div class="cobro-paso"><span class="cobro-num">1</span><div><h3>El desarrollo</h3><p>Te lo cotizamos sin costo, según lo que de verdad necesitas.</p></div></div>
+        <div class="cobro-paso"><span class="cobro-num">2</span><div><h3>La renta mensual</h3><p>Incluye el mantenimiento, para que tu sistema siga funcionando.</p></div></div>
+      </div>
+    </div>
+  </section>
+"""
+
+
+def v_casos():
+    return f"""
+  <section class="seccion" id="casos" aria-label="Casos">
+    <div class="contenedor">
+      <div class="caso revelar">
+        <div class="caso-texto">
+          <p class="eyebrow">Caso real</p>
+          <h2>Lo que ya construimos: Rocker Barber</h2>
+          <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber, el sistema que construimos con ellos.</p>
+          <p class="caso-nota">Estamos midiendo resultados con ellos. En cuanto tengamos números, los vas a ver aquí: preferimos enseñar resultados reales, no promesas.</p>
+          <div class="cta-fila"><a class="btn btn-sec" href="barber/"><span>Ver VantTS Barber</span>{I_FLECHA}</a></div>
+        </div>
+        <div class="caso-datos">
+          <div class="dato"><strong>+2 años</strong><span>operando en Guadalajara</span></div>
+          <div class="dato"><strong>1 sistema</strong><span>agenda, clientes y ventas juntos</span></div>
+          <div class="dato"><strong>Con ellos</strong><span>lo construimos con barberos, para barberos</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+"""
+
+
+FAQ_VANTTS = [
+    ("¿Qué tipo de proyectos hacen?", "Sistemas de gestión, apps web y móviles, automatizaciones con inteligencia artificial y sitios web. Si tienes otra idea, cuéntanos y te decimos con honestidad si podemos hacerla."),
+    ("¿Cuánto cuesta?", "Depende de lo que necesites. Te cotizamos sin costo el desarrollo y una renta mensual que incluye el mantenimiento. Sabes cuánto es antes de empezar."),
+    ("¿Cuánto tiempo tarda?", "Depende del tamaño del proyecto. Te lo decimos en la cotización, junto con el precio."),
+    ("¿Necesito saber de computación?", "No. Tú nos explicas cómo trabajas y nosotros nos encargamos de la parte técnica. Lo hacemos simple, para que lo use cualquiera en tu negocio."),
+    ("¿Usan inteligencia artificial?", "Sí: nos ayuda a construir y, cuando de verdad sirve, va dentro de lo que hacemos. Por ejemplo, el panel de IA de VantTS Barber le contesta al dueño con los números de su propio negocio."),
+    ("Tengo una barbería o un salón, ¿qué me conviene?", "VantTS Barber: ya está listo, tiene un plan gratis y precios fijos. Si necesitas algo que no tiene, lo platicamos."),
+]
+
+
+def faq_html(lista):
+    return "\n".join(f"""        <details class="faq-item">
+          <summary><span>{p}</span><span class="faq-mas" aria-hidden="true"></span></summary>
+          <p>{r}</p>
+        </details>""" for p, r in lista)
+
+
+def seccion_preguntas(lista, wa):
+    return f"""
+  <section class="seccion seccion-alt" id="preguntas" aria-label="Preguntas frecuentes">
+    <div class="contenedor faq-grid">
+      <div class="encabezado encabezado-izq">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>Lo que más nos preguntan</h2>
+        <p class="lead">¿Tienes otra duda? Escríbenos y te contestamos nosotros, no un robot.</p>
+        {btn_wa("Pregúntanos por WhatsApp", "btn btn-sec", wa)}
+      </div>
+      <div class="faq">
+{faq_html(lista)}
+      </div>
+    </div>
+  </section>
+"""
+
+
+def v_nosotros():
+    return """
+  <section class="seccion" id="nosotros" aria-label="Nosotros">
+    <div class="contenedor nosotros-grid">
+      <div>
+        <p class="eyebrow">Nosotros</p>
+        <h2>Por qué existe VantTS</h2>
+        <p class="lead">VantTS nace en Guadalajara con una idea simple: los pequeños negocios merecen tecnología pensada para ellos, no versiones reducidas de software para empresas grandes.</p>
+        <p>Detrás de VantTS está Luis P. Reyes, construyendo la empresa desde cero y aprendiendo en el camino, con apoyo de inteligencia artificial para desarrollar cada proyecto. Empezamos con VantTS Barber y hoy construimos para cualquier negocio que lo necesite. Todavía estamos en una etapa temprana: preferimos construir bien antes que construir rápido.</p>
+      </div>
+      <div class="mision revelar" id="mision">
+        <p class="eyebrow">Nuestra misión</p>
+        <p class="mision-texto">Ayudar a los pequeños negocios de México a digitalizar su operación y entender su rentabilidad real, empezando por barberías y estéticas en Guadalajara y creciendo giro por giro.</p>
+        <ul class="giros">
+          <li><span class="giro-tag on">Hoy</span>Barberías y salones</li>
+          <li><span class="giro-tag">En desarrollo</span>Masajes y bienestar</li>
+          <li><span class="giro-tag">En planeación</span>Veterinarias</li>
+          <li><span class="giro-tag">En análisis</span>Abarrotes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+"""
+
+
+def v_contacto():
+    return f"""
+  <section class="cierre" id="contacto" aria-label="Contacto">
+    <div class="contenedor cierre-grid">
+      <div>
+        <h2>¿Qué quieres construir?</h2>
+        <p class="lead">Escríbenos por WhatsApp y cuéntanos tu idea. Te contestamos nosotros y te cotizamos sin costo.</p>
+        <div class="cta-fila">{btn_wa("Cuéntanos tu idea", "btn btn-claro", WA_COTIZAR)}</div>
+      </div>
+{lista_contacto(WA_COTIZAR)}
+    </div>
+  </section>
+"""
+
+
+def lista_contacto(wa):
+    return f"""      <ul class="contacto-lista">
+        <li><span class="etiqueta">WhatsApp</span><a href="{wa}" target="_blank" rel="noopener">33 1250 6541</a></li>
+        <li><span class="etiqueta">Correo</span><a href="mailto:direccion@vantts.com.mx">direccion@vantts.com.mx</a></li>
+        <li><span class="etiqueta">Ubicación</span>Guadalajara, Jalisco</li>
+        <li><span class="etiqueta">Redes</span><span><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a> · <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YOUTUBE}" target="_blank" rel="noopener">YouTube</a></span></li>
+      </ul>"""
+
+
+# ===========================================================================
+#  PÁGINA 2 · VANTTS BARBER (barber/index.html)
+#  Los textos son los mismos de la página única v3; solo cambian las rutas (../).
+# ===========================================================================
+
+NAV_BARBER = [
+    ("solucion", "Qué resuelve"),
+    ("funciones", "Cómo funciona"),
+    ("ia", "IA"),
+    ("precios", "Precios"),
+    ("preguntas", "Preguntas"),
+]
+A = "../"  # rutas de assets e inicio desde barber/
+
+
+def b_inicio():
+    return f"""
+  <section class="hero" id="inicio" aria-label="Inicio">
+    <div class="hero-fondo" aria-hidden="true"></div>
+    <div class="contenedor hero-grid">
+      <div class="hero-texto">
+        <a class="pildora" href="{A}#productos"><img src="{A}assets/img/vantts-barber-icono.png" alt="" width="22" height="22"><span>VantTS Barber · un producto de VantTS</span>{I_FLECHA}</a>
         <h1>Cuánto gana tu barbería, <span class="acento">sin adivinar.</span></h1>
         <p class="lead">Tu agenda, tus clientes y tus ventas en un solo lugar, para que sepas cuánto ganas de verdad. Tus clientes siguen siendo tuyos.</p>
         <div class="cta-fila">
-          {btn_wa()}
+          {btn_wa(url=WA_BARBER)}
           <a class="btn btn-sec" href="#funciones"><span>Ver cómo funciona</span></a>
         </div>
         <p class="micro">{I_CHECK}Plan Básico gratis <span class="punto">·</span> IVA incluido <span class="punto">·</span> Mes a mes</p>
       </div>
       <div class="hero-visual" aria-label="Capturas de VantTS Barber">
-        {telefono("agenda.jpg", "Agenda de la semana en VantTS Barber, con citas de varios barberos", "telefono telefono-atras", "eager")}
-        {telefono("metricas.jpg", "Métricas del mes: punto de equilibrio y ventas", "telefono telefono-frente", "eager")}
+        {telefono("agenda.jpg", "Agenda de la semana en VantTS Barber, con citas de varios barberos", "telefono telefono-atras", "eager", A)}
+        {telefono("metricas.jpg", "Métricas del mes: punto de equilibrio y ventas", "telefono telefono-frente", "eager", A)}
         <div class="chip chip-1">{I_CALENDARIO}<span>Tus clientes reservan solos con tu link</span></div>
         <div class="chip chip-2">{I_DINERO}<span>Ves cuánto te falta para cubrir tus gastos</span></div>
         <p class="demo-nota">Cuenta de demostración · datos inventados</p>
@@ -112,9 +447,7 @@ inicio = f"""
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# 2. QUÉ RESUELVE (los 4 dolores de VTS-COM-06)
-# ---------------------------------------------------------------------------
+
 def dolor(icono, frase, respuesta):
     return f"""
         <article class="dolor revelar">
@@ -123,7 +456,9 @@ def dolor(icono, frase, respuesta):
           <p class="dolor-resp">{respuesta}</p>
         </article>"""
 
-solucion = f"""
+
+def b_solucion():
+    return f"""
   <section class="seccion" id="solucion" aria-label="Qué resuelve">
     <div class="contenedor">
       <div class="encabezado">
@@ -132,8 +467,8 @@ solucion = f"""
         <p class="lead">Lo que nos contaron los barberos que entrevistamos, y lo que VantTS Barber hace con eso.</p>
       </div>
       <div class="dolores">
-{dolor(I_DINERO, "No sé cuánto gano ni cuántos clientes atiendo.", "Cada venta queda ligada al cliente y al servicio, y ves cuánto llevas vendido en el mes y cuánto te falta para cubrir tus gastos.")}
-{dolor(I_TIJERA, "Le cobro menos a mi cliente de siempre para no perderlo.", "Ves el historial de visitas de cada cliente: el dato para poner tu precio con números, no con miedo. En Max, puntos y niveles para premiarlo sin bajar el precio.")}
+{dolor(I_DINERO, "No sé cuánto gano ni cuántos clientes atiendo.", "Desde el plan Pro, cada venta queda ligada al cliente y al servicio, y ves cuánto llevas vendido en el mes y cuánto te falta para cubrir tus gastos.")}
+{dolor(I_TIJERA, "Le cobro menos a mi cliente de siempre para no perderlo.", "Ves el historial de visitas de cada cliente: el dato para poner tu precio con números, no con miedo. En Max, puntos para premiarlo sin bajar el precio.")}
 {dolor(I_CHAT, "Mis citas y mis clientes están en WhatsApp.", "Mandas tu link y tu cliente elige servicio, día y hora. Desde el plan Pro, la cita entra sola a tu agenda.")}
 {dolor(I_ESCUDO, "No confío en sistemas de otros.", "No hay directorio que te ponga junto a otras barberías ni comisión por cita. Es mes a mes y, si un día te vas, tienes 30 días para bajar tus datos.")}
       </div>
@@ -141,9 +476,7 @@ solucion = f"""
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# 3. CÓMO FUNCIONA (pestañas con capturas de la cuenta demo)
-# ---------------------------------------------------------------------------
+
 PESTANAS = [
     ("reservas", "Reservas", "Desde Básico", "Tu cliente reserva solo, con tu link",
      ["Elige barbero, servicio, día y hora desde tu link o tu código QR.",
@@ -189,13 +522,14 @@ def pestanas_html():
 {lis}
             </ul>
           </div>
-          <div class="panel-visual">{telefono(img, alt)}</div>
+          <div class="panel-visual">{telefono(img, alt, a=A)}</div>
         </div>""")
     return "\n          ".join(botones), "".join(paneles)
 
 
-_botones, _paneles = pestanas_html()
-funciones = f"""
+def b_funciones():
+    _botones, _paneles = pestanas_html()
+    return f"""
   <section class="seccion seccion-alt" id="funciones" aria-label="Cómo funciona">
     <div class="contenedor">
       <div class="encabezado">
@@ -212,10 +546,9 @@ funciones = f"""
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# 4. IA (función concreta, desde Max)
-# ---------------------------------------------------------------------------
-ia = f"""
+
+def b_ia():
+    return f"""
   <section class="seccion seccion-oscura" id="ia" aria-label="Inteligencia artificial">
     <div class="contenedor ia-grid">
       <div class="ia-texto">
@@ -239,10 +572,9 @@ ia = f"""
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# 5. CASO (Rocker Barber)
-# ---------------------------------------------------------------------------
-casos = f"""
+
+def b_casos():
+    return """
   <section class="seccion" id="casos" aria-label="Casos">
     <div class="contenedor">
       <div class="caso revelar">
@@ -262,9 +594,7 @@ casos = f"""
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# 6. PRECIOS (mismos 4 planes y textos vigentes)
-# ---------------------------------------------------------------------------
+
 def plan_card(nombre, precio, subtitulo, items, destacado=False, proximo=False):
     cls = "plan destacado" if destacado else ("plan proximo" if proximo else "plan")
     etiqueta = '<div class="plan-etiqueta">Recomendado</div>' if destacado else ('<div class="plan-etiqueta">Próximamente</div>' if proximo else "")
@@ -282,10 +612,6 @@ def plan_card(nombre, precio, subtitulo, items, destacado=False, proximo=False):
           </ul>
           <button type="button" class="plan-ver" data-plan="{pid}" aria-haspopup="dialog">Ver todo lo que incluye{I_FLECHA}</button>
         </div>"""
-
-
-def slug(t):
-    return t.lower().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(" ", "-")
 
 
 # Lista completa de funciones por plan (fuente: docs del proyecto, revisados el 22 oct 2026;
@@ -431,18 +757,19 @@ def plan_dialogo():
         <div class="pd-todos"><h4>En todos los planes</h4><ul>{todos}</ul></div>
         <p class="pd-leyenda"><span class="pd-pronto">Próximamente</span> Ya está en camino; te avisamos cuando esté lista para tu negocio.</p>
       </div>
-      <div class="pd-pie"><a class="btn" href="{WHATSAPP}" target="_blank" rel="noopener">{I_WA}<span>Pregúntanos por WhatsApp</span></a></div>
+      <div class="pd-pie"><a class="btn" href="{WA_BARBER}" target="_blank" rel="noopener">{I_WA}<span>Pregúntanos por WhatsApp</span></a></div>
     </div>
   </dialog>"""
 
 
-precios = f"""
+def b_precios():
+    return f"""
   <section class="seccion seccion-alt" id="precios" aria-label="Precios">
     <div class="contenedor">
       <div class="encabezado">
         <p class="eyebrow">Precios</p>
         <h2>Empieza gratis. Paga cuando veas el valor.</h2>
-        <p class="lead">Cuatro planes claros, con IVA incluido y sin letras chiquitas. Hoy están pensados para barberías y salones; si tu negocio es de otro giro, te cotizamos según lo que de verdad necesites.</p>
+        <p class="lead">Cuatro planes claros, con IVA incluido y sin letras chiquitas, pensados para barberías y salones. Si tu negocio es de otro giro, <a href="{A}#servicios">te construimos algo a tu medida</a>.</p>
       </div>
       <div class="planes">
 {plan_card("Básico", "$0", "Para empezar a ordenar tu negocio sin riesgo.", [
@@ -464,7 +791,7 @@ precios = f"""
 ], destacado=True)}
 {plan_card("Max", "$599", "Para hacer crecer tu negocio y a tus clientes fieles.", [
     "Todo lo de Pro",
-    "Fidelidad: puntos y niveles por visitas",
+    "Fidelidad: puntos por visitas",
     "Membresías VIP de paga para tus clientes",
     "Calendario de contenido para redes",
     "Panel de IA con 500 créditos al mes",
@@ -483,10 +810,8 @@ precios = f"""
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# 7. PREGUNTAS FRECUENTES
-# ---------------------------------------------------------------------------
-FAQ = [
+
+FAQ_BARBER = [
     ("¿Los precios incluyen IVA?", "Sí. El precio que ves es el que pagas."),
     ("¿Y si con el plan Básico me basta?", "Te quedas en Básico, que es gratis, sin presión. Preferimos que pagues cuando de verdad veas el valor."),
     ("¿Mis clientes siguen siendo míos?", "Sí. No hay directorio que te ponga junto a otras barberías y no cobramos comisión por cita ni por cliente. Si un día te vas, tienes 30 días para bajar tus datos."),
@@ -494,117 +819,68 @@ FAQ = [
     ("¿Mi cliente tiene que descargar una app?", "No. Reserva desde tu link o tu código QR, en el navegador de su celular."),
     ("¿Sirve si tengo varios barberos?", "Sí. Cada barbero tiene su agenda y tu cliente elige con quién reservar; tú decides qué ve cada quien y ves cuánto vendió cada uno. Las cuentas para tu equipo van desde el plan Pro, con +$100 al mes por colaborador."),
     ("¿Puedo cancelar cuando quiera?", "Sí. Es mes a mes, sin plazo forzoso."),
-    ("Mi negocio no es barbería ni salón, ¿me sirve?", "Vamos giro por giro y solo ofrecemos lo que ya probamos. Escríbenos y te decimos con honestidad si hoy VantTS le sirve a tu negocio."),
+    ("Mi negocio no es barbería ni salón, ¿me sirve?", f'VantTS Barber está hecho para barberías y salones. Para otro giro, <a href="{A}#servicios">te construimos un sistema a tu medida</a>: escríbenos y te cotizamos sin costo.'),
 ]
 
-faq_items = "\n".join(f"""        <details class="faq-item">
-          <summary><span>{p}</span><span class="faq-mas" aria-hidden="true"></span></summary>
-          <p>{r}</p>
-        </details>""" for p, r in FAQ)
 
-preguntas = f"""
-  <section class="seccion" id="preguntas" aria-label="Preguntas frecuentes">
-    <div class="contenedor faq-grid">
-      <div class="encabezado encabezado-izq">
-        <p class="eyebrow">Preguntas frecuentes</p>
-        <h2>Lo que más nos preguntan</h2>
-        <p class="lead">¿Tienes otra duda? Escríbenos y te contestamos nosotros, no un robot.</p>
-        {btn_wa("Pregúntanos por WhatsApp", "btn btn-sec")}
-      </div>
-      <div class="faq">
-{faq_items}
-      </div>
-    </div>
-  </section>
-"""
-
-# ---------------------------------------------------------------------------
-# 8. NOSOTROS
-# ---------------------------------------------------------------------------
-nosotros = f"""
-  <section class="seccion seccion-alt" id="nosotros" aria-label="Nosotros">
-    <div class="contenedor nosotros-grid">
-      <div>
-        <p class="eyebrow">Nosotros</p>
-        <h2>Por qué existe VantTS</h2>
-        <p class="lead">VantTS nace en Guadalajara con una idea simple: los pequeños negocios de servicios merecen herramientas de gestión pensadas para ellos, no versiones reducidas de software para empresas grandes.</p>
-        <p>Detrás de VantTS está Luis P. Reyes, construyendo la empresa desde cero y aprendiendo en el camino, con apoyo de inteligencia artificial para desarrollar el producto. Todavía estamos en una etapa temprana: preferimos construir bien antes que construir rápido.</p>
-      </div>
-      <div class="mision revelar" id="mision">
-        <p class="eyebrow">Nuestra misión</p>
-        <p class="mision-texto">Ayudar a los pequeños negocios de México a digitalizar su operación y entender su rentabilidad real, empezando por barberías y estéticas en Guadalajara y creciendo giro por giro.</p>
-        <ul class="giros">
-          <li><span class="giro-tag on">Hoy</span>Barberías y salones</li>
-          <li><span class="giro-tag">En desarrollo</span>Masajes y bienestar</li>
-          <li><span class="giro-tag">En planeación</span>Veterinarias</li>
-          <li><span class="giro-tag">En análisis</span>Abarrotes</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-"""
-
-# ---------------------------------------------------------------------------
-# 9. CONTACTO (cierre)
-# ---------------------------------------------------------------------------
-contacto = f"""
+def b_contacto():
+    return f"""
   <section class="cierre" id="contacto" aria-label="Contacto">
     <div class="contenedor cierre-grid">
       <div>
         <h2>¿Lo vemos juntos?</h2>
         <p class="lead">Escríbeme por WhatsApp y te enseño VantTS Barber con la cuenta de demostración. Es la forma más rápida de contactarnos.</p>
-        <div class="cta-fila">{btn_wa("Escríbeme por WhatsApp", "btn btn-claro")}</div>
+        <div class="cta-fila">{btn_wa("Escríbeme por WhatsApp", "btn btn-claro", WA_BARBER)}</div>
       </div>
-      <ul class="contacto-lista">
-        <li><span class="etiqueta">WhatsApp</span><a href="{WHATSAPP}" target="_blank" rel="noopener">33 1250 6541</a></li>
-        <li><span class="etiqueta">Correo</span><a href="mailto:direccion@vantts.com.mx">direccion@vantts.com.mx</a></li>
-        <li><span class="etiqueta">Ubicación</span>Guadalajara, Jalisco</li>
-        <li><span class="etiqueta">Redes</span><span><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a> · <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YOUTUBE}" target="_blank" rel="noopener">YouTube</a></span></li>
-      </ul>
+{lista_contacto(WA_BARBER)}
     </div>
   </section>
 """
 
-# ---------------------------------------------------------------------------
-# PIE DE PÁGINA (franja verde, propuesta A)
-# ---------------------------------------------------------------------------
-FOOTER = f"""<footer class="pie">
+
+# ===========================================================================
+#  PIEZAS COMUNES: menú, pie de página y esqueleto de la página
+# ===========================================================================
+
+def footer(h, b, wa):
+    """h: ruta al inicio ("" o "../"); b: ruta a la página de Barber ("barber/" o "")."""
+    return f"""<footer class="pie">
   <div class="pie-columnas">
     <div class="pie-marca">
-      <span class="pie-logo"><img class="logo-ico" src="assets/img/icono.png" alt="" width="36" height="36"><img src="assets/img/wordmark-claro.png" alt="VantTS" width="150" height="28"></span>
+      <span class="pie-logo"><img class="logo-ico" src="{h}assets/img/icono.png" alt="" width="36" height="36"><img src="{h}assets/img/wordmark-claro.png" alt="VantTS" width="150" height="28"></span>
       <p>Software de gestión + IA para negocios.</p>
     </div>
     <div>
-      <h4>Producto</h4>
+      <h4>Servicios</h4>
       <ul>
-        <li><a href="#solucion">Qué resuelve</a></li>
-        <li><a href="#funciones">Cómo funciona</a></li>
-        <li><a href="#precios">Planes y precios</a></li>
-        <li><a href="#casos">Casos</a></li>
+        <li><a href="{h}#servicios">Sistemas para tu negocio</a></li>
+        <li><a href="{h}#servicios">Apps web y móviles</a></li>
+        <li><a href="{h}#servicios">Automatización con IA</a></li>
+        <li><a href="{h}#servicios">Sitios web</a></li>
       </ul>
     </div>
     <div>
-      <h4>Giros</h4>
+      <h4>Productos</h4>
       <ul>
-        <li><a href="#funciones">Barberías y salones</a><span class="pie-tag on">Hoy</span></li>
-        <li>Masajes y bienestar<span class="pie-tag">En desarrollo</span></li>
-        <li>Veterinarias<span class="pie-tag">En planeación</span></li>
-        <li>Abarrotes<span class="pie-tag">En análisis</span></li>
+        <li><a href="{b or './'}">VantTS Barber</a><span class="pie-tag on">Hoy</span></li>
+        <li>VantTS Salud y Bienestar<span class="pie-tag">Próximamente</span></li>
+        <li>VantTS Vet<span class="pie-tag">Próximamente</span></li>
+        <li>VantTS Life<span class="pie-tag">Próximamente</span></li>
       </ul>
     </div>
     <div>
       <h4>Empresa</h4>
       <ul>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#mision">Nuestra misión</a></li>
-        <li><a href="#preguntas">Preguntas frecuentes</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="{h}#nosotros">Nosotros</a></li>
+        <li><a href="{h}#mision">Nuestra misión</a></li>
+        <li><a href="{h}#proceso">Cómo trabajamos</a></li>
+        <li><a href="{h}#contacto">Contacto</a></li>
       </ul>
     </div>
     <div>
       <h4>Hablemos</h4>
       <ul>
-        <li><a href="{WHATSAPP}" target="_blank" rel="noopener">{ICO_TEL}33 1250 6541</a></li>
+        <li><a href="{wa}" target="_blank" rel="noopener">{ICO_TEL}33 1250 6541</a></li>
         <li><a href="mailto:direccion@vantts.com.mx">{ICO_MAIL}direccion@vantts.com.mx</a></li>
         <li>{ICO_PIN}Guadalajara, Jalisco</li>
       </ul>
@@ -627,23 +903,24 @@ FOOTER = f"""<footer class="pie">
 </footer>
 <div class="flotantes">
   <a class="subir" id="subir" href="#inicio" aria-label="Subir al inicio de la página">↑</a>
-  <a class="wa-flotante" href="{WHATSAPP}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">{I_WA}</a>
+  <a class="wa-flotante" href="{wa}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">{I_WA}</a>
 </div>"""
 
 
-def nav_html():
-    links = "\n".join(f'        <a href="#{sid}" data-seccion="{sid}">{label}</a>' for sid, label in NAV)
+def nav_html(items, h, anuncio, wa, wa_texto, extra=""):
+    links = "\n".join(f'        <a href="#{sid}" data-seccion="{sid}">{label}</a>' for sid, label in items)
+    logo_href = "#inicio" if not h else h
     return f"""<div class="anuncio">
-  <a href="#precios"><span class="anuncio-tag">Nuevo</span>VantTS Barber ya tiene 4 planes, desde $0. Ultra llega pronto con facturación.<span class="anuncio-flecha">{I_FLECHA}</span></a>
+  {anuncio}
 </div>
 <header class="nav" id="nav">
   <div class="contenedor nav-in">
-    <a class="nav-logo" href="#inicio" aria-label="VantTS, ir al inicio"><img class="logo-ico" src="assets/img/icono.png" alt="" width="36" height="36"><img class="logo-texto" src="assets/img/wordmark.png" alt="VantTS" width="147" height="28"></a>
+    <a class="nav-logo" href="{logo_href}" aria-label="VantTS, ir al inicio"><img class="logo-ico" src="{h}assets/img/icono.png" alt="" width="36" height="36"><img class="logo-texto" src="{h}assets/img/wordmark.png" alt="VantTS" width="147" height="28"></a>
     <nav class="nav-links" id="navLinks" aria-label="Secciones">
-{links}
-        <a class="nav-wa" href="{WHATSAPP}" target="_blank" rel="noopener">{I_WA}<span>Escríbeme por WhatsApp</span></a>
+{links}{extra}
+        <a class="nav-wa" href="{wa}" target="_blank" rel="noopener">{I_WA}<span>{wa_texto}</span></a>
     </nav>
-    <a class="btn btn-chico nav-cta" href="{WHATSAPP}" target="_blank" rel="noopener">{I_WA}<span>WhatsApp</span></a>
+    <a class="btn btn-chico nav-cta" href="{wa}" target="_blank" rel="noopener">{I_WA}<span>WhatsApp</span></a>
     <button class="nav-boton" id="navBoton" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </header>"""
@@ -654,47 +931,52 @@ def nav_html():
 MOVIMIENTO = "m-progreso m-hero m-parallax m-cascada m-titulos m-pestanas m-tarjetas m-faq m-botones m-whatsapp m-menu"
 
 
-def pagina_unica(cuerpo):
+def pagina(*, h, titulo, descripcion, og_titulo, og_desc, url, saltar, nav, cuerpo, pie, head_extra=""):
     return f"""<!doctype html>
 <html lang="es-MX" class="{MOVIMIENTO}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VantTS · Software de gestión + IA para negocios</title>
-<meta name="description" content="VantTS Barber: tu agenda, tus clientes y tus ventas en un solo lugar, para que sepas cuánto ganas de verdad. Planes Básico gratis, Pro $249 y Max $599 al mes, IVA incluido; Ultra, próximamente.">
+<title>{titulo}</title>
+<meta name="description" content="{descripcion}">
 <meta name="theme-color" content="#1F4E3D">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
-<meta property="og:url" content="https://vantts.com.mx/">
-<meta property="og:title" content="VantTS · Cuánto gana tu barbería, sin adivinar">
-<meta property="og:description" content="Tu agenda, tus clientes y tus ventas en un solo lugar. Plan Básico gratis, IVA incluido, mes a mes.">
+<meta property="og:url" content="{url}">
+<meta property="og:title" content="{og_titulo}">
+<meta property="og:description" content="{og_desc}">
 <meta property="og:image" content="https://vantts.com.mx/assets/icono-512.png">
-<link rel="canonical" href="https://vantts.com.mx/">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/motion.css">
+<link rel="canonical" href="{url}">{head_extra}
+<link rel="icon" href="{h}assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{h}assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="{h}assets/apple-touch-icon.png">
+<link rel="preload" href="{h}assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{h}assets/style.css">
+<link rel="stylesheet" href="{h}assets/motion.css">
 </head>
 <body>
-<a class="saltar" href="#solucion">Saltar al contenido</a>
-{nav_html()}
+<a class="saltar" href="#{saltar}">Saltar al contenido</a>
+{nav}
 
 <main>
 {cuerpo}
 </main>
 
-{FOOTER}
+{pie}
 
-<script src="assets/script.js"></script>
-<script src="assets/motion.js"></script>
+<script src="{h}assets/script.js"></script>
+<script src="{h}assets/motion.js"></script>
 </body>
 </html>
 """
 
 
-def redireccion(sid):
+# Enlaces viejos como vantts.com.mx/#precios: se mandan a la página de Barber.
+REDIRIGE_HASH = f"""
+<script>(function(){{var h=location.hash.slice(1);if({SECCIONES_BARBER!r}.indexOf(h)>-1)location.replace("barber/#"+h);}})();</script>"""
+
+
+def redireccion(destino):
     """Las direcciones anteriores (p. ej. /precios.html) llevan a su sección."""
     return f"""<!doctype html>
 <html lang="es-MX">
@@ -702,21 +984,62 @@ def redireccion(sid):
 <meta charset="utf-8">
 <title>VantTS</title>
 <meta name="robots" content="noindex">
-<link rel="canonical" href="https://vantts.com.mx/#{sid}">
-<meta http-equiv="refresh" content="0; url=/#{sid}">
-<script>location.replace("/#{sid}");</script>
+<link rel="canonical" href="https://vantts.com.mx{destino}">
+<meta http-equiv="refresh" content="0; url={destino}">
+<script>location.replace("{destino}");</script>
 </head>
-<body><a href="/#{sid}">Continuar a VantTS</a></body>
+<body><a href="{destino}">Continuar a VantTS</a></body>
 </html>
 """
 
 
-cuerpo = "".join([inicio, solucion, funciones, ia, casos, precios, preguntas, nosotros, contacto])
-with open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8") as f:
-    f.write(pagina_unica(cuerpo))
-print("Generado: index.html (página única, v3)")
+# ---------------------------------------------------------------------------
+# Generar
+# ---------------------------------------------------------------------------
+inicio_html = pagina(
+    h="",
+    titulo="VantTS · Software a la medida + IA para negocios",
+    descripcion="Sistemas, apps, sitios web y automatización con IA hechos a la medida de tu negocio, con cotización sin costo y renta mensual con mantenimiento. Creadores de VantTS Barber. Guadalajara, Jalisco.",
+    og_titulo="VantTS · La tecnología que tu negocio necesita, hecha a tu medida",
+    og_desc="Sistemas, apps, sitios web y automatización con IA. Te cotizamos sin costo.",
+    url="https://vantts.com.mx/",
+    saltar="servicios",
+    nav=nav_html(NAV_VANTTS, "",
+                 f'<a href="barber/"><span class="anuncio-tag">Producto</span>VantTS Barber: agenda, clientes y ventas para tu barbería, desde $0.<span class="anuncio-flecha">{I_FLECHA}</span></a>',
+                 WA_COTIZAR, "Cuéntanos tu idea"),
+    cuerpo="".join([v_inicio(), v_servicios(), v_proceso(), v_productos(), v_cobro(), v_casos(),
+                    seccion_preguntas(FAQ_VANTTS, WA_COTIZAR), v_nosotros(), v_contacto()]),
+    pie=footer("", "barber/", WA_COTIZAR),
+    head_extra=REDIRIGE_HASH,
+)
 
-for sid in PAGINAS_ANTERIORES:
-    with open(os.path.join(OUT_DIR, f"{sid}.html"), "w", encoding="utf-8") as f:
-        f.write(redireccion(sid))
-    print(f"Generado: {sid}.html -> /#{sid}")
+barber_html = pagina(
+    h=A,
+    titulo="VantTS Barber · Cuánto gana tu barbería, sin adivinar",
+    descripcion="VantTS Barber: tu agenda, tus clientes y tus ventas en un solo lugar, para que sepas cuánto ganas de verdad. Planes Básico gratis, Pro $249 y Max $599 al mes, IVA incluido; Ultra, próximamente.",
+    og_titulo="VantTS Barber · Cuánto gana tu barbería, sin adivinar",
+    og_desc="Tu agenda, tus clientes y tus ventas en un solo lugar. Plan Básico gratis, IVA incluido, mes a mes.",
+    url="https://vantts.com.mx/barber/",
+    saltar="solucion",
+    nav=nav_html(NAV_BARBER, A,
+                 f'<a href="#precios"><span class="anuncio-tag">Nuevo</span>VantTS Barber ya tiene 4 planes, desde $0. Ultra llega pronto con facturación.<span class="anuncio-flecha">{I_FLECHA}</span></a>',
+                 WA_BARBER, "Escríbeme por WhatsApp",
+                 extra=f'\n        <a class="nav-volver" href="{A}">Más de VantTS</a>'),
+    cuerpo="".join([b_inicio(), b_solucion(), b_funciones(), b_ia(), b_casos(), b_precios(),
+                    seccion_preguntas(FAQ_BARBER, WA_BARBER), b_contacto()]),
+    pie=footer(A, "", WA_BARBER),
+)
+
+with open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8") as f:
+    f.write(inicio_html)
+print("Generado: index.html (inicio de VantTS, v4)")
+
+os.makedirs(os.path.join(OUT_DIR, "barber"), exist_ok=True)
+with open(os.path.join(OUT_DIR, "barber", "index.html"), "w", encoding="utf-8") as f:
+    f.write(barber_html)
+print("Generado: barber/index.html (VantTS Barber)")
+
+for nombre, destino in PAGINAS_ANTERIORES.items():
+    with open(os.path.join(OUT_DIR, f"{nombre}.html"), "w", encoding="utf-8") as f:
+        f.write(redireccion(destino))
+    print(f"Generado: {nombre}.html -> {destino}")
