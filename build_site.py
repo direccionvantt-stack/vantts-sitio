@@ -685,7 +685,7 @@ PLANES_DETALLE = [
         ]),
         ("Inteligencia artificial", [
             ("Panel de IA con 500 créditos al mes", "Le preguntas por tu negocio y te propone qué hacer.", False),
-            ("Importar desde Excel con IA", "Clientes, inventario, servicios y proveedores desde tu archivo (usa créditos).", False),
+            ("Importar desde Excel con IA", "Clientes, inventario, servicios y proveedores desde tu archivo (usa créditos). Gratis en cualquier plan durante tus primeros 30 días.", False),
         ]),
         ("Más", [
             ("Solicitudes de factura electrónica", "Guardas tus datos fiscales y lo que te piden tus clientes.", False),
@@ -708,6 +708,8 @@ TODOS_LOS_PLANES = [
     "Descargas en PDF o Excel",
     "30 días para bajar tus datos si te vas",
     "Subes de plan cuando quieras; si bajas, aplica al terminar tu mes",
+    "Garantía de precio: en los planes de paga, lo que pagas no sube durante 12 meses desde tu primer pago",
+    "Importar tus clientes y servicios con IA, gratis en tus primeros 30 días",
 ]
 
 
@@ -804,7 +806,7 @@ def b_precios():
     "Panel de IA con 1,000 créditos al mes",
 ], proximo=True)}
       </div>
-      <p class="nota">Precios en pesos mexicanos, con IVA incluido. Vigentes para barberías y salones.</p>
+      <p class="nota">Precios en pesos mexicanos, con IVA incluido. Vigentes para barberías y salones. <strong>Garantía de precio:</strong> lo que pagas por tu plan y por cada cuenta adicional no sube durante 12 meses desde tu primer pago.</p>
     </div>
 {plan_dialogo()}
   </section>
@@ -813,11 +815,13 @@ def b_precios():
 
 FAQ_BARBER = [
     ("¿Los precios incluyen IVA?", "Sí. El precio que ves es el que pagas."),
+    ("¿El precio me puede subir?", "En los planes de paga, lo que pagas por tu plan y por cada cuenta adicional no sube durante 12 meses desde tu primer pago."),
+    ("Vengo de otra app, ¿puedo pasar mis clientes?", "Sí. Descarga tu lista en Excel desde la app que usas hoy y súbela a VantTS Barber: la IA acomoda las columnas por ti y tú revisas antes de guardar. En tus primeros 30 días es gratis en cualquier plan, para clientes y servicios (y tu inventario desde Pro). Si algo no te sale, nos escribes por WhatsApp."),
     ("¿Y si con el plan Básico me basta?", "Te quedas en Básico, que es gratis, sin presión. Preferimos que pagues cuando de verdad veas el valor."),
     ("¿Mis clientes siguen siendo míos?", "Sí. No hay directorio que te ponga junto a otras barberías y no cobramos comisión por cita ni por cliente. Si un día te vas, tienes 30 días para bajar tus datos."),
     ("¿Necesito saber de computación?", "Si usas WhatsApp, puedes usarlo. Se abre desde tu celular, sin instalar nada; configuramos tu barbería y tus servicios contigo, y si algo no te sale nos escribes por WhatsApp."),
     ("¿Mi cliente tiene que descargar una app?", "No. Reserva desde tu link o tu código QR, en el navegador de su celular."),
-    ("¿Sirve si tengo varios barberos?", "Sí. Cada barbero tiene su agenda y tu cliente elige con quién reservar; tú decides qué ve cada quien y ves cuánto vendió cada uno. Las cuentas para tu equipo van desde el plan Pro, con +$100 al mes por colaborador."),
+    ("¿Sirve si tengo varios barberos?", "Sí. Cada barbero tiene su agenda y tu cliente elige con quién reservar; tú decides qué ve cada quien y ves cuánto vendió cada uno. Las cuentas para tu equipo van desde el plan Pro, con +$100 al mes por barbero después del primero."),
     ("¿Puedo cancelar cuando quiera?", "Sí. Es mes a mes, sin plazo forzoso."),
     ("Mi negocio no es barbería ni salón, ¿me sirve?", f'VantTS Barber está hecho para barberías y salones. Para otro giro, <a href="{A}#servicios">te construimos un sistema a tu medida</a>: escríbenos y te cotizamos sin costo.'),
 ]
