@@ -290,6 +290,30 @@ def v_cobro():
 """
 
 
+# Cifras reales de Rocker Barber en VantTS Barber (consulta a la base del
+# 4 nov 2026; Zeku aceptó publicarlas). Al actualizarlas, cambiar también
+# el periodo.
+CASO_CIFRAS = [("91", "citas atendidas"), ("101", "clientes registrados"), ("95", "ventas registradas")]
+CASO_PERIODO = "del 15 de septiembre al 4 de noviembre de 2026"
+CASO_NOTA = f"Cifras reales de Rocker Barber en VantTS Barber, {CASO_PERIODO}, con 15 días cerrados con su corte de caja."
+
+# Testimonio de Zeku (VTS-COM-09): solo sus palabras, con su autorización
+# guardada y la versión final aprobada por él. Mientras sea None no se
+# muestra nada. Formato: ("frase", "Zeku, Rocker Barber").
+TESTIMONIO = None
+
+
+def caso_datos_html():
+    return "\n".join(f'          <div class="dato"><strong>{n}</strong><span>{t}</span></div>' for n, t in CASO_CIFRAS)
+
+
+def testimonio_html():
+    if not TESTIMONIO:
+        return ""
+    frase, autor = TESTIMONIO
+    return f'          <blockquote class="testimonio"><p>“{frase}”</p><cite>{autor}</cite></blockquote>'
+
+
 def v_casos():
     return f"""
   <section class="seccion" id="casos" aria-label="Casos">
@@ -299,13 +323,12 @@ def v_casos():
           <p class="eyebrow">Caso real</p>
           <h2>Lo que ya construimos: Rocker Barber</h2>
           <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber, el sistema que construimos con ellos.</p>
-          <p class="caso-nota">Estamos midiendo resultados con ellos. En cuanto tengamos números, los vas a ver aquí: preferimos enseñar resultados reales, no promesas.</p>
+{testimonio_html()}
+          <p class="caso-nota">{CASO_NOTA}</p>
           <div class="cta-fila"><a class="btn btn-sec" href="barber/"><span>Ver VantTS Barber</span>{I_FLECHA}</a></div>
         </div>
         <div class="caso-datos">
-          <div class="dato"><strong>+2 años</strong><span>operando en Guadalajara</span></div>
-          <div class="dato"><strong>1 sistema</strong><span>agenda, clientes y ventas juntos</span></div>
-          <div class="dato"><strong>Con ellos</strong><span>lo construimos con barberos, para barberos</span></div>
+{caso_datos_html()}
         </div>
       </div>
     </div>
@@ -574,7 +597,7 @@ def b_ia():
 
 
 def b_casos():
-    return """
+    return f"""
   <section class="seccion" id="casos" aria-label="Casos">
     <div class="contenedor">
       <div class="caso revelar">
@@ -582,12 +605,11 @@ def b_casos():
           <p class="eyebrow">Caso real</p>
           <h2>Rocker Barber ya trabaja así</h2>
           <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber. Lo construimos con barberos, para barberos.</p>
-          <p class="caso-nota">Estamos midiendo resultados con ellos. En cuanto tengamos números, los vas a ver aquí: preferimos enseñar resultados reales, no promesas.</p>
+{testimonio_html()}
+          <p class="caso-nota">{CASO_NOTA}</p>
         </div>
         <div class="caso-datos">
-          <div class="dato"><strong>+2 años</strong><span>operando en Guadalajara</span></div>
-          <div class="dato"><strong>1 sistema</strong><span>agenda, clientes y ventas juntos</span></div>
-          <div class="dato"><strong>$0</strong><span>de comisión por cita</span></div>
+{caso_datos_html()}
         </div>
       </div>
     </div>
@@ -764,6 +786,39 @@ def plan_dialogo():
   </dialog>"""
 
 
+# Calculadora de "¿cuánto pagarías al mes?" (4 nov 2026). Sin nombrar marcas:
+# la comisión de 20 % por la primera cita de cada cliente nuevo es la que
+# publica Fresha en fresha.com/pricing.
+PRECIO_PRO, PRECIO_MAX, PRECIO_CUENTA_EXTRA, COMISION_REF = 249, 599, 100, 20
+
+
+def pesos(n):
+    return f"${n:,.0f}"
+
+
+def calculadora_html(barberos=3, nuevos=10, corte=150):
+    extra = PRECIO_CUENTA_EXTRA * (barberos - 1)
+    comision = nuevos * corte * COMISION_REF / 100
+    return f"""
+      <div class="calc revelar" id="calculadora" data-pro="{PRECIO_PRO}" data-max="{PRECIO_MAX}" data-extra="{PRECIO_CUENTA_EXTRA}" data-comision="{COMISION_REF}">
+        <div class="calc-texto">
+          <h3>¿Cuánto pagarías al mes?</h3>
+          <p>Con IVA incluido y sin comisiones por cita ni por cliente nuevo.</p>
+          <div class="calc-campos">
+            <label>Barberos con cuenta propia<input type="number" id="calcBarberos" min="1" max="30" step="1" value="{barberos}" inputmode="numeric"></label>
+            <label>Clientes nuevos al mes<input type="number" id="calcNuevos" min="0" max="999" step="1" value="{nuevos}" inputmode="numeric"></label>
+            <label>Precio promedio del corte<input type="number" id="calcCorte" min="0" max="9999" step="10" value="{corte}" inputmode="numeric"></label>
+          </div>
+        </div>
+        <div class="calc-resultados" aria-live="polite">
+          <div class="calc-plan"><span>Pro</span><strong id="calcPro">{pesos(PRECIO_PRO + extra)}</strong><small>al mes, con IVA</small></div>
+          <div class="calc-plan"><span>Max</span><strong id="calcMax">{pesos(PRECIO_MAX + extra)}</strong><small>al mes, con IVA</small></div>
+          <div class="calc-plan calc-ahorro"><span>Comisión por clientes nuevos</span><strong>$0</strong><small id="calcComision">Si una app te cobrara {COMISION_REF} % de la primera cita de cada cliente nuevo, se te irían {pesos(comision)} al mes.</small></div>
+        </div>
+        <p class="calc-nota">Pro y Max incluyen una cuenta; cada barbero con cuenta propia después del primero suma {pesos(PRECIO_CUENTA_EXTRA)} al mes. En Básico (gratis) tus barberos son agendas sin cuenta. Hay apps con directorio de clientes que cobran {COMISION_REF} % de la primera cita de cada cliente nuevo que llega por ahí.</p>
+      </div>"""
+
+
 def b_precios():
     return f"""
   <section class="seccion seccion-alt" id="precios" aria-label="Precios">
@@ -806,6 +861,7 @@ def b_precios():
     "Panel de IA con 1,000 créditos al mes",
 ], proximo=True)}
       </div>
+{calculadora_html()}
       <p class="nota">Precios en pesos mexicanos, con IVA incluido. Vigentes para barberías y salones. <strong>Garantía de precio:</strong> lo que pagas por tu plan y por cada cuenta adicional no sube durante 12 meses desde tu primer pago.</p>
     </div>
 {plan_dialogo()}

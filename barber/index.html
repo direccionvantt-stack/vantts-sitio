@@ -220,12 +220,13 @@
           <p class="eyebrow">Caso real</p>
           <h2>Rocker Barber ya trabaja así</h2>
           <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber. Lo construimos con barberos, para barberos.</p>
-          <p class="caso-nota">Estamos midiendo resultados con ellos. En cuanto tengamos números, los vas a ver aquí: preferimos enseñar resultados reales, no promesas.</p>
+
+          <p class="caso-nota">Cifras reales de Rocker Barber en VantTS Barber, del 15 de septiembre al 4 de noviembre de 2026, con 15 días cerrados con su corte de caja.</p>
         </div>
         <div class="caso-datos">
-          <div class="dato"><strong>+2 años</strong><span>operando en Guadalajara</span></div>
-          <div class="dato"><strong>1 sistema</strong><span>agenda, clientes y ventas juntos</span></div>
-          <div class="dato"><strong>$0</strong><span>de comisión por cita</span></div>
+          <div class="dato"><strong>91</strong><span>citas atendidas</span></div>
+          <div class="dato"><strong>101</strong><span>clientes registrados</span></div>
+          <div class="dato"><strong>95</strong><span>ventas registradas</span></div>
         </div>
       </div>
     </div>
@@ -302,6 +303,24 @@
           </ul>
           <button type="button" class="plan-ver" data-plan="ultra" aria-haspopup="dialog">Ver todo lo que incluye<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
+      </div>
+
+      <div class="calc revelar" id="calculadora" data-pro="249" data-max="599" data-extra="100" data-comision="20">
+        <div class="calc-texto">
+          <h3>¿Cuánto pagarías al mes?</h3>
+          <p>Con IVA incluido y sin comisiones por cita ni por cliente nuevo.</p>
+          <div class="calc-campos">
+            <label>Barberos con cuenta propia<input type="number" id="calcBarberos" min="1" max="30" step="1" value="3" inputmode="numeric"></label>
+            <label>Clientes nuevos al mes<input type="number" id="calcNuevos" min="0" max="999" step="1" value="10" inputmode="numeric"></label>
+            <label>Precio promedio del corte<input type="number" id="calcCorte" min="0" max="9999" step="10" value="150" inputmode="numeric"></label>
+          </div>
+        </div>
+        <div class="calc-resultados" aria-live="polite">
+          <div class="calc-plan"><span>Pro</span><strong id="calcPro">$449</strong><small>al mes, con IVA</small></div>
+          <div class="calc-plan"><span>Max</span><strong id="calcMax">$799</strong><small>al mes, con IVA</small></div>
+          <div class="calc-plan calc-ahorro"><span>Comisión por clientes nuevos</span><strong>$0</strong><small id="calcComision">Si una app te cobrara 20 % de la primera cita de cada cliente nuevo, se te irían $300 al mes.</small></div>
+        </div>
+        <p class="calc-nota">Pro y Max incluyen una cuenta; cada barbero con cuenta propia después del primero suma $100 al mes. En Básico (gratis) tus barberos son agendas sin cuenta. Hay apps con directorio de clientes que cobran 20 % de la primera cita de cada cliente nuevo que llega por ahí.</p>
       </div>
       <p class="nota">Precios en pesos mexicanos, con IVA incluido. Vigentes para barberías y salones. <strong>Garantía de precio:</strong> lo que pagas por tu plan y por cada cuenta adicional no sube durante 12 meses desde tu primer pago.</p>
     </div>

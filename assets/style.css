@@ -729,3 +729,36 @@ body.con-dialogo { overflow: hidden; }
   .producto-dest-visual .telefono img { height: 300px; }
   .cobro-paso { padding: 20px; }
 }
+
+/* Calculadora de precios de Barber y testimonio (4 nov 2026) */
+.calc {
+  margin-top: 28px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px 40px; align-items: center;
+  background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); padding: 32px 36px; box-shadow: var(--sombra);
+}
+.calc h3 { font-family: var(--font-head); font-size: 1.4rem; margin: 0 0 6px; color: var(--texto); }
+.calc-texto > p { color: var(--gris-texto); margin: 0 0 18px; }
+.calc-campos { display: grid; gap: 12px; }
+.calc-campos label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--texto); }
+.calc-campos input {
+  width: 110px; padding: 10px 12px; border: 1px solid var(--borde); border-radius: 12px; font: inherit; text-align: right;
+  background: var(--fondo); color: var(--texto);
+}
+.calc-campos input:focus { outline: 2px solid var(--verde); outline-offset: 1px; }
+.calc-resultados { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.calc-plan { background: var(--verde-suave); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
+.calc-plan span { color: var(--gris-texto); font-size: 0.9rem; }
+.calc-plan strong { font-family: var(--font-head); font-size: 1.9rem; color: var(--verde); letter-spacing: -0.02em; }
+.calc-plan small { color: var(--gris-texto); font-size: 0.85rem; }
+.calc-ahorro { grid-column: 1 / -1; background: var(--cobre-suave); }
+.calc-ahorro strong { color: var(--cobre-texto); }
+.calc-nota { grid-column: 1 / -1; color: var(--gris-texto); font-size: 0.85rem; margin: 0; }
+.testimonio { margin: 0 0 16px; padding: 18px 22px; background: #fff; border-left: 4px solid var(--cobre); border-radius: 0 16px 16px 0; }
+.testimonio p { font-size: 1.1rem; margin: 0 0 8px; color: var(--texto); }
+.testimonio cite { font-style: normal; color: var(--gris-texto); font-size: 0.9rem; }
+@media (max-width: 860px) {
+  .calc { grid-template-columns: 1fr; padding: 24px 20px; }
+}
+@media (max-width: 420px) {
+  .calc-resultados { grid-template-columns: 1fr; }
+  .calc-campos input { width: 90px; }
+}

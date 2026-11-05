@@ -128,3 +128,31 @@ document.documentElement.classList.add("js");
     if (origen) origen.focus();
   });
 })();
+
+// Calculadora de precios de VantTS Barber (4 nov 2026): Pro y Max con IVA
+// según los barberos con cuenta, y lo que se iría en comisiones por
+// clientes nuevos en una app que cobra un porcentaje de la primera cita.
+(function () {
+  const calc = document.getElementById("calculadora");
+  if (!calc) return;
+  const num = (id, min, max) => {
+    const v = Math.round(Number(document.getElementById(id).value));
+    return Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : min;
+  };
+  const pesos = (n) => "$" + Math.round(n).toLocaleString("es-MX");
+  const pro = Number(calc.dataset.pro), max = Number(calc.dataset.max);
+  const extra = Number(calc.dataset.extra), pct = Number(calc.dataset.comision);
+  function actualizar() {
+    const barberos = num("calcBarberos", 1, 30);
+    const nuevos = num("calcNuevos", 0, 999);
+    const corte = num("calcCorte", 0, 9999);
+    const adicional = extra * (barberos - 1);
+    document.getElementById("calcPro").textContent = pesos(pro + adicional);
+    document.getElementById("calcMax").textContent = pesos(max + adicional);
+    document.getElementById("calcComision").textContent =
+      "Si una app te cobrara " + pct + " % de la primera cita de cada cliente nuevo, se te irían " +
+      pesos((nuevos * corte * pct) / 100) + " al mes.";
+  }
+  calc.querySelectorAll("input").forEach((i) => i.addEventListener("input", actualizar));
+  actualizar();
+})();
