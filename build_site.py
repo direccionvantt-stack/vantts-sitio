@@ -685,6 +685,7 @@ PLANES_DETALLE = [
         ]),
         ("Marketing", [
             ("Promociones y descuentos", "Promociones con vigencia y descuentos de un solo uso.", False),
+            ("Tarjetas de regalo", "Las vendes en caja, se mandan en PDF por WhatsApp, no vencen y el saldo se usa en una o varias visitas.", False),
             ("Metas y estrategia de marketing", "Con ideas listas y guía por tema.", False),
             ("Avance de tus metas", "Línea de tiempo y gráfica de avance.", False),
         ]),
