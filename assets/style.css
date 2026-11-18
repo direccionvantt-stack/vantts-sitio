@@ -762,3 +762,7 @@ body.con-dialogo { overflow: hidden; }
   .calc-resultados { grid-template-columns: 1fr; }
   .calc-campos input { width: 90px; }
 }
+
+/* Fotos de productos "Próximamente" (18 nov 2026; imágenes hechas con IA en Dreamina) */
+.producto-foto { width: 120px; height: 90px; object-fit: cover; border-radius: 14px; display: block; }
+@media (max-width: 600px) { .producto-foto { width: 96px; height: 72px; border-radius: 12px; } }

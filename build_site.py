@@ -220,10 +220,10 @@ def v_proceso():
 """
 
 
-def producto_chico(icono, nombre, texto, estado):
+def producto_chico(foto, alt, nombre, texto, estado):
     return f"""
           <article class="producto producto-pronto revelar">
-            <div class="producto-ico">{icono}</div>
+            <img class="producto-foto" src="assets/img/{foto}" alt="{alt}" width="800" height="600" loading="lazy" decoding="async">
             <div>
               <h3>{nombre} <span class="pd-pronto">Próximamente</span></h3>
               <p>{texto}</p>
@@ -260,9 +260,9 @@ def v_productos():
           <div class="producto-dest-visual">{telefono("clientes.jpg", "Clientes en VantTS Barber, con historial y a quién llamar")}</div>
         </article>
         <div class="productos-pronto">
-{producto_chico(I_HOJA, "VantTS Salud y Bienestar", "Para masajes y bienestar: citas, clientes y una ficha de bienestar con el consentimiento de tu cliente.", "En desarrollo")}
-{producto_chico(I_HUELLA, "VantTS Vet", "Para clínicas veterinarias: pacientes, hospitalización y reportes.", "En planeación")}
-{producto_chico(I_TROFEO, "VantTS Life", "Tu agenda personal convertida en juego: tus pendientes son misiones que te dan niveles y recompensas.", "Para personas, no solo negocios")}
+{producto_chico("producto-salud.jpg", "Sala de masajes y bienestar con paredes verdes", "VantTS Salud y Bienestar", "Para masajes y bienestar: citas, clientes y una ficha de bienestar con el consentimiento de tu cliente.", "En desarrollo")}
+{producto_chico("producto-vet.jpg", "Consultorio veterinario con un golden retriever en la mesa", "VantTS Vet", "Para clínicas veterinarias: pacientes, hospitalización y reportes.", "En planeación")}
+{producto_chico("producto-life.jpg", "Ilustración de una agenda en el celular convertida en juego", "VantTS Life", "Tu agenda personal convertida en juego: tus pendientes son misiones que te dan niveles y recompensas.", "Para personas, no solo negocios")}
         </div>
       </div>
     </div>
