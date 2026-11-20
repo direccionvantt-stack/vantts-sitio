@@ -1324,7 +1324,7 @@ def footer(h, b, wa, chat):
   <div class="pie-base">
     <div class="pie-base-in">
       <span>{ICO_GLOBO}Español (México)</span>
-      <span>{ICO_ESCUDO}Sin cookies de rastreo</span>
+      <span>{ICO_ESCUDO}Sin cookies de rastreo propias</span>
       <span class="pie-espacio"></span>
       <span>© {ANIO} VantTS</span>
     </div>
