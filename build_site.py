@@ -1161,7 +1161,116 @@ def b_contacto():
 #  PIEZAS COMUNES: menú, pie de página y esqueleto de la página
 # ===========================================================================
 
-def footer(h, b, wa):
+# ===========================================================================
+#  ASISTENTE (chatbot de preguntas guiadas, sin IA) · 20 nov 2026
+#  Solo contesta con textos que ya están en el sitio y siempre ofrece WhatsApp.
+#  No guarda nada ni usa cookies. Cada nodo: texto (párrafos) y opciones.
+#  Opción: {"t": botón, "ir": nodo} | {"t": botón, "wa": url} | {"t": botón, "href": url}
+# ===========================================================================
+
+def _faq(lista, pregunta):
+    return dict(lista)[pregunta]
+
+
+def chat_vantts():
+    menu = {"t": "Otra pregunta", "ir": "menu"}
+    cotizar = {"t": "Cotizar por WhatsApp", "wa": WA_COTIZAR}
+    n = {
+        "menu": {"texto": ["Hola, soy el asistente de VantTS. ¿En qué te ayudo?"],
+                 "opciones": [{"t": "¿Qué pueden hacer por mi negocio?", "ir": "servicios"},
+                              {"t": "¿Cuánto cuesta?", "ir": "costo"},
+                              {"t": "¿Cómo trabajan?", "ir": "proceso"},
+                              {"t": "Tengo barbería o salón", "ir": "barber"},
+                              {"t": "Más preguntas", "ir": "mas"},
+                              {"t": "Hablar con una persona", "ir": "persona"}]},
+        "servicios": {"texto": [_faq(FAQ_VANTTS, "¿Qué tipo de proyectos hacen?"), "¿Qué te quita tiempo hoy? Te enseño un ejemplo."],
+                      "opciones": [{"t": frase, "ir": "nec-" + k} for k, frase, *_r_ in NECESIDADES] + [menu]},
+        "costo": {"texto": [_faq(FAQ_VANTTS, "¿Cuánto cuesta?"),
+                            "El desarrollo: te lo cotizamos sin costo, según lo que de verdad necesitas.",
+                            "La renta mensual: incluye el mantenimiento, para que tu sistema siga funcionando."],
+                  "opciones": [cotizar, {"t": "¿Cuánto tiempo tarda?", "ir": "tiempo"}, menu]},
+        "tiempo": {"texto": [_faq(FAQ_VANTTS, "¿Cuánto tiempo tarda?")], "opciones": [cotizar, menu]},
+        "proceso": {"texto": [f"{i + 1}. {t}: {d}" for i, (t, d) in enumerate(PASOS)], "opciones": [cotizar, menu]},
+        "barber": {"texto": [_faq(FAQ_VANTTS, "Tengo una barbería o un salón, ¿qué me conviene?"),
+                             "Plan Básico gratis; Pro $249 y Max $599 al mes, IVA incluido. Sin comisión por cita y mes a mes."],
+                   "opciones": [{"t": "Conocer VantTS Barber", "href": "barber/"}, {"t": "Escribir por WhatsApp", "wa": WA_BARBER}, menu]},
+        "mas": {"texto": ["Estas son otras preguntas que nos hacen seguido."],
+                "opciones": [{"t": "¿Necesito saber de computación?", "ir": "compu"},
+                             {"t": "¿Usan inteligencia artificial?", "ir": "ia"},
+                             {"t": "¿Cuánto tiempo tarda?", "ir": "tiempo"}, menu]},
+        "compu": {"texto": [_faq(FAQ_VANTTS, "¿Necesito saber de computación?")], "opciones": [cotizar, menu]},
+        "ia": {"texto": [_faq(FAQ_VANTTS, "¿Usan inteligencia artificial?")], "opciones": [cotizar, menu]},
+        "persona": {"texto": ["Escríbenos por WhatsApp y cuéntanos tu idea. Te contestamos nosotros y te cotizamos sin costo."],
+                    "opciones": [{"t": "Abrir WhatsApp", "wa": WA_COTIZAR}, menu]},
+    }
+    for k, frase, wa, titulo, tipo, piezas, _d in NECESIDADES:
+        n["nec-" + k] = {"texto": [f"{titulo} ({tipo}). Se hace con tus medidas:"] + piezas + ["Es un ejemplo. El tuyo lo armamos con tus procesos."],
+                         "opciones": [{"t": "Cotizar esto por WhatsApp", "wa": wa_necesidad(wa)}, {"t": "Ver otro ejemplo", "ir": "servicios"}, menu]}
+    return {"nombre": "Asistente VantTS", "inicio": "menu", "nodos": n}
+
+
+def chat_barber():
+    menu = {"t": "Otra pregunta", "ir": "menu"}
+    wa = {"t": "Escribir por WhatsApp", "wa": WA_BARBER}
+    f = lambda q: _faq(FAQ_BARBER, q)
+    n = {
+        "menu": {"texto": ["Hola, soy el asistente de VantTS Barber. ¿En qué te ayudo?"],
+                 "opciones": [{"t": "¿Cuánto cuesta?", "ir": "precio"},
+                              {"t": "¿Qué incluye el plan gratis?", "ir": "basico"},
+                              {"t": "Vengo de otra app", "ir": "migrar"},
+                              {"t": "¿Mis clientes siguen siendo míos?", "ir": "clientes"},
+                              {"t": "Más preguntas", "ir": "mas"},
+                              {"t": "Quiero ver una demostración", "ir": "demo"}]},
+        "precio": {"texto": ["Plan Básico gratis; Pro $249 y Max $599 al mes, IVA incluido. Ultra, próximamente.",
+                             "Sin comisión por cita y mes a mes."],
+                   "opciones": [{"t": "Ver los planes", "href": "#precios"}, {"t": "¿El precio me puede subir?", "ir": "sube"},
+                                {"t": "¿Sirve si tengo varios barberos?", "ir": "equipo"}, menu]},
+        "sube": {"texto": [f("¿El precio me puede subir?"), f("¿Los precios incluyen IVA?")], "opciones": [{"t": "Ver los planes", "href": "#precios"}, menu]},
+        "basico": {"texto": ["El plan Básico es gratis e incluye:", "Agenda: tú capturas tus citas", "Reserva en línea con tu link",
+                             "Clientes con historial, aunque solo te den su apodo", "Catálogo de servicios y precios",
+                             "Ventas y gastos a mano, y corte de caja del día", "Una cuenta de administrador",
+                             f("¿Y si con el plan Básico me basta?")],
+                   "opciones": [{"t": "Ver los planes", "href": "#precios"}, wa, menu]},
+        "migrar": {"texto": [f("Vengo de otra app, ¿puedo pasar mis clientes?")], "opciones": [wa, menu]},
+        "clientes": {"texto": [f("¿Mis clientes siguen siendo míos?")], "opciones": [wa, menu]},
+        "mas": {"texto": ["Estas son otras preguntas que nos hacen seguido."],
+                "opciones": [{"t": "¿Necesito saber de computación?", "ir": "compu"},
+                             {"t": "¿Mi cliente tiene que descargar una app?", "ir": "app"},
+                             {"t": "¿Sirve si tengo varios barberos?", "ir": "equipo"},
+                             {"t": "¿Puedo cancelar cuando quiera?", "ir": "cancelar"},
+                             {"t": "Mi negocio es de otro giro", "ir": "giro"}, menu]},
+        "compu": {"texto": [f("¿Necesito saber de computación?")], "opciones": [wa, menu]},
+        "app": {"texto": [f("¿Mi cliente tiene que descargar una app?")], "opciones": [wa, menu]},
+        "equipo": {"texto": [f("¿Sirve si tengo varios barberos?")], "opciones": [{"t": "Ver los planes", "href": "#precios"}, menu]},
+        "cancelar": {"texto": [f("¿Puedo cancelar cuando quiera?")], "opciones": [wa, menu]},
+        "giro": {"texto": ["VantTS Barber está hecho para barberías y salones. Para otro giro, te construimos un sistema a tu medida: escríbenos y te cotizamos sin costo."],
+                 "opciones": [{"t": "Ver lo que hacemos", "href": "../#servicios"}, {"t": "Cotizar por WhatsApp", "wa": WA_COTIZAR}, menu]},
+        "demo": {"texto": ["Escríbeme por WhatsApp y te enseño VantTS Barber con la cuenta de demostración. Es la forma más rápida de contactarnos."],
+                 "opciones": [{"t": "Abrir WhatsApp", "wa": WA_BARBER}, menu]},
+    }
+    return {"nombre": "Asistente VantTS Barber", "inicio": "menu", "nodos": n}
+
+
+def chat_html(datos, h, wa):
+    """Botón flotante + panel del asistente. Sin JavaScript, el botón abre WhatsApp."""
+    js = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
+    return f"""  <a class="wa-flotante chat-lanzador" id="chatLanzador" href="{wa}" target="_blank" rel="noopener" aria-label="Abrir el asistente de VantTS">{I_CHAT}</a>
+</div>
+<div class="chat" id="chat" role="dialog" aria-labelledby="chatTitulo" hidden>
+  <div class="chat-cab">
+    <img src="{h}assets/img/icono.png" alt="" width="36" height="36">
+    <div><p class="chat-titulo" id="chatTitulo">{datos["nombre"]}</p><p class="chat-sub">Respuestas al momento. Para lo demás, WhatsApp.</p></div>
+    <button class="chat-cerrar" id="chatCerrar" type="button" aria-label="Cerrar el asistente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="chat-log" id="chatLog" role="log" aria-live="polite"></div>
+  <div class="chat-opciones" id="chatOpciones"></div>
+  <p class="chat-nota">Respuestas automáticas con la información del sitio. No guardamos lo que eliges.</p>
+</div>
+<script type="application/json" id="chat-datos">{js}</script>
+<script src="{h}assets/chat.js" defer></script>"""
+
+
+def footer(h, b, wa, chat):
     """h: ruta al inicio ("" o "../"); b: ruta a la página de Barber ("barber/" o "")."""
     return f"""<footer class="pie">
   <div class="pie-columnas">
@@ -1223,8 +1332,7 @@ def footer(h, b, wa):
 </footer>
 <div class="flotantes">
   <a class="subir" id="subir" href="#inicio" aria-label="Subir al inicio de la página">↑</a>
-  <a class="wa-flotante" href="{wa}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">{I_WA}</a>
-</div>"""
+{chat_html(chat, h, wa)}"""
 
 
 def nav_html(items, h, anuncio, wa, wa_texto, extra=""):
@@ -1334,7 +1442,7 @@ inicio_html = pagina(
                  WA_COTIZAR, "Cuéntanos tu idea"),
     cuerpo="".join([v_inicio(), v_servicios(), v_medida(), v_proceso(), v_casos(), v_productos(), v_cobro(),
                     seccion_preguntas(FAQ_VANTTS, WA_COTIZAR), v_nosotros(), v_videos(), v_contacto()]),
-    pie=footer("", "barber/", WA_COTIZAR),
+    pie=footer("", "barber/", WA_COTIZAR, chat_vantts()),
     head_extra=REDIRIGE_HASH,
     estilos_extra='\n<link rel="stylesheet" href="assets/inicio.css">\n<script src="assets/inicio.js" defer></script>',
 )
@@ -1353,7 +1461,7 @@ barber_html = pagina(
                  extra=f'\n        <a class="nav-volver" href="{A}">Más de VantTS</a>'),
     cuerpo="".join([b_inicio(), b_solucion(), b_funciones(), b_ia(), b_casos(), b_precios(),
                     seccion_preguntas(FAQ_BARBER, WA_BARBER), b_contacto()]),
-    pie=footer(A, "", WA_BARBER),
+    pie=footer(A, "", WA_BARBER, chat_barber()),
 )
 
 with open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8") as f:
