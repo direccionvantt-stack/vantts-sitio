@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Genera el sitio de VantTS (v4, 1 nov 2026): dos páginas con el mismo diseño.
+Genera el sitio de VantTS (v5, 19 nov 2026: inicio rediseñado; Barber sin cambios): dos páginas.
 
 - index.html           Inicio de VantTS como empresa: software a la medida (sistemas,
                        apps, automatización con IA y sitios web), cómo trabajamos, cómo
@@ -96,98 +96,274 @@ def slug(t):
 
 
 # ===========================================================================
-#  PÁGINA 1 · INICIO DE VANTTS (la empresa)
+#  PÁGINA 1 · INICIO DE VANTTS (la empresa) — v5, 19 nov 2026
+#  Rediseño pedido por Luis: prioridad a "hacemos exactamente lo que tu negocio
+#  necesita" y más presencia visual. Estilos propios en assets/inicio.css y
+#  el selector de necesidades en assets/inicio.js (solo se cargan en el inicio).
 # ===========================================================================
+from urllib.parse import quote
 
 NAV_VANTTS = [
     ("servicios", "Servicios"),
-    ("proceso", "Cómo trabajamos"),
+    ("medida", "A tu medida"),
+    ("proceso", "Proceso"),
+    ("casos", "Caso real"),
     ("productos", "Productos"),
-    ("cobro", "Cómo cobramos"),
+    ("cobro", "Cobro"),
     ("preguntas", "Preguntas"),
-    ("nosotros", "Nosotros"),
+]
+
+
+def wa_necesidad(frase):
+    return "https://wa.me/523312506541?text=" + quote(f"Hola, vi la página de VantTS. Mi problema: {frase}. Quiero cotizar una solución.")
+
+
+def _r(x, y, w, h, c, rx=4, o=1):
+    return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" fill="{c}" opacity="{o}"/>'
+
+
+V, M, M2, C, L, G, P = "#1F4E3D", "#9FE3BE", "#6FCF97", "#B5763A", "#E4EAE6", "#C9D4CE", "#0F2A20"
+
+
+def _svg(cuerpo):
+    return f'<svg class="plano-dibujo" viewBox="0 0 360 210" role="img" aria-hidden="true">{cuerpo}</svg>'
+
+
+def dib_agenda():
+    s = "".join(_r(20 + i * 66, 14, 56, 10, G, 5) for i in range(5))
+    s += "".join(f'<line x1="14" y1="{40 + j * 40}" x2="346" y2="{40 + j * 40}" stroke="{L}"/>' for j in range(5))
+    bloques = [(0, 44, 32, M), (0, 124, 44, V), (1, 84, 32, M2), (2, 44, 72, V), (2, 164, 30, M), (3, 84, 44, C), (4, 44, 32, M), (4, 124, 68, M2)]
+    s += "".join(_r(20 + c * 66, y, 56, h, col, 7) for c, y, h, col in bloques)
+    return _svg(s)
+
+
+def dib_inventario():
+    filas = [(0.82, V), (0.64, V), (0.16, C), (0.9, V), (0.48, V)]
+    s = _r(14, 12, 110, 10, G, 5)
+    for i, (p, col) in enumerate(filas):
+        y = 38 + i * 34
+        s += _r(14, y, 24, 24, L, 7) + _r(48, y + 3, 96, 8, G, 4) + _r(48, y + 15, 60, 6, L, 3)
+        s += _r(170, y + 8, 150, 8, L, 4) + _r(170, y + 8, int(150 * p), 8, col, 4)
+        if col == C:
+            s += f'<circle cx="336" cy="{y + 12}" r="7" fill="{C}"/><path d="M336 {y + 8}v5M336 {y + 16}v.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>'
+    return _svg(s)
+
+
+def dib_ventas():
+    s = ""
+    for i, col in enumerate([V, C, M2]):
+        x = 14 + i * 114
+        s += f'<rect x="{x}" y="12" width="104" height="52" rx="10" fill="#fff" stroke="{L}"/>' + _r(x + 12, 24, 46, 6, G, 3) + _r(x + 12, 38, 70, 14, col, 7)
+    s += f'<rect x="14" y="76" width="332" height="122" rx="10" fill="#fff" stroke="{L}"/>'
+    for i, h in enumerate([34, 52, 44, 68, 60, 88, 76, 96]):
+        s += _r(30 + i * 39, 186 - h, 26, h, V if i == 7 else M, 5)
+    return _svg(s)
+
+
+def dib_pedidos():
+    s = f'<rect x="118" y="4" width="124" height="202" rx="20" fill="{P}"/><rect x="126" y="14" width="108" height="182" rx="13" fill="#fff"/>'
+    s += _r(136, 24, 60, 8, G, 4)
+    for i in range(3):
+        y = 42 + i * 38
+        s += f'<rect x="136" y="{y}" width="88" height="30" rx="8" fill="#F2F5F1"/>' + _r(142, y + 6, 18, 18, M if i != 1 else C, 5) + _r(166, y + 7, 44, 6, G, 3) + _r(166, y + 17, 28, 5, L, 2)
+    s += _r(136, 160, 88, 24, V, 12)
+    for i, y in enumerate([46, 96, 146]):
+        s += f'<rect x="262" y="{y}" width="86" height="36" rx="10" fill="#fff" stroke="{L}"/>' + _r(272, y + 9, 50, 6, G, 3) + _r(272, y + 20, 30, 5, M2, 2)
+        s += f'<path d="M244 {y + 18}h14" stroke="{M2}" stroke-width="2" stroke-dasharray="3 3"/>'
+    for i, y in enumerate([60, 120]):
+        s += f'<rect x="12" y="{y}" width="86" height="36" rx="18" fill="{M}" opacity=".55"/>' + _r(26, y + 15, 58, 6, V, 3, .7)
+    return _svg(s)
+
+
+def dib_ia():
+    s = f'<rect x="12" y="24" width="128" height="150" rx="8" fill="#fff" stroke="{G}"/>'
+    for i in range(1, 5):
+        s += f'<line x1="12" y1="{24 + i * 30}" x2="140" y2="{24 + i * 30}" stroke="{L}"/>'
+    for i in range(1, 4):
+        s += f'<line x1="{12 + i * 32}" y1="24" x2="{12 + i * 32}" y2="174" stroke="{L}"/>'
+    s += _r(12, 24, 128, 30, L, 8)
+    s += f'<path d="M150 99h46" stroke="{C}" stroke-width="2.5" stroke-dasharray="4 5"/><path d="M190 91l10 8-10 8" fill="none" stroke="{C}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
+    s += f'<path d="M173 60l3.6 10.4L187 74l-10.4 3.6L173 88l-3.6-10.4L159 74l10.4-3.6z" fill="{C}"/>'
+    for i, col in enumerate([V, M2, V]):
+        y = 26 + i * 54
+        s += f'<rect x="212" y="{y}" width="136" height="44" rx="10" fill="#fff" stroke="{L}"/>' + _r(222, y + 11, 22, 22, M, 6) + _r(252, y + 12, 62, 7, G, 3) + _r(252, y + 25, 84, 7, col, 3, .85)
+    return _svg(s)
+
+
+def dib_web():
+    s = f'<rect x="20" y="6" width="320" height="198" rx="12" fill="#fff" stroke="{G}"/>' + _r(20, 6, 320, 24, "#F2F5F1", 12)
+    s += "".join(f'<circle cx="{36 + i * 13}" cy="18" r="4" fill="{G}"/>' for i in range(3)) + _r(90, 13, 150, 10, L, 5)
+    s += _r(32, 40, 296, 70, V, 10) + _r(46, 54, 130, 11, "#fff", 5, .92) + _r(46, 72, 90, 8, M, 4) + _r(46, 88, 62, 13, M, 7)
+    for i in range(3):
+        x = 32 + i * 101
+        s += f'<rect x="{x}" y="120" width="94" height="72" rx="9" fill="#F2F5F1"/>' + _r(x + 8, 128, 78, 34, [M, "#F6ECE2", M2][i], 6) + _r(x + 8, 169, 50, 6, G, 3) + _r(x + 8, 180, 30, 5, C, 2)
+    s += f'<circle cx="312" cy="176" r="17" fill="#25D366"/><path d="M304 184l1.4-4.2a7.4 7.4 0 1 1 2.9 2.8z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>'
+    return _svg(s)
+
+
+# Cada necesidad sale de los ejemplos de servicios ya anunciados (1 nov 2026).
+NECESIDADES = [
+    ("citas", "Se me cruzan las citas", "se me cruzan las citas", "Una agenda con reservas en línea", "Sistema para tu negocio",
+     ["Tus servicios, con su precio y su duración", "Tus horarios y tus días de descanso", "Un link para que tus clientes reserven solos"], dib_agenda),
+    ("inventario", "Llevo el inventario en un cuaderno", "llevo el inventario en un cuaderno", "Un inventario que te avisa", "Sistema para tu negocio",
+     ["Tus productos y lo que te queda de cada uno", "Un aviso cuando algo está por acabarse", "Tus compras y tus proveedores"], dib_inventario),
+    ("ganancias", "No sé cuánto gano al mes", "no sé cuánto gano al mes", "Tus ventas y gastos en un solo lugar", "Sistema para tu negocio",
+     ["Cada venta, con su cliente y su forma de pago", "Tus gastos del mes", "Reportes que se entienden de un vistazo"], dib_ventas),
+    ("pedidos", "Todo me lo piden por WhatsApp", "mis clientes me piden todo por WhatsApp y se me pierden los mensajes", "Una app para que tus clientes pidan solos", "App web o móvil",
+     ["Tu catálogo o tu lista de servicios", "Pedidos o reservas desde su celular", "Todo te llega ordenado a un solo lugar"], dib_pedidos),
+    ("excel", "Paso horas copiando datos", "paso horas copiando datos a mano", "Una automatización con IA", "Automatización con IA",
+     ["Tus datos de Excel, pasados a tu sistema", "Reportes y avisos que salen solos", "Un asistente que responde con los datos de tu negocio"], dib_ia),
+    ("web", "No tengo página web", "no tengo página web", "La página de tu negocio", "Sitio web",
+     ["Tu marca, tus fotos y tus textos", "Tu catálogo, tu menú o tu lista de servicios", "Un botón para que te escriban por WhatsApp"], dib_web),
 ]
 
 
 def v_inicio():
-    return f"""
-  <section class="hero" id="inicio" aria-label="Inicio">
-    <div class="hero-fondo" aria-hidden="true"></div>
-    <div class="contenedor hero-grid">
-      <div class="hero-texto">
-        <a class="pildora" href="#productos"><img src="assets/img/icono.png" alt="" width="22" height="22"><span>Software a la medida + IA · Guadalajara</span>{I_FLECHA}</a>
-        <h1>La tecnología que tu negocio necesita, <span class="acento">hecha a tu medida.</span></h1>
-        <p class="lead">Sistemas, apps, sitios web y automatizaciones con inteligencia artificial. Nos cuentas cómo trabajas, lo construimos contigo y lo mantenemos funcionando con una renta mensual.</p>
-        <div class="cta-fila">
-          {btn_wa("Cuéntanos tu idea", url=WA_COTIZAR)}
-          <a class="btn btn-sec" href="#servicios"><span>Ver qué hacemos</span></a>
-        </div>
-        <p class="micro">{I_CHECK}Cotización sin costo <span class="punto">·</span> Trato directo <span class="punto">·</span> Hecho en Guadalajara</p>
-      </div>
-      <div class="hero-visual hero-visual-vantts" aria-label="Ejemplos de lo que construimos">
-        <div class="ventana" aria-hidden="true">
-          <div class="ventana-barra"><i></i><i></i><i></i><span></span></div>
-          <div class="ventana-cuerpo">
-            <div class="ventana-menu"><b></b><span></span><span></span><span></span><span></span></div>
-            <div class="ventana-main">
-              <div class="ventana-titulo"></div>
-              <div class="ventana-kpis"><div><span></span><b></b></div><div><span></span><b></b></div><div><span></span><b></b></div></div>
-              <div class="ventana-grafica"><i style="height:38%"></i><i style="height:56%"></i><i style="height:47%"></i><i style="height:72%"></i><i style="height:64%"></i><i style="height:88%"></i><i style="height:79%"></i></div>
+    opciones = "".join(
+        f'<button class="nec" type="button" role="tab" id="nec-{k}" aria-controls="plano-{k}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else " tabindex=\"-1\""}>{frase}</button>'
+        for i, (k, frase, *_r_) in enumerate(NECESIDADES))
+    planos = ""
+    for i, (k, frase, wa, titulo, tipo, piezas, dib) in enumerate(NECESIDADES):
+        lis = "".join(f"<li>{p}</li>" for p in piezas)
+        planos += f"""
+          <article class="plano" id="plano-{k}" role="tabpanel" aria-labelledby="nec-{k}"{"" if i == 0 else " hidden"}>
+            <header class="plano-cab"><p class="plano-tipo">{tipo}</p><h2 class="plano-titulo">{titulo}</h2></header>
+            <div class="plano-lienzo">{dib()}</div>
+            <p class="plano-medidas-t">Se hace con tus medidas</p>
+            <ul class="plano-medidas">{lis}</ul>
+            <div class="plano-pie">
+              <a class="btn btn-wa-plano" href="{wa_necesidad(wa)}" target="_blank" rel="noopener">{I_WA}<span>Cotizar esto por WhatsApp</span></a>
+              <p>Es un ejemplo. El tuyo lo armamos con tus procesos.</p>
             </div>
-          </div>
+          </article>"""
+    return f"""
+  <section class="portada" id="inicio" aria-label="Inicio">
+    <div class="contenedor">
+      <div class="portada-texto">
+        <h1>Exactamente lo que tu negocio necesita. Ni más, ni menos.</h1>
+        <p class="portada-lead">Somos VantTS, de Guadalajara. Hacemos sistemas, apps, sitios web y automatizaciones con IA a la medida de negocios pequeños: nos cuentas cómo trabajas, lo construimos contigo y lo mantenemos con una renta mensual.</p>
+        <div class="cta-fila">
+          {btn_wa("Cuéntanos qué necesitas", "btn btn-menta", WA_COTIZAR)}
+          <a class="btn btn-linea" href="#casos"><span>Ver lo que ya construimos</span></a>
         </div>
-        {telefono("agenda.jpg", "Agenda de VantTS Barber, un sistema que construimos", "telefono telefono-frente", "eager")}
-        <div class="chip chip-1">{I_CODIGO}<span>Sistemas, apps y sitios hechos para tu negocio</span></div>
-        <div class="chip chip-2">{I_CHISPA}<span>IA que trabaja con los datos de tu negocio</span></div>
-        <p class="demo-nota">Celular: VantTS Barber, cuenta de demostración · datos inventados</p>
+      </div>
+      <div class="medidor">
+        <div class="medidor-lista">
+          <p class="medidor-pregunta" id="medidor-pregunta">¿Qué te quita tiempo hoy?</p>
+          <div class="necs" role="tablist" aria-labelledby="medidor-pregunta" aria-orientation="vertical">{opciones}</div>
+          <a class="nec-otra" href="{WA_COTIZAR}" target="_blank" rel="noopener">Es otra cosa: cuéntanosla</a>
+        </div>
+        <div class="medidor-plano">{planos}
+        </div>
       </div>
     </div>
+    <div class="regla" aria-hidden="true"></div>
   </section>
 
-  <section class="confianza" aria-label="Por qué trabajar con nosotros">
-    <div class="contenedor confianza-grid">
-      <div class="conf">{I_HERRAMIENTA}<p><strong>A tu medida</strong><span>no una plantilla genérica</span></p></div>
-      <div class="conf">{I_DINERO}<p><strong>Cotización sin costo</strong><span>sabes cuánto antes de empezar</span></p></div>
-      <div class="conf">{I_CALENDARIO}<p><strong>Renta mensual</strong><span>con mantenimiento</span></p></div>
-      <div class="conf">{I_TIENDA}<p><strong>Ya funciona</strong><span>en Rocker Barber, Guadalajara</span></p></div>
+  <section class="hechos" aria-label="Cómo es trabajar con nosotros">
+    <div class="contenedor hechos-grid">
+      <p><strong>Cotización sin costo</strong>Sabes cuánto es antes de empezar.</p>
+      <p><strong>Renta mensual</strong>Incluye el mantenimiento.</p>
+      <p><strong>Trato directo</strong>Hablas con quien lo construye.</p>
+      <p><strong>Ya funciona</strong>En Rocker Barber, Guadalajara.</p>
     </div>
   </section>
 """
 
 
-def servicio(icono, titulo, texto, ejemplos):
-    lis = "".join(f"<li>{I_CHECK}<span>{e}</span></li>" for e in ejemplos)
-    return f"""
-        <article class="dolor servicio revelar">
-          <div class="dolor-ico">{icono}</div>
-          <h3>{titulo}</h3>
-          <p class="dolor-resp">{texto}</p>
-          <ul class="servicio-ej">{lis}</ul>
-        </article>"""
+def _ej(lista):
+    return "".join(f"<li>{e}</li>" for e in lista)
 
 
 def v_servicios():
     return f"""
-  <section class="seccion" id="servicios" aria-label="Servicios">
+  <section class="seccion" id="servicios" aria-label="Qué hacemos">
     <div class="contenedor">
-      <div class="encabezado">
-        <p class="eyebrow">Qué hacemos</p>
+      <div class="titular">
         <h2>Si tu negocio lo necesita, lo construimos</h2>
-        <p class="lead">No vendemos un solo programa: hacemos la herramienta que tu negocio necesita, con tus procesos y tu forma de trabajar.</p>
+        <p class="lead">No vendemos un programa para todos. Hacemos la herramienta que le hace falta al tuyo, con tus procesos y tu forma de trabajar.</p>
       </div>
-      <div class="dolores servicios">
-{servicio(I_TABLERO, "Sistemas para tu negocio", "Software de gestión hecho con tus procesos, para que dejes el cuaderno y el Excel.", ["Citas, agenda y reservas", "Inventario, compras y proveedores", "Ventas, caja, clientes y reportes"])}
-{servicio(I_CELULAR, "Apps web y móviles", "Aplicaciones para tus clientes o para tu equipo, que se usan desde el celular o la computadora.", ["Reservas o pedidos de tus clientes", "Una app interna para tu equipo", "Un portal para tus clientes"])}
-{servicio(I_CHISPA, "Automatización con IA", "Lo que hoy se hace a mano, hecho solo; y una IA que responde con los datos de tu negocio.", ["Asistentes que conocen tu negocio", "Reportes y avisos automáticos", "Pasar tus datos de Excel a tu sistema"])}
-{servicio(I_GLOBO, "Sitios web", "La página de tu negocio, que se ve bien en el celular y que mantenemos al día.", ["Página de tu negocio o tu marca", "Catálogo, menú o lista de servicios", "Botón para que te escriban por WhatsApp"])}
+      <div class="bento">
+        <article class="caja caja-sistemas">
+          <div class="caja-texto">
+            <h3>Sistemas para tu negocio</h3>
+            <p>Software de gestión hecho con tus procesos, para que dejes el cuaderno y el Excel.</p>
+            <ul class="caja-ej">{_ej(["Citas, agenda y reservas", "Inventario, compras y proveedores", "Ventas, caja, clientes y reportes"])}</ul>
+          </div>
+          <div class="caja-arte caja-arte-sistema" aria-hidden="true">
+            <div class="ventana ventana-fija">
+              <div class="ventana-barra"><i></i><i></i><i></i><span></span></div>
+              <div class="ventana-cuerpo">
+                <div class="ventana-menu"><b></b><span></span><span></span><span></span><span></span></div>
+                <div class="ventana-main">
+                  <div class="ventana-titulo"></div>
+                  <div class="ventana-kpis"><div><span></span><b></b></div><div><span></span><b></b></div><div><span></span><b></b></div></div>
+                  <div class="ventana-grafica"><i style="height:38%"></i><i style="height:56%"></i><i style="height:47%"></i><i style="height:72%"></i><i style="height:64%"></i><i style="height:88%"></i><i style="height:79%"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="caja caja-apps">
+          <div class="caja-texto">
+            <h3>Apps web y móviles</h3>
+            <p>Para tus clientes o para tu equipo, desde el celular o la computadora.</p>
+            <ul class="caja-ej">{_ej(["Reservas o pedidos de tus clientes", "Una app interna para tu equipo", "Un portal para tus clientes"])}</ul>
+          </div>
+          <figure class="caja-cel"><img src="assets/img/reserva.jpg" alt="Reserva en línea de VantTS Barber, una app que construimos" width="600" height="1153" loading="lazy" decoding="async"></figure>
+        </article>
+        <article class="caja caja-ia">
+          <div class="caja-texto">
+            <h3>Automatización con IA</h3>
+            <p>Lo que hoy se hace a mano, hecho solo; y una IA que responde con los datos de tu negocio.</p>
+            <ul class="caja-ej">{_ej(["Asistentes que conocen tu negocio", "Reportes y avisos automáticos", "Pasar tus datos de Excel a tu sistema"])}</ul>
+          </div>
+          <div class="caja-arte caja-chat" aria-hidden="true">
+            <p class="burbuja burbuja-yo">¿Qué servicio me dejó más este mes?</p>
+            <p class="burbuja burbuja-ia">{I_CHISPA}<span>Te contesta con los números de tu propio negocio, no con datos de internet.</span></p>
+          </div>
+        </article>
+        <article class="caja caja-web">
+          <div class="caja-texto">
+            <h3>Sitios web</h3>
+            <p>La página de tu negocio, que se ve bien en el celular y que mantenemos al día.</p>
+            <ul class="caja-ej">{_ej(["Página de tu negocio o tu marca", "Catálogo, menú o lista de servicios", "Botón para que te escriban por WhatsApp"])}</ul>
+          </div>
+        </article>
+        <article class="caja caja-idea">
+          <div>
+            <h3>¿Tienes otra idea?</h3>
+            <p>Si es tecnología, cuéntanosla. Te decimos con honestidad si podemos hacerla y cómo la haríamos.</p>
+          </div>
+          {btn_wa("Cuéntanos tu idea", "btn btn-claro", WA_COTIZAR)}
+        </article>
       </div>
-      <div class="otra-idea revelar">
-        <div class="otra-idea-ico">{I_FOCO}</div>
-        <div>
-          <h3>¿Tienes otra idea?</h3>
-          <p>Si es tecnología, cuéntanosla. Te decimos con honestidad si podemos hacerla y cómo la haríamos.</p>
-        </div>
-        {btn_wa("Cuéntanos tu idea", "btn btn-sec", WA_COTIZAR)}
+    </div>
+  </section>
+"""
+
+
+COMPARA = [
+    ("Te adaptas tú a como funciona el programa.", "Se hace con tus procesos y tu forma de trabajar."),
+    ("Pagas por funciones que nunca vas a usar.", "Tiene lo que tu negocio sí usa."),
+    ("Si algo no te sale, mandas un ticket y esperas.", "Hablas siempre con quien lo construyó."),
+    ("Es igual para todos, también para tu competencia.", "Es tuyo: lo ajustamos contigo mientras lo construimos."),
+]
+
+
+def v_medida():
+    filas = "".join(f"""
+        <div class="compara-fila" role="row"><p role="cell" class="compara-no">{a}</p><p role="cell" class="compara-si">{I_CHECK}<span>{b}</span></p></div>""" for a, b in COMPARA)
+    return f"""
+  <section class="seccion seccion-medida" id="medida" aria-label="A tu medida">
+    <div class="contenedor medida-grid">
+      <div class="titular titular-izq">
+        <h2>Un programa genérico te queda grande o te queda corto</h2>
+        <p class="lead">Los sistemas hechos para miles de negocios obligan al tuyo a trabajar como ellos dicen. Nosotros partimos de cómo trabajas tú.</p>
+        {btn_wa("Platícanos cómo trabajas", "btn", WA_COTIZAR)}
+      </div>
+      <div class="compara" role="table" aria-label="Programa genérico comparado con uno hecho a tu medida">
+        <div class="compara-cab" role="row"><p role="columnheader">Un programa genérico</p><p role="columnheader">Hecho a tu medida con VantTS</p></div>{filas}
       </div>
     </div>
   </section>
@@ -204,20 +380,20 @@ PASOS = [
 
 def v_proceso():
     pasos = "".join(f"""
-        <li class="paso revelar"><span class="paso-num">{i + 1:02d}</span><h3>{t}</h3><p>{d}</p></li>""" for i, (t, d) in enumerate(PASOS))
+        <li class="tramo"><span class="tramo-num" aria-hidden="true">{i + 1}</span><h3>{t}</h3><p>{d}</p></li>""" for i, (t, d) in enumerate(PASOS))
     return f"""
-  <section class="seccion seccion-alt" id="proceso" aria-label="Cómo trabajamos">
+  <section class="seccion seccion-proceso" id="proceso" aria-label="Cómo trabajamos">
     <div class="contenedor">
-      <div class="encabezado">
-        <p class="eyebrow">Cómo trabajamos</p>
+      <div class="titular">
         <h2>De tu idea a algo que ya funciona</h2>
-        <p class="lead">Cuatro pasos, sin tecnicismos. Hablas siempre con quien lo construye.</p>
+        <p class="lead">Cuatro pasos, sin tecnicismos.</p>
       </div>
-      <ol class="pasos">{pasos}
+      <ol class="tramos">{pasos}
       </ol>
     </div>
   </section>
 """
+
 
 
 def producto_chico(foto, alt, nombre, texto, estado):
@@ -315,21 +491,24 @@ def testimonio_html():
 
 
 def v_casos():
+    cifras = "".join(f'<p class="cifra"><strong>{n}</strong><span>{t}</span></p>' for n, t in CASO_CIFRAS)
+    cel = lambda src, alt, cls: f'<figure class="telefono {cls}"><img src="assets/img/{src}" alt="{alt}" width="600" height="1153" loading="lazy" decoding="async"></figure>'
     return f"""
-  <section class="seccion" id="casos" aria-label="Casos">
-    <div class="contenedor">
-      <div class="caso revelar">
-        <div class="caso-texto">
-          <p class="eyebrow">Caso real</p>
-          <h2>Lo que ya construimos: Rocker Barber</h2>
-          <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber, el sistema que construimos con ellos.</p>
+  <section class="seccion seccion-caso" id="casos" aria-label="Caso real">
+    <div class="contenedor caso5">
+      <div class="caso5-texto">
+        <h2>Lo que ya construimos: Rocker Barber</h2>
+        <p class="lead">Una barbería de Guadalajara con más de dos años operando lleva su agenda, sus clientes y sus ventas en VantTS Barber, el sistema que construimos con ellos.</p>
 {testimonio_html()}
-          <p class="caso-nota">{CASO_NOTA}</p>
-          <div class="cta-fila"><a class="btn btn-sec" href="barber/"><span>Ver VantTS Barber</span>{I_FLECHA}</a></div>
-        </div>
-        <div class="caso-datos">
-{caso_datos_html()}
-        </div>
+        <div class="cifras">{cifras}</div>
+        <p class="caso-nota">{CASO_NOTA}</p>
+        <div class="cta-fila"><a class="btn" href="barber/"><span>Ver VantTS Barber</span></a></div>
+      </div>
+      <div class="caso5-celulares">
+        {cel("agenda.jpg", "Agenda de VantTS Barber", "cel-a")}
+        {cel("clientes.jpg", "Clientes en VantTS Barber", "cel-b")}
+        {cel("metricas.jpg", "Métricas de VantTS Barber", "cel-c")}
+        <p class="demo-nota">Capturas de la cuenta de demostración, con datos inventados</p>
       </div>
     </div>
   </section>
@@ -992,7 +1171,7 @@ def nav_html(items, h, anuncio, wa, wa_texto, extra=""):
 MOVIMIENTO = "m-progreso m-hero m-parallax m-cascada m-titulos m-pestanas m-tarjetas m-faq m-botones m-whatsapp m-menu"
 
 
-def pagina(*, h, titulo, descripcion, og_titulo, og_desc, url, saltar, nav, cuerpo, pie, head_extra=""):
+def pagina(*, h, titulo, descripcion, og_titulo, og_desc, url, saltar, nav, cuerpo, pie, head_extra="", estilos_extra=""):
     return f"""<!doctype html>
 <html lang="es-MX" class="{MOVIMIENTO}">
 <head>
@@ -1013,7 +1192,7 @@ def pagina(*, h, titulo, descripcion, og_titulo, og_desc, url, saltar, nav, cuer
 <link rel="apple-touch-icon" href="{h}assets/apple-touch-icon.png">
 <link rel="preload" href="{h}assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{h}assets/style.css">
-<link rel="stylesheet" href="{h}assets/motion.css">
+<link rel="stylesheet" href="{h}assets/motion.css">{estilos_extra}
 </head>
 <body>
 <a class="saltar" href="#{saltar}">Saltar al contenido</a>
@@ -1059,19 +1238,20 @@ def redireccion(destino):
 # ---------------------------------------------------------------------------
 inicio_html = pagina(
     h="",
-    titulo="VantTS · Software a la medida + IA para negocios",
+    titulo="VantTS · Exactamente el software que tu negocio necesita",
     descripcion="Sistemas, apps, sitios web y automatización con IA hechos a la medida de tu negocio, con cotización sin costo y renta mensual con mantenimiento. Creadores de VantTS Barber. Guadalajara, Jalisco.",
-    og_titulo="VantTS · La tecnología que tu negocio necesita, hecha a tu medida",
+    og_titulo="VantTS · Exactamente lo que tu negocio necesita. Ni más, ni menos.",
     og_desc="Sistemas, apps, sitios web y automatización con IA. Te cotizamos sin costo.",
     url="https://vantts.com.mx/",
     saltar="servicios",
     nav=nav_html(NAV_VANTTS, "",
                  f'<a href="barber/"><span class="anuncio-tag">Producto</span>VantTS Barber: agenda, clientes y ventas para tu barbería, desde $0.<span class="anuncio-flecha">{I_FLECHA}</span></a>',
                  WA_COTIZAR, "Cuéntanos tu idea"),
-    cuerpo="".join([v_inicio(), v_servicios(), v_proceso(), v_productos(), v_cobro(), v_casos(),
+    cuerpo="".join([v_inicio(), v_servicios(), v_medida(), v_proceso(), v_casos(), v_productos(), v_cobro(),
                     seccion_preguntas(FAQ_VANTTS, WA_COTIZAR), v_nosotros(), v_contacto()]),
     pie=footer("", "barber/", WA_COTIZAR),
     head_extra=REDIRIGE_HASH,
+    estilos_extra='\n<link rel="stylesheet" href="assets/inicio.css">\n<script src="assets/inicio.js" defer></script>',
 )
 
 barber_html = pagina(
@@ -1093,7 +1273,7 @@ barber_html = pagina(
 
 with open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8") as f:
     f.write(inicio_html)
-print("Generado: index.html (inicio de VantTS, v4)")
+print("Generado: index.html (inicio de VantTS, v5)")
 
 os.makedirs(os.path.join(OUT_DIR, "barber"), exist_ok=True)
 with open(os.path.join(OUT_DIR, "barber", "index.html"), "w", encoding="utf-8") as f:
