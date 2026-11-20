@@ -385,10 +385,10 @@ img { max-width: 100%; display: block; }
 .pie-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 9px; margin-left: 7px; background: rgba(255, 255, 255, 0.1); color: #CFE3DA; vertical-align: 1px; white-space: nowrap; }
 .pie-tag.on { background: var(--menta); color: var(--verde-profundo); }
 .pie-ico { width: 16px; height: 16px; vertical-align: -3px; margin-right: 8px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.pie-redes { display: flex; gap: 10px; }
-.pie-redes a { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.08); }
+.pie-redes { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.pie-redes a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); color: #fff; font-weight: 500; text-decoration: none; }
 .pie-redes a:hover { background: rgba(255, 255, 255, 0.16); }
-.pie-redes .pie-ico { margin: 0; width: 18px; height: 18px; }
+.pie-redes .pie-ico { margin: 0; width: 20px; height: 20px; }
 .pie-base { border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.82rem; color: #8FB2A2; }
 .pie-base-in { max-width: var(--ancho); margin: 0 auto; padding: 18px 28px 24px 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; }
 .pie-espacio { flex: 1; }
@@ -766,3 +766,20 @@ body.con-dialogo { overflow: hidden; }
 /* Fotos de productos "Próximamente" (18 nov 2026; imágenes hechas con IA en Dreamina) */
 .producto-foto { width: 120px; height: 90px; object-fit: cover; border-radius: 14px; display: block; }
 @media (max-width: 600px) { .producto-foto { width: 96px; height: 72px; border-radius: 12px; } }
+
+
+/* ---------- Redes sociales más a la mano (19 nov 2026) ---------- */
+.redes-botones { display: flex; flex-wrap: wrap; gap: 10px; }
+.red-btn { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 18px 8px 14px; border-radius: 16px; text-decoration: none; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.22); color: #fff; transition: background 0.15s ease, border-color 0.15s ease; }
+.red-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.5); }
+.red-btn .ico, .red-btn .pie-ico { width: 24px; height: 24px; margin: 0; flex: none; }
+.red-txt { display: grid; line-height: 1.2; }
+.red-txt strong { font-family: var(--font-head); font-weight: 600; font-size: 1rem; }
+.red-txt small { font-size: 0.85rem; opacity: 0.8; }
+.contacto-lista .contacto-redes { align-items: start; }
+.nav-redes { display: none; }
+@media (max-width: 920px) {
+  .nav-redes { display: flex; justify-content: center; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--borde); }
+  .nav-links .nav-redes a { display: grid; place-items: center; width: 52px; height: 52px; padding: 0; border-radius: 50%; background: var(--verde-suave); color: var(--verde); }
+  .nav-redes .pie-ico { width: 24px; height: 24px; margin: 0; }
+}

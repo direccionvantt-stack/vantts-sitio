@@ -79,6 +79,7 @@ ICO_GLOBO = ico('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2
 ICO_ESCUDO = ico('<path d="M12 3l7 3v6c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/>', "pie-ico")
 ICO_IG = ico('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6"/>', "pie-ico")
 ICO_FB = ico('<path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5L17 11h-3V9a.5.5 0 0 1 .5-.5z"/>', "pie-ico")
+ICO_PLAY = '<svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>'
 ICO_YT = ico('<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2v5.6l4.8-2.8z"/>', "pie-ico")
 
 
@@ -101,6 +102,7 @@ def slug(t):
 #  necesita" y más presencia visual. Estilos propios en assets/inicio.css y
 #  el selector de necesidades en assets/inicio.js (solo se cargan en el inicio).
 # ===========================================================================
+import json
 from urllib.parse import quote
 
 NAV_VANTTS = [
@@ -575,6 +577,69 @@ def v_nosotros():
 """
 
 
+# Videos del canal (sección "Míranos trabajar", 19 nov 2026).
+# El grande es fijo. Los otros cinco los elige assets/inicio.js al azar en cada visita, de la lista que
+# entrega /api/videos (los últimos 15 públicos del canal). VIDEOS_RESPALDO se usa si esa lista no responde.
+VIDEO_PRINCIPAL = ("Hfk7_W_kYxg", "VantTS Barber: recorrido completo", "Reservas, agenda, clientes, ventas y números, en 4 minutos.")
+VIDEOS_RESPALDO = [
+    ("KvO64n-xFEs", "¿Cuántos clientes dejaron de venir?"),
+    ("LNh_C0iEz4s", "¿Cuánto cuesta VantTS Barber?"),
+    ("dEA8MPnvyws", "¿Sabes cuánto te dejan las propinas al mes?"),
+    ("dORQZfOCnmo", "¿Necesito saber de computación?"),
+    ("LzIe4-YZcgI", "Cuánto llevas vendido, en un vistazo"),
+    ("wzqIZqbkTpk", "3 señales de que tu barbería ya necesita un sistema"),
+    ("LnirnUByDZQ", "¿Quién te deja plantado más seguido?"),
+    ("7VuPgBADqqk", "Premia a tu cliente de siempre sin bajarle el precio"),
+    ("JCXFwfG888g", "El historial de cada cliente"),
+    ("lbA4Vryk9zM", "¿Libreta, WhatsApp o sistema?"),
+    ("d1mF7J1AXH8", "¿Mis clientes son míos?"),
+    ("WxHr8bLtx3Q", "¿Tus promociones nunca terminan?"),
+    ("UeftotPC27Y", "¿Cuánto te deja cada cliente?"),
+    ("Z83QYJhwwzY", "Tus servicios y precios en un solo lugar"),
+]
+
+
+def tarjeta_corto(vid, titulo):
+    return (f'<a class="corto" href="https://www.youtube.com/shorts/{vid}" target="_blank" rel="noopener">'
+            f'<span class="corto-img"><img src="https://i.ytimg.com/vi/{vid}/oar2.jpg" alt="" loading="lazy" width="270" height="480">{ICO_PLAY}</span>'
+            f'<span class="corto-titulo">{titulo}</span></a>')
+
+
+def v_videos():
+    vid, titulo, texto = VIDEO_PRINCIPAL
+    cortos = "\n        ".join(tarjeta_corto(i, t) for i, t in VIDEOS_RESPALDO[:5])
+    respaldo = json.dumps([{"id": i, "titulo": t, "corto": True} for i, t in VIDEOS_RESPALDO], ensure_ascii=False)
+    return f"""
+  <section class="seccion seccion-videos" id="videos" aria-label="Videos">
+    <div class="contenedor">
+      <div class="videos-cab">
+        <div class="titular">
+          <h2>Míranos trabajar</h2>
+          <p class="lead">Cada semana subimos videos cortos que enseñan cómo funciona lo que construimos.</p>
+        </div>
+        {botones_redes("redes-botones redes-seguir")}
+      </div>
+      <div class="video-grande">
+        <button class="video-marco" type="button" data-video="{vid}" aria-label="Reproducir el video: {titulo}">
+          <img src="https://i.ytimg.com/vi/{vid}/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720">
+          <span class="video-play">{ICO_PLAY}</span>
+        </button>
+        <div class="video-pie">
+          <p><strong>{titulo}</strong> {texto}</p>
+          <a href="https://www.youtube.com/watch?v={vid}" target="_blank" rel="noopener">Verlo en YouTube</a>
+        </div>
+      </div>
+      <h3 class="cortos-t">Más videos del canal</h3>
+      <div class="cortos" id="cortos" data-principal="{vid}">
+        {cortos}
+      </div>
+      <p class="videos-nota">Los videos se reproducen desde YouTube.</p>
+      <script type="application/json" id="videos-respaldo">{respaldo}</script>
+    </div>
+  </section>
+"""
+
+
 def v_contacto():
     return f"""
   <section class="cierre" id="contacto" aria-label="Contacto">
@@ -595,8 +660,22 @@ def lista_contacto(wa):
         <li><span class="etiqueta">WhatsApp</span><a href="{wa}" target="_blank" rel="noopener">33 1250 6541</a></li>
         <li><span class="etiqueta">Correo</span><a href="mailto:direccion@vantts.com.mx">direccion@vantts.com.mx</a></li>
         <li><span class="etiqueta">Ubicación</span>Guadalajara, Jalisco</li>
-        <li><span class="etiqueta">Redes</span><span><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a> · <a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a> · <a href="{YOUTUBE}" target="_blank" rel="noopener">YouTube</a></span></li>
+        <li class="contacto-redes"><span class="etiqueta">Redes</span>{botones_redes()}</li>
       </ul>"""
+
+
+REDES = [
+    ("Instagram", "@vantts.mx", INSTAGRAM, ICO_IG),
+    ("Facebook", "VantTS", FACEBOOK, ICO_FB),
+    ("YouTube", "@vantts_mx", YOUTUBE, ICO_YT),
+]
+
+
+def botones_redes(clase="redes-botones"):
+    """Botones grandes de redes: ícono, nombre de la red y usuario."""
+    return f'<span class="{clase}">' + "".join(
+        f'<a class="red-btn" href="{url}" target="_blank" rel="noopener">{icono}<span class="red-txt"><strong>{red}</strong><small>{usuario}</small></span></a>'
+        for red, usuario, url, icono in REDES) + "</span>"
 
 
 # ===========================================================================
@@ -1114,6 +1193,7 @@ def footer(h, b, wa):
         <li><a href="{h}#nosotros">Nosotros</a></li>
         <li><a href="{h}#mision">Nuestra misión</a></li>
         <li><a href="{h}#proceso">Cómo trabajamos</a></li>
+        <li><a href="{h}#videos">Videos</a></li>
         <li><a href="{h}#contacto">Contacto</a></li>
       </ul>
     </div>
@@ -1126,9 +1206,9 @@ def footer(h, b, wa):
       </ul>
       <h4 class="pie-sub">Síguenos</h4>
       <ul class="pie-redes">
-        <li><a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{ICO_IG}</a></li>
-        <li><a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook">{ICO_FB}</a></li>
-        <li><a href="{YOUTUBE}" target="_blank" rel="noopener" aria-label="YouTube">{ICO_YT}</a></li>
+        <li><a href="{INSTAGRAM}" target="_blank" rel="noopener">{ICO_IG}<span>Instagram</span></a></li>
+        <li><a href="{FACEBOOK}" target="_blank" rel="noopener">{ICO_FB}<span>Facebook</span></a></li>
+        <li><a href="{YOUTUBE}" target="_blank" rel="noopener">{ICO_YT}<span>YouTube</span></a></li>
       </ul>
     </div>
   </div>
@@ -1159,6 +1239,11 @@ def nav_html(items, h, anuncio, wa, wa_texto, extra=""):
     <nav class="nav-links" id="navLinks" aria-label="Secciones">
 {links}{extra}
         <a class="nav-wa" href="{wa}" target="_blank" rel="noopener">{I_WA}<span>{wa_texto}</span></a>
+        <div class="nav-redes">
+          <a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram de VantTS">{ICO_IG}</a>
+          <a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook de VantTS">{ICO_FB}</a>
+          <a href="{YOUTUBE}" target="_blank" rel="noopener" aria-label="YouTube de VantTS">{ICO_YT}</a>
+        </div>
     </nav>
     <a class="btn btn-chico nav-cta" href="{wa}" target="_blank" rel="noopener">{I_WA}<span>WhatsApp</span></a>
     <button class="nav-boton" id="navBoton" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
@@ -1248,7 +1333,7 @@ inicio_html = pagina(
                  f'<a href="barber/"><span class="anuncio-tag">Producto</span>VantTS Barber: agenda, clientes y ventas para tu barbería, desde $0.<span class="anuncio-flecha">{I_FLECHA}</span></a>',
                  WA_COTIZAR, "Cuéntanos tu idea"),
     cuerpo="".join([v_inicio(), v_servicios(), v_medida(), v_proceso(), v_casos(), v_productos(), v_cobro(),
-                    seccion_preguntas(FAQ_VANTTS, WA_COTIZAR), v_nosotros(), v_contacto()]),
+                    seccion_preguntas(FAQ_VANTTS, WA_COTIZAR), v_nosotros(), v_videos(), v_contacto()]),
     pie=footer("", "barber/", WA_COTIZAR),
     head_extra=REDIRIGE_HASH,
     estilos_extra='\n<link rel="stylesheet" href="assets/inicio.css">\n<script src="assets/inicio.js" defer></script>',
